@@ -51,18 +51,19 @@ public class SessionManager {
     }
 
     //    create login session
-    public void createLoginSession(String firstName,String lastName,
+    public void createLoginSession(String userid, String firstName,String lastName,
                                String username, String password, String alamat,
-                               String noTelp){
+                               String noTelp,String tglLahir){
         //storing login value as true
         editor.putBoolean(IS_LOGIN, true);
+        editor.putString(KEY_ID, userid);
         editor.putString(KEY_FNAME, firstName);
         editor.putString(KEY_LNAME, lastName);
         editor.putString(KEY_USERNAME, username);
         editor.putString(KEY_PASSWORD, password);
         editor.putString(KEY_ADDR, alamat);
         editor.putString(KEY_PHONE, noTelp);
-//        editor.putString(KEY_TTL, tglLahir);
+        editor.putString(KEY_TTL, tglLahir);
 
         editor.commit();
         Log.d(TAG, "User login session modified!");

@@ -5,6 +5,8 @@
     <color name="statusbar">#30EA</color>
     <color name="colorPrimaryDark">#30E6A3</color>
     <color name="colorAccent">#08B575</color>
+    <color name="colortv1">#26FF6E</color>
+    <color name="colortv2">#F1CD1B</color>
     <color name="menu_text">#FFFF</color>
     <color name="greyback">#dddddd</color>
     <color name="greytext">#70707070</color>

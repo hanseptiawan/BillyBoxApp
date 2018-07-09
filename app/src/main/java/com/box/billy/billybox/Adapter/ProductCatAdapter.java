@@ -65,7 +65,7 @@ public class ProductCatAdapter extends RecyclerView.Adapter<ProductCatAdapter.Vi
             super(itemView);
 
             title = itemView.findViewById(R.id.card_title);
-            rl_area = itemView.findViewById(R.id.card_area);
+            rl_area = itemView.findViewById(R.id.card_areacat);
 
             rl_area.setClickable(true);
             rl_area.setOnClickListener(this);
@@ -81,6 +81,8 @@ public class ProductCatAdapter extends RecyclerView.Adapter<ProductCatAdapter.Vi
 
             intent.putExtra("catID", getProductCats.get(position).getCategoryCartonId());
             intent.putExtra("catName", getProductCats.get(position).getNama());
+
+            context.startActivity(intent);
         }
     }
 }

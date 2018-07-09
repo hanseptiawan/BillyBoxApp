@@ -44,14 +44,14 @@ public class Profil extends Fragment {
         String password_key = user.get(sessionManager.KEY_PASSWORD);
         String address = user.get(sessionManager.KEY_ADDR);
         String phone = user.get(sessionManager.KEY_PHONE);
-//        String ttl_key = user.get(sessionManager.KEY_TTL);
+        String ttl_key = user.get(sessionManager.KEY_TTL);
 
         //implemen ke layout
         String name = fname + " " + lname;
 
         tv_name1.setText(name);
         tv_name1.setAllCaps(true);
-//        ttl.setText(ttl_key);
+        ttl.setText(ttl_key);
         tv_nohp.setText(phone);
         tv_address.setText(address);
         username.setText(username_key);

@@ -7,14 +7,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.box.billy.billybox.Adapter.ProductCatAdapter;
 import com.box.billy.billybox.Model.GetProductCat;
@@ -24,9 +22,7 @@ import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
 import com.box.billy.billybox.Rest.ApiUtils;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,7 +43,7 @@ public class ProductCategory extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_productcat, container, false);
 
-        RelativeLayout relativeLayout = view.findViewById(R.id.card_area);
+//        RelativeLayout relativeLayout = view.findViewById(R.id.card_areacat);
 
         sessionManager = new SessionManager(getActivity().getApplicationContext());
         sessionManager.checkLogin();
@@ -64,14 +60,22 @@ public class ProductCategory extends Fragment {
         productCatAdapter = new ProductCatAdapter(getContext());
         recyclerView.setAdapter(productCatAdapter);
 
+        final Intent intent = getActivity().getIntent();
+
+
+        final String catID = intent.getStringExtra("catID");
+        final String catName = intent.getStringExtra("catName");
+
         kategorikarton();
-
-
 
 //        relativeLayout.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                //nana
+//                // ke fragment product
+//                Intent a = new Intent(getActivity().getApplicationContext(), Product.class);
+//                a.putExtra("catID",catID);
+//                a.putExtra("catName",catName);
+//                startActivity(a);
 //            }
 //        });
 

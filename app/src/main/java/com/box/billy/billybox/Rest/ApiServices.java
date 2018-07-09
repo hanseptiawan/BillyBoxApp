@@ -3,6 +3,7 @@ package com.box.billy.billybox.Rest;
 import com.box.billy.billybox.Model.AuthSignIn;
 import com.box.billy.billybox.Model.AuthSignUp;
 import com.box.billy.billybox.Model.GetProductCatResponse;
+import com.box.billy.billybox.Model.GetProductResponse;
 import com.box.billy.billybox.Model.GetUserResponse2;
 
 import retrofit2.Call;
@@ -35,5 +36,9 @@ public interface ApiServices {
 
     @GET("/api/carton/kategori/")
     Call<GetProductCatResponse> getProductCatResponse(@Query("status") String status);
+
+    @GET("/api/carton/cartons/cat/")
+    Call<GetProductResponse> getProductResponse(@Path("categoryCartonId") String catID,
+                                                @Query("status") String status);
 
 }

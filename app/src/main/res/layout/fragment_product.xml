@@ -5,15 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/greyback">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Product"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view_product"
         android:scrollbars="vertical"
-        android:paddingTop="15dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

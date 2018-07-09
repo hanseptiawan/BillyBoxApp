@@ -104,9 +104,11 @@ public class SignIn extends AppCompatActivity {
                             DataBodyUser dataBodyUser = response.body().getDataBody();
                             GetUser2 getUser2 = dataBodyUser.get0();
 
+                            String userid = getUser2.getUserId();
+//                            String img = getUser2.getImgSrc();
                             String fnama = getUser2.getNamaDepan();
                             String lname = getUser2.getNamaBelakang();
-//                            String ttl = getUser2.getTglLahir();
+                            String ttl = getUser2.getTglLahir();
                             String nohp = getUser2.getNoTelp();
                             String alamat = getUser2.getAlamat();
                             String username = getUser2.getUsername();
@@ -120,8 +122,8 @@ public class SignIn extends AppCompatActivity {
                             Log.d("password : ", password);
 
 
-                            sessionManager.createLoginSession(fnama, lname,
-                                    username,password,alamat,nohp);
+                            sessionManager.createLoginSession(userid, fnama, lname,
+                                    username,password,alamat,nohp,ttl);
 //                            sessionManager.setLogin(true);
                         }
                     }
