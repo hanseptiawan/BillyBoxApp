@@ -3,29 +3,17 @@ package com.box.billy.billybox.Main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.box.billy.billybox.Model.DataBodyUser;
-import com.box.billy.billybox.Model.GetUser;
-import com.box.billy.billybox.Model.GetUser2;
-import com.box.billy.billybox.Model.GetUserResponse;
-import com.box.billy.billybox.Model.GetUserResponse2;
 import com.box.billy.billybox.Model.SessionManager;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
 import com.box.billy.billybox.Rest.ApiUtils;
 
 import java.util.HashMap;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Profil extends Fragment {
 

@@ -47,6 +47,8 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_member);
 
+        apiServices = ApiUtils.getApiServices();
+
         Toolbar toolbar = findViewById(R.id.toolbar_home_member);
         setSupportActionBar(toolbar);
 
@@ -60,10 +62,12 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
         sessionManager.checkLogin();
 
         HashMap<String, String> user = sessionManager.getUserDetails();
-        String username_key = user.get(sessionManager.KEY_USERNAME);
+        String fname = user.get(sessionManager.KEY_FNAME);
+        String lname = user.get(sessionManager.KEY_LNAME);
+        String name = fname + "" + lname;
 
         if(userdisplay.getText() == ""){
-            userdisplay.setText("loading");
+            userdisplay.setText(name);
         }
         else {
             String a = "Guest";

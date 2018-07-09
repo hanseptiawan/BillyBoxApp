@@ -32,7 +32,7 @@
 
     <EditText
         android:id="@+id/et_fname"
-        android:layout_width="215dp"
+        android:layout_width="300dp"
         android:layout_height="32dp"
         android:layout_below="@+id/img_logo"
         android:layout_marginTop="20dp"
@@ -52,7 +52,7 @@
 
     <EditText
         android:id="@+id/et_lname"
-        android:layout_width="215dp"
+        android:layout_width="300dp"
         android:layout_height="32dp"
         android:layout_below="@+id/et_fname"
         android:layout_marginTop="10dp"
@@ -72,7 +72,7 @@
 
     <EditText
         android:id="@+id/et_address"
-        android:layout_width="215dp"
+        android:layout_width="300dp"
         android:layout_height="160dp"
         android:layout_below="@+id/et_lname"
         android:layout_marginTop="10dp"
@@ -97,7 +97,7 @@
     <EditText
         android:id="@+id/et_ttl"
         android:clickable="true"
-        android:layout_width="215dp"
+        android:layout_width="300dp"
         android:layout_height="32dp"
         android:layout_below="@+id/et_address"
         android:layout_marginTop="10dp"
@@ -115,28 +115,46 @@
         android:layout_centerHorizontal="true"/>
 
     <EditText
-        android:id="@+id/et_nohp"
-        android:layout_width="215dp"
+        android:id="@+id/et_nohp_awal"
+        android:layout_width="50dp"
         android:layout_height="32dp"
-        android:layout_below="@+id/et_ttl"
-        android:layout_marginTop="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:textColorHint="@color/colorPrimary"
-        android:hint="No Hp"
-        android:inputType="number"
+        android:layout_above="@+id/et_username_signup"
+        android:layout_alignStart="@+id/et_ttl"
+        android:background="@drawable/et_cornerradius"
         android:ems="10"
         android:focusable="true"
-        android:textSize="15sp"
-        android:background="@drawable/et_cornerradius"
+        android:inputType="none"
+        android:gravity="center"
+        android:text="+62"
         android:textColor="#70707070"
-        android:layout_centerHorizontal="true"/>
+        android:textColorHint="@color/colorPrimary"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/et_nohp"
+        android:layout_width="250dp"
+        android:layout_height="32dp"
+        android:layout_alignEnd="@+id/et_ttl"
+        android:layout_below="@+id/et_ttl"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/et_nohp_awal"
+        android:background="@drawable/et_cornerradius"
+        android:ems="10"
+        android:focusable="true"
+        android:hint="No Hp"
+        android:inputType="number"
+        android:paddingBottom="5dp"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="5dp"
+        android:textColor="#70707070"
+        android:textColorHint="@color/colorPrimary"
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/et_username_signup"
-        android:layout_width="215dp"
+        android:layout_width="300dp"
         android:layout_height="32dp"
         android:layout_below="@+id/et_nohp"
         android:layout_marginTop="10dp"
@@ -156,7 +174,7 @@
 
     <EditText
         android:id="@+id/et_password_signup1"
-        android:layout_width="215dp"
+        android:layout_width="300dp"
         android:layout_height="32dp"
         android:layout_below="@+id/et_username_signup"
         android:layout_marginTop="10dp"
@@ -176,7 +194,7 @@
 
     <EditText
         android:id="@+id/et_password_signup2"
-        android:layout_width="215dp"
+        android:layout_width="300dp"
         android:layout_height="32dp"
         android:layout_below="@+id/et_password_signup1"
         android:layout_marginTop="10dp"
@@ -202,7 +220,7 @@
         android:textColor="@color/menu_text"
         android:text="Daftar"
         android:textAllCaps="false"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/et_password_signup2"/>
 

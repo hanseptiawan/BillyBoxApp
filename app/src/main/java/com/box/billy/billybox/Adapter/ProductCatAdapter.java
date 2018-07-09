@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.box.billy.billybox.Main.Product;
 import com.box.billy.billybox.Main.ProductCategory;
 import com.box.billy.billybox.Model.GetProductCat;
 import com.box.billy.billybox.R;
@@ -22,24 +23,64 @@ public class ProductCatAdapter extends RecyclerView.Adapter<ProductCatAdapter.Vi
     private LayoutInflater layoutInflater;
     private Context context;
 
+    public ProductCatAdapter(Context context){
+        this.getProductCats = new ArrayList<>();
+        this.layoutInflater = LayoutInflater.from(context);
+        this.context = context;
+    }
+
+    public void setProductCatsList(List<GetProductCat> getProductCatsList){
+        this.getProductCats.clear();
+        this.getProductCats.addAll(getProductCatsList);
+        notifyDataSetChanged();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        View view = layoutInflater
+                .inflate(R.layout.list_productcat, parent,
+                false);
+
+        ViewHolder holder = new ViewHolder(view);
+
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.title.setText(getProductCats.get(position).getNama());
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return getProductCats.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView title;
+        RelativeLayout rl_area;
+
         public ViewHolder(View itemView) {
             super(itemView);
+
+            title = itemView.findViewById(R.id.card_title);
+            rl_area = itemView.findViewById(R.id.card_area);
+
+            rl_area.setClickable(true);
+            rl_area.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+
+            Intent intent = new Intent(context, Product.class);
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            intent.putExtra("catID", getProductCats.get(position).getCategoryCartonId());
+            intent.putExtra("catName", getProductCats.get(position).getNama());
         }
     }
 }

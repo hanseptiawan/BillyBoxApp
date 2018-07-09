@@ -3,8 +3,6 @@ package com.box.billy.billybox.Rest;
 import com.box.billy.billybox.Model.AuthSignIn;
 import com.box.billy.billybox.Model.AuthSignUp;
 import com.box.billy.billybox.Model.GetProductCatResponse;
-import com.box.billy.billybox.Model.GetUser;
-import com.box.billy.billybox.Model.GetUserResponse;
 import com.box.billy.billybox.Model.GetUserResponse2;
 
 import retrofit2.Call;
@@ -33,12 +31,9 @@ public interface ApiServices {
                             @Field("tglLahir") String tgllahir);
 
     @GET("/api/auth/user/username/{username}")
-    Call<GetUserResponse> getUser(@Path("username") String username);
-
-    @GET("/api/auth/user/username/{username}")
     Call<GetUserResponse2> getUser2(@Path("username") String username);
 
     @GET("/api/carton/kategori/")
-    Call<GetProductCatResponse> getProductResponse(@Query("status") String status);
+    Call<GetProductCatResponse> getProductCatResponse(@Query("status") String status);
 
 }

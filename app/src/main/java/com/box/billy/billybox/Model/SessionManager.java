@@ -68,25 +68,9 @@ public class SessionManager {
         Log.d(TAG, "User login session modified!");
     }
 
-//    public void createUserData(String firstName,String lastName,
-//                               String password, String alamat,
-//                               String noTelp, String tglLahir){
-//        //storing login value as true
-//        editor.putBoolean(IS_LOGIN, true);
-//        editor.putString(KEY_FNAME, firstName);
-//        editor.putString(KEY_LNAME, lastName);
-//        editor.putString(KEY_PASSWORD, password);
-//        editor.putString(KEY_ADDR, alamat);
-//        editor.putString(KEY_PHONE, noTelp);
-//        editor.putString(KEY_TTL, tglLahir);
-//
-//        editor.commit();
-//        Log.d(TAG, "User login session modified!");
-//    }
-
     public boolean checkLogin(){
         if(!this.isLoggedIn()){
-            Intent i = new Intent(_context, SignIn.class);
+            Intent i = new Intent(_context, Main.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             _context.startActivity(i);
