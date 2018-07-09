@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#51F5B8</color>
+    <!--<color name="colorPrimaryDark">#30E3</color>-->
+    <color name="statusbar">#30EA</color>
+    <color name="colorPrimaryDark">#30E6A3</color>
+    <color name="colorAccent">#08B575</color>
+    <color name="menu_text">#FFFF</color>
+    <color name="greyback">#dddddd</color>
+    <color name="greytext">#70707070</color>
+    <color name="greytextdarker">#202020</color>
+</resources>

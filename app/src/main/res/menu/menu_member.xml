@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_beranda"
+            android:checked="false"
+            android:icon="@drawable/ic_home"
+            android:title="Beranda" />
+        <item
+            android:id="@+id/menu_keranjang"
+            android:checked="false"
+            android:icon="@drawable/ic_cart"
+            android:title="Keranjang" />
+        <item
+            android:id="@+id/menu_pesanan"
+            android:checked="false"
+            android:icon="@drawable/ic_order"
+            android:title="Pesanan" />
+        <item
+            android:id="@+id/menu_profil"
+            android:checked="false"
+            android:title="Profil"
+            android:icon="@drawable/ic_profile"/>
+        <item
+            android:id="@+id/menu_ttgkami"
+            android:checked="false"
+            android:title="Tentang Kami"
+            android:icon="@drawable/ic_about_us"/>
+    </group>
+
+</menu>

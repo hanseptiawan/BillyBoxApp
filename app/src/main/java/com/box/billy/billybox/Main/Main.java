@@ -1,0 +1,152 @@
+package com.box.billy.billybox.Main;
+
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.box.billy.billybox.Model.SessionManager;
+import com.box.billy.billybox.R;
+import com.box.billy.billybox.Rest.ApiServices;
+
+public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    SessionManager sessionManager;
+
+    private static final String TAG = Main.class.getSimpleName();
+    private static final int TIME_INTERVAL = 2000;
+    private long mBackpressed;
+    private DrawerLayout drawerLayout;
+    FragmentManager fragmentManager;
+    ApiServices apiServices;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+
+        sessionManager = new SessionManager(getApplicationContext());
+
+        TextView textView = findViewById(R.id.toolbar_tittle_main);
+        Typeface typeface = Typeface.createFromAsset(getAssets(),
+                "carioca.ttf");
+        textView.setTypeface(typeface);
+
+        drawerLayout = findViewById(R.id.drawer_layout_main);
+        NavigationView navigationView = findViewById(R.id.navigation_view_main);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
+                    new ProductCategory()).commit();
+            navigationView.setCheckedItem(R.id.menu_beranda);
+        }
+
+        ButtonListener();
+        TextView userdisplay = findViewById(R.id.tv_userdisplay2);
+
+        userdisplay.setText("Guest");
+
+        fragmentManager = getSupportFragmentManager();
+    }
+
+    public void ButtonListener(){
+        ImageView imageView = findViewById(R.id.btn_cart_main);
+        ImageView iv_home = findViewById(R.id.btn_home_main);
+        Button btn_signin = findViewById(R.id.btn_signin);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
+                        new Keranjang()).commit();
+            }
+        });
+
+        iv_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
+                        new ProductCategory()).commit();
+            }
+        });
+
+        btn_signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), SignIn.class);
+                startActivity(i);
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else if (mBackpressed + TIME_INTERVAL > System.currentTimeMillis()) {
+            moveTaskToBack(true);
+            return;
+        } else {
+            Toast.makeText(getBaseContext(), "Tekan sekali lagi untuk keluar",
+                    Toast.LENGTH_SHORT).show();
+        }
+        mBackpressed = System.currentTimeMillis();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.menu_beranda:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
+                        new ProductCategory()).commit();
+                break;
+
+            case R.id.menu_keranjang:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
+                        new Keranjang()).commit();
+                break;
+
+            case R.id.menu_pesanan:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
+                        new Pesanan()).commit();
+                break;
+
+            case R.id.menu_profil:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
+                        new Profil()).commit();
+                break;
+
+            case R.id.menu_ttgkami:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
+                        new Tentangkami()).commit();
+                break;
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+}

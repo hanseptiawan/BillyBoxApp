@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/menu_text">
+
+    <RelativeLayout
+        android:layout_centerInParent="true"
+        android:id="@+id/frame_content"
+        android:layout_width="340dp"
+        android:layout_height="580dp"
+        android:background="@drawable/frame_rounded2"
+        android:elevation="4dp">
+
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="260dp"
+            android:layout_height="180dp"
+            android:src="@drawable/logo"
+            android:clickable="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="50dp"/>
+
+        <TableLayout
+            android:id="@+id/tb_informasiuser"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/iv_logo"
+            android:layout_marginTop="30dp">
+
+            <TableRow
+                android:layout_width="80dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Website"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle=""
+                    android:text="www.BillyBox.co.id"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="60dp"/>
+            </TableRow>
+            <TableRow
+                android:layout_width="80dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_alamat1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"/>
+
+                <TextView
+                    android:id="@+id/tv_alamat2"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Jl. Raya Bangil No. 32 A"
+                    android:scrollHorizontally="false"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="60dp"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="80dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_password1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Password"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"/>
+
+                <TextView
+                    android:id="@+id/tv_password2"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="(0346) 657281
++6281672891782"
+                    android:scrollHorizontally="false"
+                    android:textSize="14sp"
+                    android:textStyle="italic"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="60dp"/>
+            </TableRow>
+
+        </TableLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
