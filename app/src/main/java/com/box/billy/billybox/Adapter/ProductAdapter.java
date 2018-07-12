@@ -10,10 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.box.billy.billybox.Main.Product;
 import com.box.billy.billybox.Main.ProductCategory;
+import com.box.billy.billybox.Main.ProductDetails;
 import com.box.billy.billybox.Model.GetProduct;
 import com.box.billy.billybox.R;
 
@@ -94,7 +96,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             String img = getProducts.get(position).getImgSrc();
             String namacat = getProducts.get(position).getNama();
 
-            Product fragment = new Product();
+            ProductDetails fragment = new ProductDetails();
             FragmentTransaction fragmentManager =((FragmentActivity)context)
                     .getSupportFragmentManager()
                     .beginTransaction();
@@ -109,7 +111,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             bundle.putString("img", img); //key and value
             bundle.putString("namacat", namacat); //key and value
             fragment.setArguments(bundle);
-            fragmentManager.replace(R.id.fragment_container_main, fragment);
+            fragmentManager.replace(R.id.fragment_container, fragment);
             fragmentManager.addToBackStack(null);
             fragmentManager.commit();
 

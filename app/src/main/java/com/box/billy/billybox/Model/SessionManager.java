@@ -32,10 +32,6 @@ public class SessionManager {
     public final String KEY_PHONE = "noTelp";
     public final String KEY_TTL = "tglLahir";
 
-    //catgeory
-    public final String KEY_CATID = "categoryCartonId";
-    public final String KEY_CATNAME = "nama";
-
     //constructor
     public SessionManager(Context context){
         this._context = context;
@@ -73,6 +69,8 @@ public class SessionManager {
 
     public boolean checkLogin(){
         if(!this.isLoggedIn()){
+
+
             Intent i = new Intent(_context, Main.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

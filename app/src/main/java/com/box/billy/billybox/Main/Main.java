@@ -19,8 +19,6 @@ import android.widget.Toast;
 
 import com.box.billy.billybox.Model.SessionManager;
 import com.box.billy.billybox.R;
-import com.box.billy.billybox.Rest.ApiServices;
-import com.box.billy.billybox.Rest.ApiUtils;
 
 public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -56,7 +54,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         toggle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new ProductCategory()).commit();
             navigationView.setCheckedItem(R.id.menu_beranda);
         }
@@ -71,7 +69,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         iv_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ProductCategory()).commit();
             }
         });
@@ -106,11 +104,11 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         switch (item.getItemId()) {
 
             case R.id.menu_beranda:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ProductCategory()).commit();
                 break;
             case R.id.menu_ttgkami:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new Tentangkami()).commit();
                 break;
         }

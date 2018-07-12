@@ -8,7 +8,8 @@
         android:layout_centerInParent="true"
         android:id="@+id/frame_content"
         android:layout_width="340dp"
-        android:layout_height="580dp"
+        android:layout_height="510dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/frame_rounded"
         android:elevation="4dp">
 
@@ -183,6 +184,7 @@
         </TableLayout>
 
         <Button
+            android:id="@+id/btn_addkeranjang"
             android:layout_width="@dimen/button_width"
             android:layout_height="@dimen/button_height"
             android:visibility="invisible"

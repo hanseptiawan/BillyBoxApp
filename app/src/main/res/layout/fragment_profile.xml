@@ -181,6 +181,7 @@
         </TableLayout>
 
         <Button
+            android:id="@+id/btn_uploadphotoprofile"
             android:layout_width="@dimen/button_width"
             android:layout_height="@dimen/button_height"
             android:layout_below="@+id/tb_informasiuser"

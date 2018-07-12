@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.box.billy.billybox.Main.Product;
@@ -65,12 +66,14 @@ public class ProductCatAdapter extends RecyclerView.Adapter<ProductCatAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title;
         CardView rl_area;
+        FrameLayout frameLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.card_title);
             rl_area = itemView.findViewById(R.id.card_areacat);
+            frameLayout = itemView.findViewById(R.id.fragment_container);
 
             rl_area.setOnClickListener(this);
 
@@ -91,7 +94,7 @@ public class ProductCatAdapter extends RecyclerView.Adapter<ProductCatAdapter.Vi
             bundle.putString("catid", id); //key and value
             bundle.putString("catname", nama); //key and value
             fragment.setArguments(bundle);
-            fragmentManager.replace(R.id.fragment_container_main, fragment);
+            fragmentManager.replace(R.id.fragment_container, fragment);
             fragmentManager.addToBackStack(null);
             fragmentManager.commit();
         }

@@ -41,4 +41,7 @@ public interface ApiServices {
     Call<GetProductResponse> getProductResponse(@Path("categoryCartonId") String catID,
                                                 @Query("status") String status);
 
+    @GET("/api/carton/carton/id/{cartonId}")
+    Call<GetUserResponse2> getProduct(@Path("cartonId") String cartonId);
+
 }

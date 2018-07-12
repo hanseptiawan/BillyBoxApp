@@ -28,7 +28,6 @@ public class Profil extends Fragment {
 
         apiServices = ApiUtils.getApiServices();
         sessionManager = new SessionManager(getContext());
-        sessionManager.checkLogin();
 
         tv_name1 = view.findViewById(R.id.tv_nama);
         ttl = view.findViewById(R.id.tv_tt2);

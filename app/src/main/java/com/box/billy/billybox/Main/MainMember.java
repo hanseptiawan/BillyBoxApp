@@ -74,7 +74,7 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
         toggle.syncState();
 
         if(savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_member,
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new ProductCategory()).commit();
             navigationView.setCheckedItem(R.id.menu_beranda);
         }
@@ -90,7 +90,7 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
         iv_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_member,
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new Keranjang()).commit();
             }
         });
@@ -98,7 +98,7 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
         iv_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_member,
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ProductCategory()).commit();
             }
         });
@@ -131,27 +131,27 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
         switch (item.getItemId()) {
 
             case R.id.menu_beranda:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_member,
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ProductCategory()).commit();
                 break;
 
             case R.id.menu_keranjang:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_member,
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new Keranjang()).commit();
                 break;
 
             case R.id.menu_pesanan:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_member,
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new Pesanan()).commit();
                 break;
 
             case R.id.menu_profil:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_member,
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new Profil()).commit();
                 break;
 
             case R.id.menu_ttgkami:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_member,
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new Tentangkami()).commit();
                 break;
         }
