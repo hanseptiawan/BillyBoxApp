@@ -1,24 +1,24 @@
 package com.box.billy.billybox.Main;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.box.billy.billybox.Model.SessionManager;
 import com.box.billy.billybox.R;
 public class ProductDetails extends Fragment{
 
     TextView tv_nama, tv_cartonid, tv_category,
     tv_stock, tv_harga, tv_ukuran, tv_grametur;
     Button btn_addkeranjang;
+    SessionManager sessionManager;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detailproducts, container, false);
@@ -31,6 +31,9 @@ public class ProductDetails extends Fragment{
         tv_ukuran = view.findViewById(R.id.tv_ukuran2);
         tv_grametur = view.findViewById(R.id.tv_grametur2);
         btn_addkeranjang = view.findViewById(R.id.btn_addkeranjang);
+
+        sessionManager = new SessionManager(getContext());
+        sessionManager.checkAuthorization();
 
         if(getArguments() != null){
             String cartonID = getArguments().getString("cartonID");
@@ -52,6 +55,37 @@ public class ProductDetails extends Fragment{
             tv_grametur.setText(grametur);
         }
 
+        checkuser(tv_nama.getText().toString());
+
+        btn_addkeranjang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(getArguments() != null){
+                    tv_nama.getText().toString();
+
+                }
+            }
+        });
+
         return view;
+    }
+
+    private boolean checkuser(String nama) {
+        if(nama == null || nama.trim().length() == 0){
+
+            Toast.makeText(getActivity(), "Silahkan login terlebih dahulu untuk order",
+                    Toast.LENGTH_LONG).show();
+
+            return false;
+        }
+        else {
+            if (!sessionManager.checkAuthorization()) {
+                btn_addkeranjang.setVisibility(View.VISIBLE);
+            } else {
+                btn_addkeranjang.setVisibility(View.INVISIBLE);
+            }
+        }
+
+        return true;
     }
 }

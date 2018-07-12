@@ -41,8 +41,6 @@ public class Product extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     ProductAdapter productAdapter;
     ApiServices apiServices;
-    TextView tv_headername;
-    ImageView iv_back;
 
     @Nullable
     @Override
@@ -50,9 +48,6 @@ public class Product extends Fragment {
         View view = inflater.inflate(R.layout.fragment_product, container, false);
 
         sessionManager = new SessionManager(getActivity().getApplicationContext());
-
-        tv_headername = view.findViewById(R.id.tv_headername);
-        iv_back = view.findViewById(R.id.iv_back);
 
         apiServices = ApiUtils.getApiServices();
 
@@ -71,25 +66,8 @@ public class Product extends Fragment {
             String catname = getArguments().getString("catname");
             String status = "success";
 
-            tv_headername.setText(catname);
             productbykategori(catID,status);
         }
-
-        iv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ProductCategory fragment = new ProductCategory();
-                FragmentTransaction fragmentManager =((FragmentActivity)getContext())
-                        .getSupportFragmentManager()
-                        .beginTransaction();
-                fragmentManager.replace(R.id.fragment_container, fragment);
-                fragmentManager.addToBackStack(null);
-                fragmentManager.commit();
-
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                        new ProductCategory()).commit();
-            }
-        });
 
         return view;
     }

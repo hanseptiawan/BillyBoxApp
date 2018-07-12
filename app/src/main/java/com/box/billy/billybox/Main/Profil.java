@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.box.billy.billybox.Model.SessionManager;
@@ -19,6 +20,7 @@ public class Profil extends Fragment {
 
     SessionManager sessionManager;
     TextView tv_name1, ttl, tv_nohp, tv_address, username, password;
+    ImageView iv_logo;
     ApiServices apiServices;
 
     @Nullable

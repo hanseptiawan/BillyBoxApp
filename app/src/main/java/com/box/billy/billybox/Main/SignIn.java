@@ -124,7 +124,6 @@ public class SignIn extends AppCompatActivity {
 
                             sessionManager.createLoginSession(userid, fnama, lname,
                                     username,password,alamat,nohp,ttl);
-//                            sessionManager.setLogin(true);
                         }
                     }
 

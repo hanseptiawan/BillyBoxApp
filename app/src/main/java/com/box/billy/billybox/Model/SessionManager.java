@@ -69,8 +69,6 @@ public class SessionManager {
 
     public boolean checkLogin(){
         if(!this.isLoggedIn()){
-
-
             Intent i = new Intent(_context, Main.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -80,6 +78,13 @@ public class SessionManager {
         return false;
     }
 
+    public boolean checkAuthorization(){
+        if(!this.isLoggedIn()){
+            return true;
+        } else {
+            return false;
+        }
+    }
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<String, String>();
         user.put(KEY_FNAME, sharedPreferences.getString(KEY_FNAME, null));
@@ -105,5 +110,36 @@ public class SessionManager {
 
     public boolean isLoggedIn(){
         return sharedPreferences.getBoolean(IS_LOGIN, false);
+    }
+
+    public void createOrder(String userid, String firstName,String lastName,
+                                   String username, String password, String alamat,
+                                   String noTelp,String tglLahir){
+        //storing login value as true
+        editor.putBoolean(IS_LOGIN, true);
+        editor.putString(KEY_ID, userid);
+        editor.putString(KEY_FNAME, firstName);
+        editor.putString(KEY_LNAME, lastName);
+        editor.putString(KEY_USERNAME, username);
+        editor.putString(KEY_PASSWORD, password);
+        editor.putString(KEY_ADDR, alamat);
+        editor.putString(KEY_PHONE, noTelp);
+        editor.putString(KEY_TTL, tglLahir);
+
+        editor.commit();
+        Log.d(TAG, "User login session modified!");
+    }
+
+    public HashMap<String, String> getOrder(){
+        HashMap<String, String> user = new HashMap<String, String>();
+        user.put(KEY_FNAME, sharedPreferences.getString(KEY_FNAME, null));
+        user.put(KEY_LNAME, sharedPreferences.getString(KEY_LNAME, null));
+        user.put(KEY_USERNAME, sharedPreferences.getString(KEY_USERNAME, null));
+        user.put(KEY_PASSWORD, sharedPreferences.getString(KEY_PASSWORD, null));
+        user.put(KEY_ADDR, sharedPreferences.getString(KEY_ADDR, null));
+        user.put(KEY_PHONE, sharedPreferences.getString(KEY_PHONE, null));
+        user.put(KEY_TTL, sharedPreferences.getString(KEY_TTL, null));
+
+        return user;
     }
 }

@@ -187,7 +187,6 @@
             android:id="@+id/btn_addkeranjang"
             android:layout_width="@dimen/button_width"
             android:layout_height="@dimen/button_height"
-            android:visibility="invisible"
             android:layout_below="@+id/tb_informasiproduct"
             android:layout_marginTop="40dp"
             android:layout_centerHorizontal="true"
