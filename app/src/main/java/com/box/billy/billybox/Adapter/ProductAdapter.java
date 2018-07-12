@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.box.billy.billybox.Main.Product;
+import com.box.billy.billybox.Main.ProductCategory;
 import com.box.billy.billybox.Model.GetProduct;
 import com.box.billy.billybox.R;
 
@@ -45,6 +46,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ProductAdapter.ViewHolder holder, int position) {
+        holder.namaproduct.setText(getProducts.get(position).getNama());
 
     }
 
@@ -53,7 +55,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         return getProducts.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView namaproduct, stockproduct, hargajual, ukuran, img;
 
         public ViewHolder(View itemView) {
@@ -64,30 +66,30 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             hargajual = itemView.findViewById(R.id.harga_product);
             ukuran = itemView.findViewById(R.id.ukuran_product);
 
-            img.setClickable(true);
-            img.setOnClickListener(this);
+//            img.setClickable(true);
+//            img.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View view) {
-            int position = getAdapterPosition();
-
-            Intent intent = new Intent(context, Product.class);
-
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-            intent.putExtra("cartonID", getProducts.get(position).getCartonId());
-            intent.putExtra("namaproduct", getProducts.get(position).getNamaItem());
-            intent.putExtra("kategoriproduct", getProducts.get(position).getCategoryCartonId());
-            intent.putExtra("stokproduct", getProducts.get(position).getStok());
-            intent.putExtra("hargajual", getProducts.get(position).getHargaJual());
-            intent.putExtra("ukuran", getProducts.get(position).getUkuran());
-            intent.putExtra("grameteur", getProducts.get(position).getGrametur());
-            intent.putExtra("imgproduct", getProducts.get(position).getImgSrc());
-            intent.putExtra("namakategoriproduct", getProducts.get(position).getNama());
-
-            context.startActivity(intent);
-
-        }
+//        @Override
+//        public void onClick(View view) {
+//            int position = getAdapterPosition();
+//
+//            Intent intent = new Intent(context, ProductCategory.class);
+//
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//            intent.putExtra("cartonID", getProducts.get(position).getCartonId());
+//            intent.putExtra("namaproduct", getProducts.get(position).getNamaItem());
+//            intent.putExtra("kategoriproduct", getProducts.get(position).getCategoryCartonId());
+//            intent.putExtra("stokproduct", getProducts.get(position).getStok());
+//            intent.putExtra("hargajual", getProducts.get(position).getHargaJual());
+//            intent.putExtra("ukuran", getProducts.get(position).getUkuran());
+//            intent.putExtra("grameteur", getProducts.get(position).getGrametur());
+//            intent.putExtra("imgproduct", getProducts.get(position).getImgSrc());
+//            intent.putExtra("namakategoriproduct", getProducts.get(position).getNama());
+//
+//            context.startActivity(intent);
+//
+//        }
     }
 }

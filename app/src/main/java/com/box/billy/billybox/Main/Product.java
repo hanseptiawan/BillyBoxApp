@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.box.billy.billybox.Adapter.ProductAdapter;
 import com.box.billy.billybox.Adapter.ProductCatAdapter;
@@ -42,7 +43,6 @@ public class Product extends Fragment {
         View view = inflater.inflate(R.layout.fragment_product, container, false);
 
         sessionManager = new SessionManager(getActivity().getApplicationContext());
-        sessionManager.checkLogin();
 
         apiServices = ApiUtils.getApiServices();
 
@@ -78,7 +78,8 @@ public class Product extends Fragment {
 
                     @Override
                     public void onFailure(Call<GetProductResponse> call, Throwable t) {
-
+                        Toast.makeText(getActivity(), "Gagal memuat daftar product",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
     }

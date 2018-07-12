@@ -5,7 +5,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -21,17 +20,16 @@ import android.widget.Toast;
 import com.box.billy.billybox.Model.SessionManager;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
+import com.box.billy.billybox.Rest.ApiUtils;
 
 public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     SessionManager sessionManager;
 
-    private static final String TAG = Main.class.getSimpleName();
+    private static final String TAG = MainMember.class.getSimpleName();
     private static final int TIME_INTERVAL = 2000;
     private long mBackpressed;
     private DrawerLayout drawerLayout;
-    FragmentManager fragmentManager;
-    ApiServices apiServices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +39,12 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
-        sessionManager = new SessionManager(getApplicationContext());
-
         TextView textView = findViewById(R.id.toolbar_tittle_main);
         Typeface typeface = Typeface.createFromAsset(getAssets(),
                 "carioca.ttf");
         textView.setTypeface(typeface);
+        TextView userdisplay = findViewById(R.id.tv_userdisplay2);
+        userdisplay.setText("Guest");
 
         drawerLayout = findViewById(R.id.drawer_layout_main);
         NavigationView navigationView = findViewById(R.id.navigation_view_main);
@@ -57,32 +55,18 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
                     new ProductCategory()).commit();
             navigationView.setCheckedItem(R.id.menu_beranda);
         }
 
         ButtonListener();
-        TextView userdisplay = findViewById(R.id.tv_userdisplay2);
-
-        userdisplay.setText("Guest");
-
-        fragmentManager = getSupportFragmentManager();
     }
 
     public void ButtonListener(){
-        ImageView imageView = findViewById(R.id.btn_cart_main);
         ImageView iv_home = findViewById(R.id.btn_home_main);
-        Button btn_signin = findViewById(R.id.btn_signin);
-
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
-                        new Keranjang()).commit();
-            }
-        });
+        Button btn_masuk = findViewById(R.id.btn_signin);
 
         iv_home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,11 +76,12 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
             }
         });
 
-        btn_signin.setOnClickListener(new View.OnClickListener() {
+        btn_masuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), SignIn.class);
-                startActivity(i);
+                Intent a = new Intent(Main.this, SignIn.class);
+                startActivity(a);
+                finish();
             }
         });
     }
@@ -124,22 +109,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
                         new ProductCategory()).commit();
                 break;
-
-            case R.id.menu_keranjang:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
-                        new Keranjang()).commit();
-                break;
-
-            case R.id.menu_pesanan:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
-                        new Pesanan()).commit();
-                break;
-
-            case R.id.menu_profil:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
-                        new Profil()).commit();
-                break;
-
             case R.id.menu_ttgkami:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_main,
                         new Tentangkami()).commit();

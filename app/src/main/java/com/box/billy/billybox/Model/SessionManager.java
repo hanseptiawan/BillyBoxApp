@@ -8,8 +8,6 @@ import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
 import com.box.billy.billybox.Main.Main;
-import com.box.billy.billybox.Main.MainMember;
-import com.box.billy.billybox.Main.SignIn;
 
 import java.util.HashMap;
 
@@ -33,6 +31,10 @@ public class SessionManager {
     public final String KEY_ADDR = "alamat";
     public final String KEY_PHONE = "noTelp";
     public final String KEY_TTL = "tglLahir";
+
+    //catgeory
+    public final String KEY_CATID = "categoryCartonId";
+    public final String KEY_CATNAME = "nama";
 
     //constructor
     public SessionManager(Context context){
@@ -67,6 +69,24 @@ public class SessionManager {
 
         editor.commit();
         Log.d(TAG, "User login session modified!");
+    }
+
+    public void createCategory(String catID, String catName){
+        //storing login value as true
+        editor.putBoolean(IS_LOGIN, true);
+        editor.putString(KEY_CATID, catID);
+        editor.putString(KEY_CATNAME, catName);
+
+        editor.commit();
+        Log.d(TAG, "User login session modified!");
+    }
+
+    public HashMap<String, String> getCategory(){
+        HashMap<String, String> category = new HashMap<String, String>();
+        category.put(KEY_CATID, sharedPreferences.getString(KEY_CATID, null));
+        category.put(KEY_CATNAME, sharedPreferences.getString(KEY_CATNAME, null));
+
+        return category;
     }
 
     public boolean checkLogin(){

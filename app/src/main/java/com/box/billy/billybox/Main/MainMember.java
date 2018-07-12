@@ -38,6 +38,8 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_member);
 
+        sessionManager = new SessionManager(getApplicationContext());
+        sessionManager.checkLogin();
         apiServices = ApiUtils.getApiServices();
 
         Toolbar toolbar = findViewById(R.id.toolbar_home_member);
@@ -48,9 +50,6 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
                 "carioca.ttf");
         textView.setTypeface(typeface);
         TextView userdisplay = findViewById(R.id.tv_userdisplay2_member);
-
-        sessionManager = new SessionManager(getApplicationContext());
-        sessionManager.checkLogin();
 
         HashMap<String, String> user = sessionManager.getUserDetails();
         String fname = user.get(sessionManager.KEY_FNAME);
@@ -64,9 +63,6 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
             String a = "Guest";
             userdisplay.setText(a);
         }
-
-        apiServices = ApiUtils.getApiServices();
-
 
         drawerLayout = findViewById(R.id.drawer_layout_home_member);
         NavigationView navigationView = findViewById(R.id.navigation_view_home_member);

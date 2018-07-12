@@ -41,20 +41,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_home_main"
-                    android:layout_toStartOf="@id/btn_cart_main"
-                    android:layout_marginRight="12dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="16dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_home"/>
-
-                <ImageView
-                    android:id="@+id/btn_cart_main"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_cart" />
-
             </RelativeLayout>
 
         </android.support.v7.widget.Toolbar>
@@ -112,7 +102,6 @@
 
        <Button
             android:id="@+id/btn_signin"
-            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:text="@string/signin"

@@ -1,17 +1,22 @@
 package com.box.billy.billybox.Adapter;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.box.billy.billybox.Main.Product;
 import com.box.billy.billybox.Main.ProductCategory;
 import com.box.billy.billybox.Model.GetProductCat;
+import com.box.billy.billybox.Model.SessionManager;
 import com.box.billy.billybox.R;
 
 import java.util.ArrayList;
@@ -22,6 +27,7 @@ public class ProductCatAdapter extends RecyclerView.Adapter<ProductCatAdapter.Vi
     private List<GetProductCat> getProductCats;
     private LayoutInflater layoutInflater;
     private Context context;
+    SessionManager sessionManager;
 
     public ProductCatAdapter(Context context){
         this.getProductCats = new ArrayList<>();
@@ -59,7 +65,7 @@ public class ProductCatAdapter extends RecyclerView.Adapter<ProductCatAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title;
-        RelativeLayout rl_area;
+        CardView rl_area;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -67,22 +73,19 @@ public class ProductCatAdapter extends RecyclerView.Adapter<ProductCatAdapter.Vi
             title = itemView.findViewById(R.id.card_title);
             rl_area = itemView.findViewById(R.id.card_areacat);
 
-            rl_area.setClickable(true);
             rl_area.setOnClickListener(this);
+
         }
 
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
 
-            Intent intent = new Intent(context, Product.class);
+            String nama = getProductCats.get(position).getNama();
+            String id = getProductCats.get(position).getCategoryCartonId();
 
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            sessionManager.createCategory(id,nama);
 
-            intent.putExtra("catID", getProductCats.get(position).getCategoryCartonId());
-            intent.putExtra("catName", getProductCats.get(position).getNama());
-
-            context.startActivity(intent);
         }
     }
 }

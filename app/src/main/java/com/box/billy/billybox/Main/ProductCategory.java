@@ -1,6 +1,5 @@
 package com.box.billy.billybox.Main;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +11,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.box.billy.billybox.Adapter.ProductCatAdapter;
 import com.box.billy.billybox.Model.GetProductCat;
@@ -36,17 +35,12 @@ public class ProductCategory extends Fragment {
     ProductCatAdapter productCatAdapter;
     ApiServices apiServices;
 
-//    public ProductCategory(){
-//        // empty public constructor
-//    }
+    public ProductCategory(){
+        // empty public constructor
+    }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_productcat, container, false);
-
-//        RelativeLayout relativeLayout = view.findViewById(R.id.card_areacat);
-
-        sessionManager = new SessionManager(getActivity().getApplicationContext());
-        sessionManager.checkLogin();
 
         apiServices = ApiUtils.getApiServices();
 
@@ -60,24 +54,7 @@ public class ProductCategory extends Fragment {
         productCatAdapter = new ProductCatAdapter(getContext());
         recyclerView.setAdapter(productCatAdapter);
 
-        final Intent intent = getActivity().getIntent();
-
-
-        final String catID = intent.getStringExtra("catID");
-        final String catName = intent.getStringExtra("catName");
-
         kategorikarton();
-
-//        relativeLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                // ke fragment product
-//                Intent a = new Intent(getActivity().getApplicationContext(), Product.class);
-//                a.putExtra("catID",catID);
-//                a.putExtra("catName",catName);
-//                startActivity(a);
-//            }
-//        });
 
         return view;
     }
@@ -93,7 +70,8 @@ public class ProductCategory extends Fragment {
 
                     @Override
                     public void onFailure(Call<GetProductCatResponse> call, Throwable t) {
-
+                        Toast.makeText(getActivity(), "Gagal memuat kategori product",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
     }
