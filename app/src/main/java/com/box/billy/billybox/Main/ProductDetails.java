@@ -9,10 +9,6 @@ import android.view.ViewGroup;
 
 import com.box.billy.billybox.R;
 
-/**
- * Created by han on 7/12/2018.
- */
-
 public class ProductDetails extends Fragment{
 
     @Nullable

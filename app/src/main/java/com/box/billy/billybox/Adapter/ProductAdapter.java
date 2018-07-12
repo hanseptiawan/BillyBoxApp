@@ -2,6 +2,10 @@ package com.box.billy.billybox.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,8 +50,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ProductAdapter.ViewHolder holder, int position) {
-        holder.namaproduct.setText(getProducts.get(position).getNama());
-
+        holder.namaproduct.setText(getProducts.get(position).getNamaItem());
+        holder.stockproduct.setText(getProducts.get(position).getStok());
+        String a = "Rp. ";
+        String b = ",-";
+        holder.hargajual.setText(a+""+getProducts.get(position).getHargaJual()+b);
+        holder.ukuran.setText(getProducts.get(position).getUkuran());
     }
 
     @Override
@@ -55,41 +63,56 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         return getProducts.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView namaproduct, stockproduct, hargajual, ukuran, img;
+        CardView product;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
+            product = itemView.findViewById(R.id.product_area);
             namaproduct = itemView.findViewById(R.id.product_title);
             stockproduct = itemView.findViewById(R.id.product_stock);
             hargajual = itemView.findViewById(R.id.harga_product);
             ukuran = itemView.findViewById(R.id.ukuran_product);
 
-//            img.setClickable(true);
-//            img.setOnClickListener(this);
+            product.setClickable(true);
+            product.setOnClickListener(this);
         }
 
-//        @Override
-//        public void onClick(View view) {
-//            int position = getAdapterPosition();
-//
-//            Intent intent = new Intent(context, ProductCategory.class);
-//
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//            intent.putExtra("cartonID", getProducts.get(position).getCartonId());
-//            intent.putExtra("namaproduct", getProducts.get(position).getNamaItem());
-//            intent.putExtra("kategoriproduct", getProducts.get(position).getCategoryCartonId());
-//            intent.putExtra("stokproduct", getProducts.get(position).getStok());
-//            intent.putExtra("hargajual", getProducts.get(position).getHargaJual());
-//            intent.putExtra("ukuran", getProducts.get(position).getUkuran());
-//            intent.putExtra("grameteur", getProducts.get(position).getGrametur());
-//            intent.putExtra("imgproduct", getProducts.get(position).getImgSrc());
-//            intent.putExtra("namakategoriproduct", getProducts.get(position).getNama());
-//
-//            context.startActivity(intent);
-//
-//        }
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+
+            String cartonId = getProducts.get(position).getCartonId();
+            String namaItem = getProducts.get(position).getNamaItem();
+            String catID = getProducts.get(position).getCartonId();
+            String stock = getProducts.get(position).getStok();
+            String harga = getProducts.get(position).getHargaJual();
+            String ukuran = getProducts.get(position).getUkuran();
+            String grametur = getProducts.get(position).getGrametur();
+            String img = getProducts.get(position).getImgSrc();
+            String namacat = getProducts.get(position).getNama();
+
+            Product fragment = new Product();
+            FragmentTransaction fragmentManager =((FragmentActivity)context)
+                    .getSupportFragmentManager()
+                    .beginTransaction();
+            Bundle bundle=new Bundle();
+            bundle.putString("cartonId", cartonId); //key and value
+            bundle.putString("namaItem", namaItem); //key and value
+            bundle.putString("catID", catID); //key and value
+            bundle.putString("stock", stock); //key and value
+            bundle.putString("harga", harga); //key and value
+            bundle.putString("ukuran", ukuran); //key and value
+            bundle.putString("grametur", grametur); //key and value
+            bundle.putString("img", img); //key and value
+            bundle.putString("namacat", namacat); //key and value
+            fragment.setArguments(bundle);
+            fragmentManager.replace(R.id.fragment_container_main, fragment);
+            fragmentManager.addToBackStack(null);
+            fragmentManager.commit();
+
+        }
     }
 }

@@ -37,7 +37,7 @@ public interface ApiServices {
     @GET("/api/carton/kategori/")
     Call<GetProductCatResponse> getProductCatResponse(@Query("status") String status);
 
-    @GET("/api/carton/cartons/cat/")
+    @GET("/api/carton/cartons/cat/{categoryCartonId}")
     Call<GetProductResponse> getProductResponse(@Path("categoryCartonId") String catID,
                                                 @Query("status") String status);
 

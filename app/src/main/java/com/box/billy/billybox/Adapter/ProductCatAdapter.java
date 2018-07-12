@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
@@ -16,7 +17,6 @@ import android.widget.TextView;
 import com.box.billy.billybox.Main.Product;
 import com.box.billy.billybox.Main.ProductCategory;
 import com.box.billy.billybox.Model.GetProductCat;
-import com.box.billy.billybox.Model.SessionManager;
 import com.box.billy.billybox.R;
 
 import java.util.ArrayList;
@@ -27,7 +27,6 @@ public class ProductCatAdapter extends RecyclerView.Adapter<ProductCatAdapter.Vi
     private List<GetProductCat> getProductCats;
     private LayoutInflater layoutInflater;
     private Context context;
-    SessionManager sessionManager;
 
     public ProductCatAdapter(Context context){
         this.getProductCats = new ArrayList<>();
@@ -84,8 +83,17 @@ public class ProductCatAdapter extends RecyclerView.Adapter<ProductCatAdapter.Vi
             String nama = getProductCats.get(position).getNama();
             String id = getProductCats.get(position).getCategoryCartonId();
 
-            sessionManager.createCategory(id,nama);
-
+            Product fragment = new Product();
+            FragmentTransaction fragmentManager =((FragmentActivity)context)
+                    .getSupportFragmentManager()
+                    .beginTransaction();
+            Bundle bundle=new Bundle();
+            bundle.putString("catid", id); //key and value
+            bundle.putString("catname", nama); //key and value
+            fragment.setArguments(bundle);
+            fragmentManager.replace(R.id.fragment_container_main, fragment);
+            fragmentManager.addToBackStack(null);
+            fragmentManager.commit();
         }
     }
 }

@@ -71,24 +71,6 @@ public class SessionManager {
         Log.d(TAG, "User login session modified!");
     }
 
-    public void createCategory(String catID, String catName){
-        //storing login value as true
-        editor.putBoolean(IS_LOGIN, true);
-        editor.putString(KEY_CATID, catID);
-        editor.putString(KEY_CATNAME, catName);
-
-        editor.commit();
-        Log.d(TAG, "User login session modified!");
-    }
-
-    public HashMap<String, String> getCategory(){
-        HashMap<String, String> category = new HashMap<String, String>();
-        category.put(KEY_CATID, sharedPreferences.getString(KEY_CATID, null));
-        category.put(KEY_CATNAME, sharedPreferences.getString(KEY_CATNAME, null));
-
-        return category;
-    }
-
     public boolean checkLogin(){
         if(!this.isLoggedIn()){
             Intent i = new Intent(_context, Main.class);

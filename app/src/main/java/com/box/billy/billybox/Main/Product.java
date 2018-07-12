@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,14 +57,13 @@ public class Product extends Fragment {
         productAdapter = new ProductAdapter(getContext());
         recyclerView.setAdapter(productAdapter);
 
-        Intent intent = getActivity().getIntent();
+        if(getArguments() != null) {
+            String catID = getArguments().getString("catid");
+            String catname = getArguments().getString("catname");
+            String status = "success";
 
-        String catID = intent.getStringExtra("catID");
-        String catName = intent.getStringExtra("catName");
-        String status = "success";
-
-        productbykategori(catID,status);
-
+            productbykategori(catID,status);
+        }
         return view;
     }
 
@@ -78,6 +78,7 @@ public class Product extends Fragment {
 
                     @Override
                     public void onFailure(Call<GetProductResponse> call, Throwable t) {
+                        Log.d("hqq :" , String.valueOf(t));
                         Toast.makeText(getActivity(), "Gagal memuat daftar product",
                                 Toast.LENGTH_LONG).show();
                     }
