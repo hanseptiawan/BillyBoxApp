@@ -1,5 +1,6 @@
 package com.box.billy.billybox.Main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,17 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.box.billy.billybox.Model.SessionManager;
 import com.box.billy.billybox.R;
+import com.bumptech.glide.Glide;
+
 public class ProductDetails extends Fragment{
 
     TextView tv_nama, tv_cartonid, tv_category,
     tv_stock, tv_harga, tv_ukuran, tv_grametur;
     Button btn_addkeranjang;
+    ImageView iv_img;
     SessionManager sessionManager;
+    Glide glide;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detailproducts, container, false);
@@ -31,6 +37,7 @@ public class ProductDetails extends Fragment{
         tv_ukuran = view.findViewById(R.id.tv_ukuran2);
         tv_grametur = view.findViewById(R.id.tv_grametur2);
         btn_addkeranjang = view.findViewById(R.id.btn_addkeranjang);
+        iv_img = view.findViewById(R.id.iv_product);
 
         sessionManager = new SessionManager(getContext());
         sessionManager.checkAuthorization();
@@ -44,6 +51,7 @@ public class ProductDetails extends Fragment{
             String ukuran = getArguments().getString("ukuran");
             String grametur = getArguments().getString("grametur");
             String img = getArguments().getString("img");
+            Log.d("imgurl : ", img);
             String namacat = getArguments().getString("namacat");
 
             tv_nama.setText(namaItem);
@@ -53,6 +61,13 @@ public class ProductDetails extends Fragment{
             tv_harga.setText(harga);
             tv_ukuran.setText(ukuran);
             tv_grametur.setText(grametur);
+
+            Glide.with(getContext())
+                    .load(img)
+                    .fitCenter()
+                    .placeholder(R.drawable.ic_noimg)
+                    .error(R.drawable.ic_broken_image)
+                    .into(iv_img);
         }
 
         checkuser(tv_nama.getText().toString());

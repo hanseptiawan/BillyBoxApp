@@ -1,23 +1,23 @@
 package com.box.billy.billybox.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.box.billy.billybox.Main.Product;
-import com.box.billy.billybox.Main.ProductCategory;
 import com.box.billy.billybox.Main.ProductDetails;
 import com.box.billy.billybox.Model.GetProduct;
 import com.box.billy.billybox.R;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +58,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         String b = ",-";
         holder.hargajual.setText(a+""+getProducts.get(position).getHargaJual()+b);
         holder.ukuran.setText(getProducts.get(position).getUkuran());
+        String nol = "0";
+        int nol2 = Integer.parseInt(nol);
+
+//        if(holder.stockproduct.getText().length() == nol2){
+//            holder.fl1.setBackgroundColor(R.drawable.tv_rounded_red);
+//        }else {
+//            holder.fl1.setBackgroundColor(R.drawable.tv_rounded);
+//        }
+
+        Glide.with(context)
+                .load(getProducts.get(position).getMediaUrl())
+                .fitCenter()
+                .placeholder(R.drawable.ic_noimg)
+                .error(R.drawable.ic_broken_image)
+                .into(holder.imgproduct);
     }
 
     @Override
@@ -67,6 +82,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView namaproduct, stockproduct, hargajual, ukuran, img;
+        ImageView imgproduct;
+        FrameLayout fl1;
         CardView product;
 
         public ViewHolder(View itemView) {
@@ -77,6 +94,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             stockproduct = itemView.findViewById(R.id.product_stock);
             hargajual = itemView.findViewById(R.id.harga_product);
             ukuran = itemView.findViewById(R.id.ukuran_product);
+            imgproduct = itemView.findViewById(R.id.iv_imageproduct);
+            fl1 = itemView.findViewById(R.id.fl1);
 
             product.setClickable(true);
             product.setOnClickListener(this);
@@ -93,7 +112,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             String harga = getProducts.get(position).getHargaJual();
             String ukuran = getProducts.get(position).getUkuran();
             String grametur = getProducts.get(position).getGrametur();
-            String img = getProducts.get(position).getImgSrc();
+            String img = getProducts.get(position).getMediaUrl();
             String namacat = getProducts.get(position).getNama();
 
             ProductDetails fragment = new ProductDetails();
@@ -109,6 +128,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             bundle.putString("ukuran", ukuran); //key and value
             bundle.putString("grametur", grametur); //key and value
             bundle.putString("img", img); //key and value
+            Log.d( "img url : ", img);
             bundle.putString("namacat", namacat); //key and value
             fragment.setArguments(bundle);
             fragmentManager.replace(R.id.fragment_container, fragment);

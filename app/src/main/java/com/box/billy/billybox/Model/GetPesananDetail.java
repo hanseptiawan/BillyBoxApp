@@ -3,11 +3,32 @@ package com.box.billy.billybox.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GetProduct {
+public class GetPesananDetail {
 
+    @SerializedName("orderDetailId")
+    @Expose
+    private String orderDetailId;
+    @SerializedName("orderId")
+    @Expose
+    private String orderId;
     @SerializedName("cartonId")
     @Expose
     private String cartonId;
+    @SerializedName("jumlah")
+    @Expose
+    private String jumlah;
+    @SerializedName("totalHarga")
+    @Expose
+    private String totalHarga;
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("createdAt")
+    @Expose
+    private String createdAt;
+    @SerializedName("updatedAt")
+    @Expose
+    private String updatedAt;
     @SerializedName("namaItem")
     @Expose
     private String namaItem;
@@ -29,37 +50,24 @@ public class GetProduct {
     @SerializedName("grametur")
     @Expose
     private String grametur;
-    @SerializedName("status")
-    @Expose
-    private String status;
     @SerializedName("imgSrc")
     @Expose
     private String imgSrc;
-    @SerializedName("createdAt")
-    @Expose
-    private String createdAt;
-    @SerializedName("updatedAt")
-    @Expose
-    private String updatedAt;
-    @SerializedName("nama")
-    @Expose
-    private String nama;
-    @SerializedName("warna")
-    @Expose
-    private String warna;
-    @SerializedName("upadtedAt")
-    @Expose
-    private String upadtedAt;
-    @SerializedName("mediaUrl")
-    @Expose
-    private String mediaUrl;
 
-    public String getMediaUrl() {
-        return mediaUrl;
+    public String getOrderDetailId() {
+        return orderDetailId;
     }
 
-    public void setMediaUrl(String mediaUrl) {
-        this.mediaUrl = mediaUrl;
+    public void setOrderDetailId(String orderDetailId) {
+        this.orderDetailId = orderDetailId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public String getCartonId() {
@@ -68,6 +76,46 @@ public class GetProduct {
 
     public void setCartonId(String cartonId) {
         this.cartonId = cartonId;
+    }
+
+    public String getJumlah() {
+        return jumlah;
+    }
+
+    public void setJumlah(String jumlah) {
+        this.jumlah = jumlah;
+    }
+
+    public String getTotalHarga() {
+        return totalHarga;
+    }
+
+    public void setTotalHarga(String totalHarga) {
+        this.totalHarga = totalHarga;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public String getNamaItem() {
@@ -126,60 +174,12 @@ public class GetProduct {
         this.grametur = grametur;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getImgSrc() {
         return imgSrc;
     }
 
     public void setImgSrc(String imgSrc) {
         this.imgSrc = imgSrc;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public String getNama() {
-        return nama;
-    }
-
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
-
-    public String getWarna() {
-        return warna;
-    }
-
-    public void setWarna(String warna) {
-        this.warna = warna;
-    }
-
-    public String getUpadtedAt() {
-        return upadtedAt;
-    }
-
-    public void setUpadtedAt(String upadtedAt) {
-        this.upadtedAt = upadtedAt;
     }
 
 }

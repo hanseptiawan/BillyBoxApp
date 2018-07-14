@@ -1,5 +1,6 @@
 package com.box.billy.billybox.Main;
 
+import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.box.billy.billybox.Adapter.ProductCatAdapter;
@@ -29,11 +31,12 @@ import retrofit2.Response;
 
 public class ProductCategory extends Fragment {
 
-    SessionManager sessionManager;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     ProductCatAdapter productCatAdapter;
     ApiServices apiServices;
+    ProgressDialog progressDialog;
+
 
     public ProductCategory(){
         // empty public constructor
@@ -60,16 +63,21 @@ public class ProductCategory extends Fragment {
     }
 
     private void kategorikarton() {
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Memuat data ...");
+        progressDialog.show();
         apiServices.getProductCatResponse("success")
                 .enqueue(new Callback<GetProductCatResponse>() {
                     @Override
                     public void onResponse(Call<GetProductCatResponse> call, Response<GetProductCatResponse> response) {
+                        progressDialog.hide();
                         List<GetProductCat> list = response.body().getDataBody();
                         productCatAdapter.setProductCatsList(list);
                     }
 
                     @Override
                     public void onFailure(Call<GetProductCatResponse> call, Throwable t) {
+                        progressDialog.hide();
                         Toast.makeText(getActivity(), "Gagal memuat kategori product",
                                 Toast.LENGTH_LONG).show();
                     }

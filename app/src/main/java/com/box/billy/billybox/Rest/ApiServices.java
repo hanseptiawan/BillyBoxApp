@@ -2,6 +2,8 @@ package com.box.billy.billybox.Rest;
 
 import com.box.billy.billybox.Model.AuthSignIn;
 import com.box.billy.billybox.Model.AuthSignUp;
+import com.box.billy.billybox.Model.GetPesananDetailResponse;
+import com.box.billy.billybox.Model.GetPesananResponse;
 import com.box.billy.billybox.Model.GetProductCatResponse;
 import com.box.billy.billybox.Model.GetProductResponse;
 import com.box.billy.billybox.Model.GetUserResponse2;
@@ -41,7 +43,9 @@ public interface ApiServices {
     Call<GetProductResponse> getProductResponse(@Path("categoryCartonId") String catID,
                                                 @Query("status") String status);
 
-    @GET("/api/carton/carton/id/{cartonId}")
-    Call<GetUserResponse2> getProduct(@Path("cartonId") String cartonId);
+    @GET("/api/order/orders/user/{userId}")
+    Call<GetPesananResponse> getPesanan(@Path("userId") String userId);
 
+    @GET("/api/order/detailOrder/order/{orderId}")
+    Call<GetPesananDetailResponse> getPesananDetail(@Path("orderId") String userId);
 }
