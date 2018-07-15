@@ -114,6 +114,7 @@ public class SignIn extends AppCompatActivity {
                             String username = getUser2.getUsername();
                             String password = getUser2.getPassword();
 
+                            Log.d("userID : ", userid);
                             Log.d("fnama : ", fnama);
                             Log.d("lname : ", lname);
                             Log.d("nohp : ", nohp);

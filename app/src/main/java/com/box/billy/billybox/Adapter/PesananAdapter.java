@@ -37,7 +37,7 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
     }
 
     @Override
-    public PesananAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = layoutInflater
                 .inflate(R.layout.list_pesanan, parent,
                         false);
@@ -83,12 +83,6 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
             int position = getAdapterPosition();
 
             String idpesanan = getPesanan.get(position).getOrderId();
-            String userid = getPesanan.get(position).getUserId();
-            String mt_bayar = getPesanan.get(position).getMetodePembayaran();
-            String mt_kirim = getPesanan.get(position).getMetodePengiriman();
-            String tgl_antar = getPesanan.get(position).getTanggalPengantaran();
-            String tgl_terima = getPesanan.get(position).getTanggalDiterima();
-            String status = getPesanan.get(position).getStatus();
 
             PesananDetail fragment = new PesananDetail();
             FragmentTransaction fragmentTransaction = ((FragmentActivity)context)
@@ -98,12 +92,6 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
             Bundle bundle = new Bundle();
 
             bundle.putString("idpesanan", idpesanan);
-            bundle.putString("userid", userid);
-            bundle.putString("mt_bayar", mt_bayar);
-            bundle.putString("mt_kirim", mt_kirim);
-            bundle.putString("tgl_antar", tgl_antar);
-            bundle.putString("tgl_terima", tgl_terima);
-            bundle.putString("status", status);
 
             fragment.setArguments(bundle);
             fragmentTransaction.replace(R.id.fragment_container, fragment);

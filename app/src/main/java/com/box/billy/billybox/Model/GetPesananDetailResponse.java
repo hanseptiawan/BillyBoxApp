@@ -3,6 +3,8 @@ package com.box.billy.billybox.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class GetPesananDetailResponse {
 
     @SerializedName("status")
@@ -13,7 +15,7 @@ public class GetPesananDetailResponse {
     private Integer code;
     @SerializedName("dataBody")
     @Expose
-    private DatabodyPesanan dataBody;
+    private DataBodyPesanan dataBody;
 
     public String getStatus() {
         return status;
@@ -31,11 +33,11 @@ public class GetPesananDetailResponse {
         this.code = code;
     }
 
-    public DatabodyPesanan getDataBody() {
+    public DataBodyPesanan getDataBody() {
         return dataBody;
     }
 
-    public void setDataBody(DatabodyPesanan dataBody) {
+    public void setDataBody(DataBodyPesanan dataBody) {
         this.dataBody = dataBody;
     }
 

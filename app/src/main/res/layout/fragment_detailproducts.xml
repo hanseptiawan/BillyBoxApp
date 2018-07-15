@@ -5,11 +5,11 @@
     android:background="@color/greyback">
 
     <RelativeLayout
-        android:layout_centerInParent="true"
         android:id="@+id/frame_content"
         android:layout_width="340dp"
         android:layout_height="510dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/frame_rounded"
         android:elevation="4dp">
 
