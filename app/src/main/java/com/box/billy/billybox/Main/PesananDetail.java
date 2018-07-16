@@ -1,5 +1,6 @@
 package com.box.billy.billybox.Main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -61,6 +62,18 @@ public class PesananDetail extends Fragment {
             tv_orderid.setText(orderID);
             detailpesanan(orderID);
         }
+
+        btn_historyorder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent n = new Intent(getActivity(), HistoryPesanan.class);
+                String orderid = tv_orderid.getText().toString();
+                Log.d("orderID : ", orderid);
+                n.putExtra("orderid", orderid);
+                startActivity(n);
+            }
+        });
+
         return view;
     }
 

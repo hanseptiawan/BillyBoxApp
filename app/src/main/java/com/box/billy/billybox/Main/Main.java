@@ -22,9 +22,6 @@ import com.box.billy.billybox.R;
 
 public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    SessionManager sessionManager;
-
-    private static final String TAG = MainMember.class.getSimpleName();
     private static final int TIME_INTERVAL = 2000;
     private long mBackpressed;
     private DrawerLayout drawerLayout;
