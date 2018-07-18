@@ -12,13 +12,11 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.box.billy.billybox.Adapter.ProductCatAdapter;
 import com.box.billy.billybox.Model.GetProductCat;
 import com.box.billy.billybox.Model.GetProductCatResponse;
-import com.box.billy.billybox.Model.SessionManager;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
 import com.box.billy.billybox.Rest.ApiUtils;

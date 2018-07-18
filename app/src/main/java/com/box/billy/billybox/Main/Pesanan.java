@@ -1,31 +1,26 @@
 package com.box.billy.billybox.Main;
 
 import android.app.ProgressDialog;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.box.billy.billybox.Adapter.PesananAdapter;
-import com.box.billy.billybox.Adapter.ProductAdapter;
 import com.box.billy.billybox.Model.GetPesanan;
 import com.box.billy.billybox.Model.GetPesananResponse;
-import com.box.billy.billybox.Model.SessionManager;
+import com.box.billy.billybox.Utils.SessionManager;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
 import com.box.billy.billybox.Rest.ApiUtils;
-import com.box.billy.billybox.UI_Support.DivideRecyclerView;
+import com.box.billy.billybox.Utils.DivideRecyclerView;
 
 import java.util.HashMap;
 import java.util.List;

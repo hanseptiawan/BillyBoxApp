@@ -75,7 +75,7 @@
 
         <RelativeLayout
             android:id="@+id/card_area"
-            android:background="@color/greytextdarker"
+            android:background="@color/text_grey_strong"
             android:alpha="0.5"
             android:layout_width="match_parent"
             android:layout_gravity="bottom"

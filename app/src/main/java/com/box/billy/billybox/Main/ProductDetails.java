@@ -1,9 +1,9 @@
 package com.box.billy.billybox.Main;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,18 +13,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.box.billy.billybox.Model.SessionManager;
+import com.box.billy.billybox.Model.GetKeranjang;
+import com.box.billy.billybox.Utils.SessionManager;
 import com.box.billy.billybox.R;
+import com.box.billy.billybox.Utils.SharedPreference;
 import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDetails extends Fragment{
 
     TextView tv_nama, tv_cartonid, tv_category,
     tv_stock, tv_harga, tv_ukuran, tv_grametur;
     Button btn_addkeranjang;
-    ImageView iv_img;
+    ImageView iv_img, iv_back;
     SessionManager sessionManager;
-    Glide glide;
+    SharedPreference sharedPreference;
+    List<GetKeranjang> products;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detailproducts, container, false);
@@ -38,6 +44,7 @@ public class ProductDetails extends Fragment{
         tv_grametur = view.findViewById(R.id.tv_grametur2);
         btn_addkeranjang = view.findViewById(R.id.btn_addkeranjang);
         iv_img = view.findViewById(R.id.iv_product);
+        iv_back = view.findViewById(R.id.iv_back);
 
         sessionManager = new SessionManager(getContext());
         sessionManager.checkAuthorization();
@@ -70,19 +77,55 @@ public class ProductDetails extends Fragment{
                     .into(iv_img);
         }
 
+        String id = tv_cartonid.getText().toString();
+        String nama = tv_nama.getText().toString();
+        String ukuran = tv_ukuran.getText().toString();
+        String harga = tv_harga.getText().toString();
+
+
+
+        GetKeranjang product1 = new GetKeranjang(id,nama,ukuran,harga);
+        products = new ArrayList<GetKeranjang>();
+        products.add(product1);
+
         checkuser(tv_nama.getText().toString());
 
         btn_addkeranjang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(getArguments() != null){
-                    tv_nama.getText().toString();
-
+//                    sharedPreference.addFavorite(getActivity(), products);
                 }
+            }
+
+        });
+
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                Product product = new Product();
+                fragmentTransaction.replace(R.id.fragment_container, product, "product");
+                fragmentTransaction.addToBackStack("product");
+                fragmentTransaction.commit();
             }
         });
 
         return view;
+    }
+
+    public boolean checkProduct(GetKeranjang keranjang){
+        boolean check = false;
+        List<GetKeranjang> favorites = sharedPreference.getFavorite(getContext());
+        if (favorites != null){
+            for (GetKeranjang product : favorites){
+                if (product.equals(keranjang)){
+                    check = true;
+                    break;
+                }
+            }
+        }
+        return check;
     }
 
     private boolean checkuser(String nama) {

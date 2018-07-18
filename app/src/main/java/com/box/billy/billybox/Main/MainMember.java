@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.box.billy.billybox.Model.SessionManager;
+import com.box.billy.billybox.Utils.SessionManager;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
 import com.box.billy.billybox.Rest.ApiUtils;

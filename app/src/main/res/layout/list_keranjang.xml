@@ -21,6 +21,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/iv_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/tv_namaproduct"
@@ -37,7 +38,7 @@
                 tools:text="Category Name"
                 android:textSize="18sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@color/greytextdarker" />
+                android:textColor="@color/text_grey_strong" />
 
             <TextView
                 android:id="@+id/tv_ukuranproduct"
@@ -61,7 +62,7 @@
                 android:textSize="14sp"/>
 
             <TextView
-                android:id="@+id/jumlah"
+                android:id="@+id/tv_jumlah"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/et_jumlah"
@@ -69,7 +70,7 @@
                 android:layout_toStartOf="@+id/et_jumlah"
                 android:layout_marginEnd="8dp"
                 android:text="jumlah"
-                android:textColor="@color/greytextdarker"
+                android:textColor="@color/text_grey_strong"
                 android:textSize="12sp"
                 android:textStyle="italic" />
 

@@ -1,16 +1,19 @@
 package com.box.billy.billybox.Main;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +41,7 @@ public class PesananDetail extends Fragment {
                 tv_totalbiaya, tv_ongkir, tv_total,
                 tv_bayar, tv_tanggungan;
     Button btn_historyorder;
+    ImageView iv_back;
     RecyclerView recyclerView;
 
     @Nullable
@@ -56,12 +60,24 @@ public class PesananDetail extends Fragment {
         tv_tanggungan = view.findViewById(R.id.tv_tanggungan2);
         btn_historyorder = view.findViewById(R.id.btn_historyorder);
         recyclerView = view.findViewById(R.id.recycle_view_keranjang_pesanan);
+        iv_back = view.findViewById(R.id.iv_back);
 
         if (getArguments() != null){
             String orderID = getArguments().getString("idpesanan");
             tv_orderid.setText(orderID);
             detailpesanan(orderID);
         }
+
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                Pesanan pesanan = new Pesanan();
+                fragmentTransaction.replace(R.id.fragment_container, pesanan, "pesanan");
+                fragmentTransaction.addToBackStack("pesanan");
+                fragmentTransaction.commit();
+            }
+        });
 
         btn_historyorder.setOnClickListener(new View.OnClickListener() {
             @Override

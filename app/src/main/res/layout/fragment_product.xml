@@ -5,9 +5,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/greyback">
 
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_alignTop="@+id/iv_back"
+        android:layout_toEndOf="@+id/iv_back"
+        android:text="Product Category"
+        android:textSize="18sp"
+        android:textColor="@color/text_grey_medium"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view_product"
         android:scrollbars="vertical"
+        android:layout_below="@id/iv_back"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

@@ -1,4 +1,4 @@
-package com.box.billy.billybox.UI_Support;
+package com.box.billy.billybox.Utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;

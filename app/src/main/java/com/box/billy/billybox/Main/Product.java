@@ -1,11 +1,9 @@
 package com.box.billy.billybox.Main;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,14 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.box.billy.billybox.Adapter.ProductAdapter;
-import com.box.billy.billybox.Adapter.ProductCatAdapter;
 import com.box.billy.billybox.Model.GetProduct;
 import com.box.billy.billybox.Model.GetProductResponse;
-import com.box.billy.billybox.Model.SessionManager;
+import com.box.billy.billybox.Utils.SessionManager;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
 import com.box.billy.billybox.Rest.ApiUtils;
@@ -41,6 +37,7 @@ public class Product extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     ProductAdapter productAdapter;
     ApiServices apiServices;
+    ImageView iv_back;
 
     @Nullable
     @Override
@@ -52,6 +49,7 @@ public class Product extends Fragment {
         apiServices = ApiUtils.getApiServices();
 
         recyclerView = view.findViewById(R.id.recycle_view_product);
+        iv_back = view.findViewById(R.id.iv_back);
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new GridLayoutManager(getContext(),2);
@@ -68,6 +66,17 @@ public class Product extends Fragment {
 
             productbykategori(catID,status);
         }
+
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                ProductCategory productCategory = new ProductCategory();
+                fragmentTransaction.replace(R.id.fragment_container, productCategory, "productcat");
+                fragmentTransaction.addToBackStack("productcat");
+                fragmentTransaction.commit();
+            }
+        });
 
         return view;
     }

@@ -6,8 +6,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/greyback">
 
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_alignTop="@+id/iv_back"
+        android:layout_toEndOf="@+id/iv_back"
+        android:text="Daftar Pesanan"
+        android:textSize="18sp"
+        android:textColor="@color/text_grey_medium"/>
+
     <RelativeLayout
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/iv_back"
         android:id="@+id/frame_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -221,7 +240,7 @@
         android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="221dp"/>
+        android:layout_height="180dp"/>
 
 
 

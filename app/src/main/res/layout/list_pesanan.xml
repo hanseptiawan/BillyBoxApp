@@ -30,7 +30,7 @@
                 tools:text="Category Name"
                 android:textSize="18sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@color/greytextdarker" />
+                android:textColor="@color/text_grey_strong" />
 
             <TextView
                 android:id="@+id/tv_tglantar"

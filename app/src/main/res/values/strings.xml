@@ -10,6 +10,9 @@
     <string name="signin">Masuk</string>
     <string name="signout">Keluar</string>
 
+    <string name="no_fav">Keranjang</string>
+    <string name="no_fav_msg">Keranjang masih kosong</string>
+
     <string name="signup_intro">Belum punya member ? Tap disini</string>
     <string name="signin_intro">Sudah punya member ? Tap disini</string>
 </resources>

@@ -19,11 +19,9 @@ import com.box.billy.billybox.Model.AuthSignUp;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
 import com.box.billy.billybox.Rest.ApiUtils;
-import com.box.billy.billybox.UI_Support.Datepicker_Fragment;
+import com.box.billy.billybox.Utils.Datepicker_Fragment;
 
-import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;

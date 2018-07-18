@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.box.billy.billybox.Model.SessionManager;
 import com.box.billy.billybox.R;
 
 public class Main extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

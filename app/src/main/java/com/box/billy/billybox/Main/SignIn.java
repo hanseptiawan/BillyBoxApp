@@ -15,12 +15,10 @@ import com.box.billy.billybox.Model.AuthSignIn;
 import com.box.billy.billybox.Model.DataBodyUser;
 import com.box.billy.billybox.Model.GetUser2;
 import com.box.billy.billybox.Model.GetUserResponse2;
-import com.box.billy.billybox.Model.SessionManager;
+import com.box.billy.billybox.Utils.SessionManager;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
 import com.box.billy.billybox.Rest.ApiUtils;
-
-import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
