@@ -13,8 +13,10 @@ import android.widget.Toast;
 
 import com.box.billy.billybox.Model.AuthSignIn;
 import com.box.billy.billybox.Model.DataBodyUser;
+import com.box.billy.billybox.Model.GetCartIDResponse;
 import com.box.billy.billybox.Model.GetUser2;
 import com.box.billy.billybox.Model.GetUserResponse2;
+import com.box.billy.billybox.Rest.ApiServicesLokal;
 import com.box.billy.billybox.Utils.SessionManager;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
@@ -27,7 +29,8 @@ import retrofit2.Response;
 public class SignIn extends AppCompatActivity {
 
     SessionManager sessionManager;
-    ApiServices apiServices;
+        ApiServices apiServices;
+//    ApiServicesLokal apiServices;
     EditText et_username, et_password;
 
     @Override
@@ -76,6 +79,11 @@ public class SignIn extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     private boolean Validation(String username, String password){
         if (username == null || username.trim().length() == 0){
             Toast.makeText(this, "Isi Username terlebih dahulu",
@@ -101,34 +109,39 @@ public class SignIn extends AppCompatActivity {
                         if(response.body() != null){
                             DataBodyUser dataBodyUser = response.body().getDataBody();
                             GetUser2 getUser2 = dataBodyUser.get0();
+                            if (getUser2 != null){
+                                String userid = getUser2.getUserId();
+                                String img = getUser2.getMediaUrl();
+                                String fnama = getUser2.getNamaDepan();
+                                String lname = getUser2.getNamaBelakang();
+                                String ttl = getUser2.getTglLahir();
+                                String nohp = getUser2.getNoTelp();
+                                String alamat = getUser2.getAlamat();
+                                String username = getUser2.getUsername();
+                                String password = getUser2.getPassword();
+                                if (img != null){
+                                    Log.d("img ,", img);
+                                }
+                                Log.d("userID : ", userid);
+                                Log.d("fnama : ", fnama);
+                                Log.d("lname : ", lname);
+                                Log.d("nohp : ", nohp);
+                                Log.d("alamat : ", alamat);
+                                Log.d("username : ", username);
+                                Log.d("password : ", password);
 
-                            String userid = getUser2.getUserId();
-//                            String img = getUser2.getImgSrc();
-                            String fnama = getUser2.getNamaDepan();
-                            String lname = getUser2.getNamaBelakang();
-                            String ttl = getUser2.getTglLahir();
-                            String nohp = getUser2.getNoTelp();
-                            String alamat = getUser2.getAlamat();
-                            String username = getUser2.getUsername();
-                            String password = getUser2.getPassword();
-
-                            Log.d("userID : ", userid);
-                            Log.d("fnama : ", fnama);
-                            Log.d("lname : ", lname);
-                            Log.d("nohp : ", nohp);
-                            Log.d("alamat : ", alamat);
-                            Log.d("username : ", username);
-                            Log.d("password : ", password);
-
-
-                            sessionManager.createLoginSession(userid, fnama, lname,
-                                    username,password,alamat,nohp,ttl);
+                                sessionManager.createLoginSession(userid, fnama, lname,
+                                        username,password,alamat,nohp,ttl,img);
+                            }else {
+                                Log.d("img ,", String.valueOf(getUser2));
+                            }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<GetUserResponse2> call, Throwable t) {
-
+                        Toast.makeText(SignIn.this, "Get User data Failed",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
     }
@@ -144,12 +157,7 @@ public class SignIn extends AppCompatActivity {
                             Toast.makeText(SignIn.this, "Authentication Success",
                                     Toast.LENGTH_LONG).show();
                             Log.d("Respon",": "+response);
-
-//                            sessionManager.createLoginSession(username);
-
                             Intent n = new Intent(getApplicationContext(), MainMember.class);
-                            n.putExtra("username", a);
-                            Log.d("username di Signin : ", a);
                             startActivity(n);
                             finish();
                         }

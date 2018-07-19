@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.box.billy.billybox.Adapter.ProductAdapter;
 import com.box.billy.billybox.Model.GetProduct;
 import com.box.billy.billybox.Model.GetProductResponse;
+import com.box.billy.billybox.Rest.ApiServicesLokal;
 import com.box.billy.billybox.Utils.SessionManager;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
@@ -37,6 +38,7 @@ public class Product extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     ProductAdapter productAdapter;
     ApiServices apiServices;
+//    ApiServicesLokal apiServices;
     ImageView iv_back;
 
     @Nullable

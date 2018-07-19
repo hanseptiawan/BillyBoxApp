@@ -29,9 +29,11 @@ import retrofit2.Response;
 
 public class SignUp extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    ApiServices apiServices;
+        ApiServices apiServices;
+//    ApiServicesLokal apiServices;
     EditText et_fname, et_lname, et_addr, et_ttl,
     et_nohp, et_username, et_password1, et_password2;
+    ImageView iv_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -45,11 +47,13 @@ public class SignUp extends AppCompatActivity implements DatePickerDialog.OnDate
         et_addr = findViewById(R.id.et_address);
         et_ttl = findViewById(R.id.et_ttl);
         et_nohp = findViewById(R.id.et_nohp);
-        et_username = findViewById(R.id.et_username_signup);
+        et_username = findViewById(R.id.et_username);
         et_password1 = findViewById(R.id.et_password_signup1);
         et_password2 = findViewById(R.id.et_password_signup2);
+        iv_date = findViewById(R.id.iv_date);
 
-        et_ttl.setOnClickListener(new View.OnClickListener() {
+        et_ttl.setEnabled(false);
+        iv_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFragment datepicker = new Datepicker_Fragment();
@@ -57,7 +61,7 @@ public class SignUp extends AppCompatActivity implements DatePickerDialog.OnDate
             }
         });
 
-        Button btn_signup = findViewById(R.id.btn_daftar);
+        Button btn_signup = findViewById(R.id.btn_submit);
         TextView tv_signin = findViewById(R.id.tv_signin);
         ImageView iv_back = findViewById(R.id.img_back);
 

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.box.billy.billybox.Model.GetKeranjang;
 import com.box.billy.billybox.Model.GetProduct;
 import com.box.billy.billybox.Utils.SharedPreference;
 import com.box.billy.billybox.R;
@@ -24,7 +25,7 @@ public class Keranjang extends Fragment {
     Activity activity;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-    List<GetProduct> products;
+    List<GetKeranjang> products;
     SharedPreference sharedPreference;
 
     @Override

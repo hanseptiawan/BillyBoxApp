@@ -20,6 +20,7 @@ import com.box.billy.billybox.Utils.SharedPreference;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ProductDetails extends Fragment{
@@ -77,24 +78,20 @@ public class ProductDetails extends Fragment{
                     .into(iv_img);
         }
 
-        String id = tv_cartonid.getText().toString();
-        String nama = tv_nama.getText().toString();
-        String ukuran = tv_ukuran.getText().toString();
-        String harga = tv_harga.getText().toString();
-
-
-
-        GetKeranjang product1 = new GetKeranjang(id,nama,ukuran,harga);
-        products = new ArrayList<GetKeranjang>();
-        products.add(product1);
-
         checkuser(tv_nama.getText().toString());
 
         btn_addkeranjang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(getArguments() != null){
-//                    sharedPreference.addFavorite(getActivity(), products);
+                    HashMap<String, String> cartID = sessionManager.getCartID();
+                    String cartid = cartID.get(sessionManager.KEY_CARTID);
+
+                    String id = tv_cartonid.getText().toString();
+                    String nama = tv_nama.getText().toString();
+                    String harga = tv_harga.getText().toString();
+
+
                 }
             }
 

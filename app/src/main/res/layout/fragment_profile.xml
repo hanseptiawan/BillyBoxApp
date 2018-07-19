@@ -12,21 +12,27 @@
         android:background="@drawable/frame_rounded"
         android:elevation="4dp">
 
-        <include
-            android:id="@+id/iv_profile"
-            android:layout_width="160dp"
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_height="160dp"
+            android:layout_width="160dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/circular_profile"
+            android:src="@drawable/ic_noimg"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            layout="@layout/circular_profile"/>
+            app:civ_border_width="4dp"
+            app:civ_border_color="@color/menu_text"
+            android:elevation="4dp">
+
+        </de.hdodenhof.circleimageview.CircleImageView>
 
         <ImageView
-            android:id="@+id/iv_logo"
+            android:id="@+id/iv_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_editprofile"
             android:clickable="true"
-            android:layout_toEndOf="@+id/iv_profile"
+            android:layout_toEndOf="@+id/circular_profile"
             android:layout_marginTop="15dp"
             android:layout_marginStart="50dp"/>
 
@@ -34,7 +40,7 @@
             android:id="@+id/tv_nama"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/iv_profile"
+            android:layout_below="@id/circular_profile"
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:text="Nama Customer"
@@ -179,18 +185,6 @@
             </TableRow>
 
         </TableLayout>
-
-        <Button
-            android:id="@+id/btn_uploadphotoprofile"
-            android:layout_width="@dimen/button_width"
-            android:layout_height="@dimen/button_height"
-            android:layout_below="@+id/tb_informasiuser"
-            android:layout_marginTop="40dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/btn_rounded"
-            android:text="Upload Foto Profil"
-            android:textColor="@color/menu_text"
-            android:textAllCaps="false"/>
 
     </RelativeLayout>
 

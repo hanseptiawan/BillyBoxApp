@@ -42,11 +42,11 @@ public class SharedPreference {
         Log.d(TAG, "save order");
     }
 
-    public void addFavorite(Context context, GetKeranjang product){
+    public void addFavorite(Context context, List<GetKeranjang> product){
         List<GetKeranjang> favorites = getFavorite(context);
         if (favorites == null)
             favorites = new ArrayList<GetKeranjang>();
-        favorites.add(product);
+        favorites.add((GetKeranjang) product);
         saveFavorite(context, favorites);
     }
 

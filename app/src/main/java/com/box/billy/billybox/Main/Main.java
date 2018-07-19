@@ -59,23 +59,13 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     public void ButtonListener(){
-        ImageView iv_home = findViewById(R.id.btn_home_main);
         Button btn_masuk = findViewById(R.id.btn_signin);
-
-        iv_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ProductCategory()).commit();
-            }
-        });
 
         btn_masuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent a = new Intent(Main.this, SignIn.class);
                 startActivity(a);
-                finish();
             }
         });
     }

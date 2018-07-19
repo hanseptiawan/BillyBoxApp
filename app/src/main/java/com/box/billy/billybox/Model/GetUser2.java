@@ -47,6 +47,17 @@ public class GetUser2 {
     @SerializedName("updatedAt")
     @Expose
     private String updatedAt;
+    @SerializedName("mediaUrl")
+    @Expose
+    private String mediaUrl;
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
+    }
 
     public String getUserId() {
         return userId;

@@ -28,9 +28,12 @@ public class SessionManager {
     public final String KEY_LNAME = "lastName";
     public final String KEY_USERNAME = "username";
     public final String KEY_PASSWORD = "password";
+    public final String KEY_IMG = "imgSrc";
     public final String KEY_ADDR = "alamat";
     public final String KEY_PHONE = "noTelp";
     public final String KEY_TTL = "tglLahir";
+    public final String KEY_CARTID = "cartID";
+    public final String KEY_IMGBASE64 = "imgbase64";
 
     //constructor
     public SessionManager(Context context){
@@ -51,13 +54,14 @@ public class SessionManager {
     //    create login session
     public void createLoginSession(String userid, String firstName,String lastName,
                                String username, String password, String alamat,
-                               String noTelp,String tglLahir){
+                               String noTelp,String tglLahir, String img){
         //storing login value as true
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_ID, userid);
         editor.putString(KEY_FNAME, firstName);
         editor.putString(KEY_LNAME, lastName);
         editor.putString(KEY_USERNAME, username);
+        editor.putString(KEY_IMG, img);
         editor.putString(KEY_PASSWORD, password);
         editor.putString(KEY_ADDR, alamat);
         editor.putString(KEY_PHONE, noTelp);
@@ -90,6 +94,7 @@ public class SessionManager {
         user.put(KEY_ID, sharedPreferences.getString(KEY_ID, null));
         user.put(KEY_FNAME, sharedPreferences.getString(KEY_FNAME, null));
         user.put(KEY_LNAME, sharedPreferences.getString(KEY_LNAME, null));
+        user.put(KEY_IMG, sharedPreferences.getString(KEY_IMG, null));
         user.put(KEY_USERNAME, sharedPreferences.getString(KEY_USERNAME, null));
         user.put(KEY_PASSWORD, sharedPreferences.getString(KEY_PASSWORD, null));
         user.put(KEY_ADDR, sharedPreferences.getString(KEY_ADDR, null));
@@ -97,6 +102,40 @@ public class SessionManager {
         user.put(KEY_TTL, sharedPreferences.getString(KEY_TTL, null));
 
         return user;
+    }
+
+    public void createImg(String img){
+        editor.putString(KEY_IMGBASE64, img);
+        editor.commit();
+    }
+
+    public HashMap<String, String> getImg(){
+        HashMap<String, String> cartID = new HashMap<String, String>();
+        cartID.put(KEY_IMGBASE64, sharedPreferences.getString(KEY_IMGBASE64, null));
+
+        return cartID;
+    }
+
+    public void createCartID(String cartID){
+        //storing login value as true
+        editor.putString(KEY_CARTID, cartID);
+
+        editor.commit();
+        Log.d(TAG, "Cart ID added");
+    }
+
+    public HashMap<String, String> getCartID(){
+        HashMap<String, String> cartID = new HashMap<String, String>();
+        cartID.put(KEY_CARTID, sharedPreferences.getString(KEY_CARTID, null));
+
+        return cartID;
+    }
+    public void deleteCartID(String cartID){
+        if (cartID != null){
+            sharedPreferences.edit()
+                    .remove(cartID)
+                    .apply();
+        }
     }
 
     public void logoutUser(){

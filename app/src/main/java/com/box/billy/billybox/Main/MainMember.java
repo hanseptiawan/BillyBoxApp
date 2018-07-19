@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,12 +17,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.box.billy.billybox.Model.GetCartIDResponse;
+import com.box.billy.billybox.Rest.ApiServicesLokal;
 import com.box.billy.billybox.Utils.SessionManager;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
 import com.box.billy.billybox.Rest.ApiUtils;
 
 import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainMember extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -31,7 +38,8 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
     private static final int TIME_INTERVAL = 2000;
     private long mBackpressed;
     private DrawerLayout drawerLayout;
-    ApiServices apiServices;
+        ApiServices apiServices;
+//    ApiServicesLokal apiServices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +60,13 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
         TextView userdisplay = findViewById(R.id.tv_userdisplay2_member);
 
         HashMap<String, String> user = sessionManager.getUserDetails();
+        String userID = user.get(sessionManager.KEY_ID);
         String fname = user.get(sessionManager.KEY_FNAME);
         String lname = user.get(sessionManager.KEY_LNAME);
         String name = fname + "" + lname;
+        Log.d(TAG, "onCreate: "+ userID);
+
+        getCart(userID);
 
         if(userdisplay.getText() == ""){
             userdisplay.setText(name);
@@ -82,9 +94,28 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
         ButtonListener();
     }
 
+    public void getCart(String userid) {
+        apiServices.getCartID(userid)
+                .enqueue(new Callback<GetCartIDResponse>() {
+                    @Override
+                    public void onResponse(Call<GetCartIDResponse> call, Response<GetCartIDResponse> response) {
+                        if (response.isSuccessful()){
+                            String getCartID = response.body().getDataBody();
+                            Log.d("cartID : ", getCartID);
+
+                            sessionManager.createCartID(getCartID);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetCartIDResponse> call, Throwable t) {
+
+                    }
+                });
+    }
+
     public void ButtonListener(){
         ImageView iv_cart = findViewById(R.id.cart_button_member);
-        ImageView iv_home = findViewById(R.id.home_button_member);
         Button btn_keluar = findViewById(R.id.btn_signout);
 
         iv_cart.setOnClickListener(new View.OnClickListener() {
@@ -92,14 +123,6 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
             public void onClick(View view) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new Keranjang()).commit();
-            }
-        });
-
-        iv_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ProductCategory()).commit();
             }
         });
 

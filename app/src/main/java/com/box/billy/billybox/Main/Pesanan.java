@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.box.billy.billybox.Adapter.PesananAdapter;
 import com.box.billy.billybox.Model.GetPesanan;
 import com.box.billy.billybox.Model.GetPesananResponse;
+import com.box.billy.billybox.Rest.ApiServicesLokal;
 import com.box.billy.billybox.Utils.SessionManager;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
@@ -36,6 +37,7 @@ public class Pesanan extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     PesananAdapter pesananAdapter;
     ApiServices apiServices;
+//    ApiServicesLokal apiServices;
     ProgressDialog progressDialog;
 
     @Nullable
@@ -66,7 +68,7 @@ public class Pesanan extends Fragment {
     }
 
     private void pesananbyuserID(String userID) {
-        String foo = "PRF-2018051408054912";
+        String foo = "PRF-2018051408053518";
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Memuat data ...");
         progressDialog.show();
