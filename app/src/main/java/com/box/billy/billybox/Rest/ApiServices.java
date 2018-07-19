@@ -46,7 +46,6 @@ public interface ApiServices {
                                 @Field("firstName") String firstname,
                                 @Field("lastName") String lastname,
                                 @Field("imgSrc") String imgSrc,
-                                @Field("username") String username,
                                 @Field("password") String password,
                                 @Field("tglLahir") String tgllahir);
 

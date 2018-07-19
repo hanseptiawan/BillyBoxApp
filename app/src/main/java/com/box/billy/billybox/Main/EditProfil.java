@@ -23,7 +23,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.box.billy.billybox.Model.UpdateDataUser;
 import com.box.billy.billybox.R;
+import com.box.billy.billybox.Rest.ApiServices;
 import com.box.billy.billybox.Utils.Datepicker_Fragment;
 import com.box.billy.billybox.Utils.Permission;
 import com.box.billy.billybox.Utils.SessionManager;
@@ -35,6 +37,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by han on 7/19/2018.
@@ -50,6 +55,7 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
     CircleImageView circleImageView;
     String userchosenTask;
     SessionManager sessionManager;
+    ApiServices apiServices;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -293,15 +299,36 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
         return true;
     }
 
-    private void updateprofile(String userID, String fname, String lname, String ttl,
-                               String password, String img) {
+    private void updateprofile(String muserID, final String mfname, final String mlname, final String mttl,
+                               final String mpassword, String mimg) {
         Log.d("updateprofile: ",
-                userID+ "," +
-                fname+ "," +
-                lname+ "," +
-                ttl+ "," +
-                password+ "," +
-                img);
+                muserID+ "," +
+                mfname+ "," +
+                mlname+ "," +
+                mttl+ "," +
+                mpassword+ "," +
+                mimg);
+
+        apiServices.updateDataUser(muserID, mfname, mlname, mimg, mpassword,mttl)
+                .enqueue(new Callback<UpdateDataUser>() {
+                    @Override
+                    public void onResponse(@NonNull Call<UpdateDataUser> call, @NonNull Response<UpdateDataUser> response) {
+                        if (response.isSuccessful()){
+                            sessionManager.updateUserSession(mfname,mlname,mttl,mpassword);
+                            Log.d("update session : ", mfname+mlname+mttl+mpassword);
+                            Toast.makeText(EditProfil.this, "Update profil sukses",
+                                    Toast.LENGTH_SHORT).show();
+                            onBackPressed();
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UpdateDataUser> call, Throwable t) {
+                        Toast.makeText(EditProfil.this, "Update profil gagal",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override

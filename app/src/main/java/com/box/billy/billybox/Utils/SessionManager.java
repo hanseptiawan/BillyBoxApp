@@ -71,6 +71,15 @@ public class SessionManager {
         Log.d(TAG, "User login session modified!");
     }
 
+    public void updateUserSession(String fname, String lname, String ttl, String password){
+        editor.putString(KEY_FNAME, fname);
+        editor.putString(KEY_LNAME, lname);
+        editor.putString(KEY_TTL, ttl);
+        editor.putString(KEY_PASSWORD, password);
+
+        editor.commit();
+    }
+
     public boolean checkLogin(){
         if(!this.isLoggedIn()){
             Intent i = new Intent(_context, Main.class);
