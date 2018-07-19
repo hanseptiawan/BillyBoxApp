@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.box.billy.billybox.Model.AuthSignUp;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
+import com.box.billy.billybox.Rest.ApiServicesLokal;
 import com.box.billy.billybox.Rest.ApiUtils;
 import com.box.billy.billybox.Utils.Datepicker_Fragment;
 
@@ -29,8 +30,8 @@ import retrofit2.Response;
 
 public class SignUp extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-        ApiServices apiServices;
-//    ApiServicesLokal apiServices;
+//        ApiServices apiServices;
+    ApiServicesLokal apiServices;
     EditText et_fname, et_lname, et_addr, et_ttl,
     et_nohp, et_username, et_password1, et_password2;
     ImageView iv_date;

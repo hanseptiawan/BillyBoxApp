@@ -39,10 +39,10 @@ public interface ApiServices {
                             @Field("noTelp") String notelp,
                             @Field("tglLahir") String tgllahir);
 
-    @POST("/api/auth/signin")
+    @POST("/api/auth/user/id/{userId}")
     @FormUrlEncoded
     Call<UpdateDataUser> updateDataUser(
-                                @Field("userId") String userId,
+                                @Path("userId") String userId,
                                 @Field("firstName") String firstname,
                                 @Field("lastName") String lastname,
                                 @Field("imgSrc") String imgSrc,

@@ -203,6 +203,17 @@
 
         </TableLayout>
 
+        <EditText
+            android:id="@+id/et_jumlahpesan"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tb_informasiproduct"
+            android:layout_centerHorizontal="true"
+            android:inputType="number"
+            android:hint="Jumlah"
+            android:gravity="center"
+            />
+
         <Button
             android:id="@+id/btn_addkeranjang"
             android:layout_width="@dimen/button_width"

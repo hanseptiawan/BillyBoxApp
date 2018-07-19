@@ -35,8 +35,8 @@ public class ProductCategory extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     ProductCatAdapter productCatAdapter;
-        ApiServices apiServices;
-//    ApiServicesLokal apiServices;
+//        ApiServices apiServices;
+    ApiServicesLokal apiServices;
     ProgressDialog progressDialog;
 
 

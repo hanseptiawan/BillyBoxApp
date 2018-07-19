@@ -26,6 +26,8 @@ import android.widget.Toast;
 import com.box.billy.billybox.Model.UpdateDataUser;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
+import com.box.billy.billybox.Rest.ApiServicesLokal;
+import com.box.billy.billybox.Rest.ApiUtils;
 import com.box.billy.billybox.Utils.Datepicker_Fragment;
 import com.box.billy.billybox.Utils.Permission;
 import com.box.billy.billybox.Utils.SessionManager;
@@ -47,7 +49,7 @@ import retrofit2.Response;
 
 public class EditProfil extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
-    EditText et_img, et_fname, et_lname, et_address, et_ttl, et_nohp,
+    EditText et_fname, et_lname, et_address, et_ttl, et_nohp,
             et_username, et_password1, et_password2;
     ImageView iv_upload, iv_date;
     Button btn_submit;
@@ -55,7 +57,8 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
     CircleImageView circleImageView;
     String userchosenTask;
     SessionManager sessionManager;
-    ApiServices apiServices;
+//    ApiServices apiServices;
+    ApiServicesLokal apiServices;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,8 +68,8 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         sessionManager = new SessionManager(getApplicationContext());
+        apiServices = ApiUtils.getApiServices();
 
-        et_img = findViewById(R.id.et_img);
         et_fname = findViewById(R.id.et_fname);
         et_lname = findViewById(R.id.et_lname);
         et_address = findViewById(R.id.et_address);
@@ -118,7 +121,6 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
         et_password1.setText(password);
 
         et_ttl.setEnabled(false);
-        et_img.setEnabled(false);
         iv_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,11 +140,11 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String fname = et_fname.getText().toString();
-                String lname = et_lname.getText().toString();
-                String ttl = et_ttl.getText().toString();
-                String password1 = et_password1.getText().toString();
-                String password2 = et_password2.getText().toString();
+                String fname = et_fname.getText().toString().trim();
+                String lname = et_lname.getText().toString().trim();
+                String ttl = et_ttl.getText().toString().trim();
+                String password1 = et_password1.getText().toString().trim();
+                String password2 = et_password2.getText().toString().trim();
 
                 HashMap<String, String> user = sessionManager.getUserDetails();
                 String userID = user.get(sessionManager.KEY_ID);
@@ -152,8 +154,8 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
                 HashMap<String, String> img = sessionManager.getImg();
                 String imgencoded = img.get(sessionManager.KEY_IMGBASE64);
 
-                if (validation(fname, lname,ttl,password1, password2)){
-                    updateprofile(userID,fname, lname, ttl,password2, imgencoded);
+                if (validation(fname, lname,password1, password2)){
+                    updateprofile(userID,fname, lname,password2, imgencoded);
                 }
             }
         });
@@ -242,10 +244,16 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
     }
 
     private void decode(String imgencoded) {
-        byte[] data = Base64.decode(imgencoded, Base64.DEFAULT);
-        Bitmap decodedbyte = BitmapFactory.decodeByteArray(data,0,data.length);
+        if (imgencoded != null){
+            Log.d("decode edit profile : ", imgencoded);
+            byte[] data = Base64.decode(imgencoded, Base64.DEFAULT);
+            Bitmap decodedbyte = BitmapFactory.decodeByteArray(data,0,data.length);
 
-        circleImageView.setImageBitmap(decodedbyte);
+            circleImageView.setImageBitmap(decodedbyte);
+        }else {
+            Log.d("decode edit profile : ", "tidak ada string base 64");
+        }
+
     }
 
     private void encodeToBase64(Bitmap fotoBukti){
@@ -254,12 +262,11 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
         bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
         byte[] bytes = baos.toByteArray();
         String imageEncoded = Base64.encodeToString(bytes,Base64.DEFAULT);
-        et_img.setText(imageEncoded);
         Log.e("bitmap : ",imageEncoded);
         sessionManager.createImg(imageEncoded);
     }
 
-    private boolean validation(String fname, String lname, String ttl, String password1, String password2) {
+    private boolean validation(String fname, String lname, String password1, String password2) {
         if (fname == null || fname.trim().length() == 0){
             Toast.makeText(EditProfil.this, "Silahkan isi nama depan anda",
                     Toast.LENGTH_LONG).show();
@@ -299,36 +306,32 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
         return true;
     }
 
-    private void updateprofile(String muserID, final String mfname, final String mlname, final String mttl,
+    private void updateprofile(String muserID, final String mfname, final String mlname,
                                final String mpassword, String mimg) {
-        Log.d("updateprofile: ",
-                muserID+ "," +
-                mfname+ "," +
-                mlname+ "," +
-                mttl+ "," +
-                mpassword+ "," +
-                mimg);
+        Log.d("update session : ", muserID+mfname+mlname+mpassword+mimg);
+            apiServices.updateDataUser(mfname, mlname, mimg, mpassword,muserID)
+                    .enqueue(new Callback<UpdateDataUser>() {
+                        @Override
+                        public void onResponse(Call<UpdateDataUser> call, Response<UpdateDataUser> response) {
+                            if (response.isSuccessful()){
+                                Log.d("response : ", String.valueOf(response));
+                            sessionManager.updateUserSession(mfname,mlname,mpassword);
+                            Log.d("update session : ", mfname+mlname+mpassword);
 
-        apiServices.updateDataUser(muserID, mfname, mlname, mimg, mpassword,mttl)
-                .enqueue(new Callback<UpdateDataUser>() {
-                    @Override
-                    public void onResponse(@NonNull Call<UpdateDataUser> call, @NonNull Response<UpdateDataUser> response) {
-                        if (response.isSuccessful()){
-                            sessionManager.updateUserSession(mfname,mlname,mttl,mpassword);
-                            Log.d("update session : ", mfname+mlname+mttl+mpassword);
-                            Toast.makeText(EditProfil.this, "Update profil sukses",
-                                    Toast.LENGTH_SHORT).show();
-                            onBackPressed();
-                            finish();
+                                Toast.makeText(EditProfil.this, "Update profil sukses",
+                                        Toast.LENGTH_SHORT).show();
+                                onBackPressed();
+                                finish();
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<UpdateDataUser> call, Throwable t) {
-                        Toast.makeText(EditProfil.this, "Update profil gagal",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<UpdateDataUser> call, Throwable t) {
+                            Toast.makeText(EditProfil.this, "Update profil gagal",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
     }
 
     @Override

@@ -5,11 +5,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/greyback">
 
+    <TextView
+        android:id="@+id/tvid"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cart ID :"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_cartid"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/tvid"
+        android:layout_alignBaseline="@id/tvid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="124125125125"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        android:textStyle="italic"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view_keranjang"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/tvid"
         android:scrollbars="vertical"
+        android:layout_marginBottom="47dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <Button
+        android:id="@+id/btn_checkout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent"
+        android:text="Checkout"
+        android:textColor="@color/menu_text"/>
 
 </RelativeLayout>

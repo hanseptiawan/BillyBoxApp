@@ -24,41 +24,20 @@
 
     </de.hdodenhof.circleimageview.CircleImageView>
 
-    <EditText
-        android:id="@+id/et_img"
-        android:layout_below="@id/circular_profile2"
-        android:layout_width="270dp"
-        android:layout_height="50dp"
-        android:layout_alignStart="@+id/et_fname"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/et_cornerradius"
-        android:hint="String Image"
-        android:gravity="left|top"
-        android:maxLines="2"
-        android:inputType="none"
-        android:paddingBottom="5dp"
-        android:paddingEnd="20dp"
-        android:paddingStart="20dp"
-        android:paddingTop="5dp"
-        android:textColor="#70707070"
-        android:textColorHint="@color/colorPrimary"
-        android:textSize="15sp" />
-
     <ImageView
         android:id="@+id/iv_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/et_fname"
-        android:layout_alignEnd="@+id/et_fname"
-        android:layout_alignTop="@+id/et_img"
-        android:layout_toEndOf="@+id/et_img"
+        android:layout_alignTop="@+id/circular_profile2"
+        android:layout_marginTop="13dp"
+        android:layout_toEndOf="@+id/circular_profile2"
         android:src="@drawable/ic_upload" />
 
     <EditText
         android:id="@+id/et_fname"
         android:layout_width="300dp"
         android:layout_height="32dp"
-        android:layout_below="@+id/et_img"
+        android:layout_below="@+id/circular_profile2"
         android:layout_marginTop="10dp"
         android:textColorHint="@color/colorPrimary"
         android:hint="Nama Depan"

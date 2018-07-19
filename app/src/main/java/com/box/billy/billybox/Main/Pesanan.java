@@ -36,8 +36,8 @@ public class Pesanan extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     PesananAdapter pesananAdapter;
-    ApiServices apiServices;
-//    ApiServicesLokal apiServices;
+//    ApiServices apiServices;
+    ApiServicesLokal apiServices;
     ProgressDialog progressDialog;
 
     @Nullable
@@ -72,23 +72,34 @@ public class Pesanan extends Fragment {
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Memuat data ...");
         progressDialog.show();
-        apiServices.getPesanan(foo)
-                .enqueue(new Callback<GetPesananResponse>() {
-                    @Override
-                    public void onResponse(Call<GetPesananResponse> call, Response<GetPesananResponse> response) {
-                        progressDialog.hide();
-                        List<GetPesanan> list = response.body().getDataBody();
-                        Log.e("list :  ", ""+list);
-                        pesananAdapter.setPesananList(list);
-                    }
+        if (userID != null){
+            apiServices.getPesanan(userID)
+                    .enqueue(new Callback<GetPesananResponse>() {
+                        @Override
+                        public void onResponse(Call<GetPesananResponse> call, Response<GetPesananResponse> response) {
+                            progressDialog.hide();
+                            List<GetPesanan> list = response.body().getDataBody();
+                            Log.e("list :  ", ""+list);
+                            if (list != null){
+                                pesananAdapter.setPesananList(list);
+                            }else {
+                                Toast.makeText(getActivity(), "Silahkan order terlebih dahulu",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
 
-                    @Override
-                    public void onFailure(Call<GetPesananResponse> call, Throwable t) {
-                        progressDialog.hide();
-                        Log.d("hqq :" , String.valueOf(t));
-                        Toast.makeText(getActivity(), "Gagal memuat pesanan",
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<GetPesananResponse> call, Throwable t) {
+                            progressDialog.hide();
+                            Log.d("hqq :" , String.valueOf(t));
+                            Toast.makeText(getActivity(), "Gagal memuat pesanan",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }else {
+            Toast.makeText(getActivity(), "Silahkan login terlebih dahulu",
+                    Toast.LENGTH_LONG).show();
+        }
+
     }
 }

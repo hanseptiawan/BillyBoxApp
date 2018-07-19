@@ -35,9 +35,9 @@ public class Profil extends Fragment {
     SessionManager sessionManager;
     TextView tv_name1, ttl, tv_nohp, tv_address, username, password;
     CircleImageView circleImageView;
-        ApiServices apiServices;
         ImageView iv_edit;
-//    ApiServicesLokal apiServices;
+//    ApiServices apiServices;
+    ApiServicesLokal apiServices;
 
     @Nullable
     @Override
@@ -115,9 +115,14 @@ public class Profil extends Fragment {
     }
 
     private void decode(String imgencoded) {
-        byte[] data = Base64.decode(imgencoded, Base64.DEFAULT);
-        Bitmap decodedbyte = BitmapFactory.decodeByteArray(data,0,data.length);
+        if (imgencoded != null){
+            Log.d("img base 64 : ", imgencoded);
+            byte[] data = Base64.decode(imgencoded, Base64.DEFAULT);
+            Bitmap decodedbyte = BitmapFactory.decodeByteArray(data,0,data.length);
 
-        circleImageView.setImageBitmap(decodedbyte);
+            circleImageView.setImageBitmap(decodedbyte);
+        }else {
+            Log.d("base64 null : ", "tidak ada string untuk decode");
+        }
     }
 }

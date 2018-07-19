@@ -37,8 +37,8 @@ public class Product extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     ProductAdapter productAdapter;
-    ApiServices apiServices;
-//    ApiServicesLokal apiServices;
+//    ApiServices apiServices;
+    ApiServicesLokal apiServices;
     ImageView iv_back;
 
     @Nullable
