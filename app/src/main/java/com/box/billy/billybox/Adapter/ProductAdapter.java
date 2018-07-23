@@ -121,6 +121,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                     .beginTransaction();
             Bundle bundle=new Bundle();
             bundle.putString("cartonId", cartonId); //key and value
+            Log.d( "Carton ID : ", cartonId);
             bundle.putString("namaItem", namaItem); //key and value
             bundle.putString("catID", catID); //key and value
             bundle.putString("stock", stock); //key and value

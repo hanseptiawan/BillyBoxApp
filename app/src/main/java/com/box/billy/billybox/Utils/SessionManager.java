@@ -22,6 +22,7 @@ public class SessionManager {
     int PRIVATE_MODE = 0;
     private static final String PREF_NAME = "Session";
     private static final String IS_LOGIN = "IsLoggedIn";
+    private static final String IS_ORDER = "IsOrderIn";
 
     public final String KEY_ID = "userID";
     public final String KEY_FNAME = "firstName";
@@ -71,11 +72,17 @@ public class SessionManager {
         Log.d(TAG, "User login session modified!");
     }
 
-    public void updateUserSession(String fname, String lname, String password){
+    public void updateUserSession(String fname, String lname,
+                                  String username, String password,
+                                  String alamat, String notelp,
+                                  String ttl){
         editor.putString(KEY_FNAME, fname);
         editor.putString(KEY_LNAME, lname);
+        editor.putString(KEY_USERNAME, username);
         editor.putString(KEY_PASSWORD, password);
-
+        editor.putString(KEY_ADDR, alamat);
+        editor.putString(KEY_PHONE, notelp);
+        editor.putString(KEY_TTL, ttl);
         editor.commit();
     }
 
@@ -126,6 +133,7 @@ public class SessionManager {
 
     public void createCartID(String cartID){
         //storing login value as true
+        editor.putBoolean(IS_ORDER, false);
         editor.putString(KEY_CARTID, cartID);
 
         editor.commit();
@@ -138,12 +146,28 @@ public class SessionManager {
 
         return cartID;
     }
+
+    public boolean orderCommit(String cartID){
+        if(!this.isOrderSend()){
+            deleteCartID(cartID);
+            return true;
+        }
+        return false;
+    }
+
     public void deleteCartID(String cartID){
         if (cartID != null){
             sharedPreferences.edit()
                     .remove(cartID)
                     .apply();
         }
+    }
+
+    public boolean checkOrderCommit(){
+        if(!this.isOrderSend()){
+            return false;
+        }
+        return true;
     }
 
     public void logoutUser(){
@@ -154,6 +178,10 @@ public class SessionManager {
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         _context.startActivity(i);
+    }
+
+    public boolean isOrderSend(){
+        return sharedPreferences.getBoolean(IS_LOGIN, false);
     }
 
     public boolean isLoggedIn(){

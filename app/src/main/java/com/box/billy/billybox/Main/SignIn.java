@@ -29,8 +29,8 @@ import retrofit2.Response;
 public class SignIn extends AppCompatActivity {
 
     SessionManager sessionManager;
-//        ApiServices apiServices;
-    ApiServicesLokal apiServices;
+        ApiServices apiServices;
+//    ApiServicesLokal apiServices;
     EditText et_username, et_password;
 
     @Override
@@ -73,7 +73,9 @@ public class SignIn extends AppCompatActivity {
         iv_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                Intent i = new Intent(getApplicationContext(), Main.class);
+                startActivity(i);
+                finish();
             }
         });
 
@@ -121,6 +123,7 @@ public class SignIn extends AppCompatActivity {
                                 String password = getUser2.getPassword();
                                 if (img != null){
                                     Log.d("img ,", img);
+
                                 }
                                 Log.d("userID : ", userid);
                                 Log.d("fnama : ", fnama);
@@ -157,7 +160,7 @@ public class SignIn extends AppCompatActivity {
                             Toast.makeText(SignIn.this, "Authentication Success",
                                     Toast.LENGTH_LONG).show();
                             Log.d("Respon",": "+response);
-                            Intent n = new Intent(getApplicationContext(), MainMember.class);
+                            Intent n = new Intent(SignIn.this, MainMember.class);
                             startActivity(n);
                             finish();
                         }

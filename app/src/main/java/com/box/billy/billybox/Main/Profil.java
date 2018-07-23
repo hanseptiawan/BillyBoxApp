@@ -36,8 +36,8 @@ public class Profil extends Fragment {
     TextView tv_name1, ttl, tv_nohp, tv_address, username, password;
     CircleImageView circleImageView;
         ImageView iv_edit;
-//    ApiServices apiServices;
-    ApiServicesLokal apiServices;
+    ApiServices apiServices;
+//    ApiServicesLokal apiServices;
 
     @Nullable
     @Override
@@ -58,6 +58,7 @@ public class Profil extends Fragment {
 
         HashMap<String, String> userinfo = sessionManager.getUserDetails();
         String imguser = userinfo.get(sessionManager.KEY_IMG);
+        Log.d("img dr session user :", imguser);
 
         if (imguser != null){
             Glide.with(getActivity().getApplicationContext())
@@ -70,7 +71,7 @@ public class Profil extends Fragment {
         else if (imguser == null){
             HashMap<String, String> imgsession = sessionManager.getImg();
             String a = imgsession.get(sessionManager.KEY_IMGBASE64);
-
+            Log.d("img dr session img :", a);
             decode(a);
         }
 

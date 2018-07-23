@@ -37,17 +37,20 @@ public interface ApiServices {
                             @Field("password") String password,
                             @Field("alamat") String alamat,
                             @Field("noTelp") String notelp,
-                            @Field("tglLahir") String tgllahir);
+                            @Field("tglLahir") String tglLahir);
 
-    @POST("/api/auth/user/id/{userId}")
+    @POST("/api/auth/user")
     @FormUrlEncoded
     Call<UpdateDataUser> updateDataUser(
-                                @Path("userId") String userId,
-                                @Field("firstName") String firstname,
-                                @Field("lastName") String lastname,
-                                @Field("imgSrc") String imgSrc,
-                                @Field("password") String password,
-                                @Field("tglLahir") String tgllahir);
+            @Field("firstName") String firstName,
+            @Field("lastName") String lastName,
+            @Field("imgSrc") String imgSrc,
+            @Field("username") String username,
+            @Field("password") String password,
+            @Field("alamat") String alamat,
+            @Field("noTelp") String noTelp,
+            @Field("tglLahir") String tglLahir,
+            @Field("userId") String userId);
 
     @POST("/api/Cart/addItem")
     @FormUrlEncoded

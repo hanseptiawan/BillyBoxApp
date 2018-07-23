@@ -38,8 +38,8 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
     private static final int TIME_INTERVAL = 2000;
     private long mBackpressed;
     private DrawerLayout drawerLayout;
-//        ApiServices apiServices;
-    ApiServicesLokal apiServices;
+        ApiServices apiServices;
+//    ApiServicesLokal apiServices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +63,17 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
         String userID = user.get(sessionManager.KEY_ID);
         String fname = user.get(sessionManager.KEY_FNAME);
         String lname = user.get(sessionManager.KEY_LNAME);
-        String name = fname + "" + lname;
+        String name = fname + " " + lname;
         Log.d(TAG, "onCreate: "+ userID);
 
-        getCart(userID);
+        if (sessionManager.checkOrderCommit()){
+            getCart(userID);
+        }else {
+            HashMap<String, String> cartID = sessionManager.getCartID();
+            String cartid = cartID.get(sessionManager.KEY_CARTID);
+
+            Log.d(TAG, "get old CartID from session : "+ cartid);
+        }
 
         if(userdisplay.getText() == ""){
             userdisplay.setText(name);

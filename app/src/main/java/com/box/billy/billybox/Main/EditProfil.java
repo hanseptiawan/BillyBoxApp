@@ -49,7 +49,7 @@ import retrofit2.Response;
 
 public class EditProfil extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
-    EditText et_fname, et_lname, et_address, et_ttl, et_nohp,
+    EditText et_fname, et_lname, et_address, et_ttl, et_nohp, et_nohp_holder,
             et_username, et_password1, et_password2;
     ImageView iv_upload, iv_date;
     Button btn_submit;
@@ -57,8 +57,8 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
     CircleImageView circleImageView;
     String userchosenTask;
     SessionManager sessionManager;
-//    ApiServices apiServices;
-    ApiServicesLokal apiServices;
+    ApiServices apiServices;
+//    ApiServicesLokal apiServices;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,11 +82,13 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
         iv_upload= findViewById(R.id.iv_upload);
         btn_submit = findViewById(R.id.btn_submit);
         circleImageView = findViewById(R.id.circular_profile2);
+        et_nohp_holder = findViewById(R.id.et_nohp_awal);
 
         HashMap<String, String> user = sessionManager.getUserDetails();
         String imguser = user.get(sessionManager.KEY_IMG);
 
         if (imguser != null){
+
             Glide.with(getApplicationContext())
                     .load(imguser)
                     .fitCenter()
@@ -112,15 +114,16 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
         et_fname.setText(fname);
         et_lname.setText(lname);
         et_ttl.setText(ttl);
+        et_nohp_holder.setEnabled(false);
+        et_ttl.setEnabled(false);
         et_nohp.setText(nohp);
-        et_nohp.setEnabled(false);
-        et_address.setEnabled(false);
+//        et_nohp.setEnabled(false);
+//        et_address.setEnabled(false);
         et_address.setText(address);
         et_username.setText(username);
         et_username.setEnabled(false);
         et_password1.setText(password);
 
-        et_ttl.setEnabled(false);
         iv_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,9 +145,12 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
             public void onClick(View view) {
                 String fname = et_fname.getText().toString().trim();
                 String lname = et_lname.getText().toString().trim();
-                String ttl = et_ttl.getText().toString().trim();
+                String username = et_username.getText().toString().trim();
                 String password1 = et_password1.getText().toString().trim();
                 String password2 = et_password2.getText().toString().trim();
+                String alamat = et_address.getText().toString();
+                String notelp = et_nohp.getText().toString();
+                String ttl = et_ttl.getText().toString();
 
                 HashMap<String, String> user = sessionManager.getUserDetails();
                 String userID = user.get(sessionManager.KEY_ID);
@@ -154,8 +160,9 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
                 HashMap<String, String> img = sessionManager.getImg();
                 String imgencoded = img.get(sessionManager.KEY_IMGBASE64);
 
-                if (validation(fname, lname,password1, password2)){
-                    updateprofile(userID,fname, lname,password2, imgencoded);
+                if (validation(fname, lname,password1, password2, alamat, notelp)){
+                    updateprofile(userID,fname,lname, imgencoded,username,
+                            password2,alamat,notelp,ttl);
                 }
             }
         });
@@ -187,7 +194,6 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
         });
         builder.show();
     }
-
     private void cameraIntent() {
         Intent take = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (take.resolveActivity(getPackageManager())!=null)
@@ -266,7 +272,8 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
         sessionManager.createImg(imageEncoded);
     }
 
-    private boolean validation(String fname, String lname, String password1, String password2) {
+    private boolean validation(String fname, String lname, String password1, String password2,
+                               String alamat, String notelp) {
         if (fname == null || fname.trim().length() == 0){
             Toast.makeText(EditProfil.this, "Silahkan isi nama depan anda",
                     Toast.LENGTH_LONG).show();
@@ -303,20 +310,36 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
             return false;
 
         }
+        else if(alamat == null || alamat.trim().length() == 0){
+            Toast.makeText(EditProfil.this, "Silahkan isi alamat anda",
+                    Toast.LENGTH_LONG).show();
+            et_address.setFocusable(true);
+            return false;
+        }
+        else if(notelp == null || notelp.trim().length() == 0){
+            Toast.makeText(EditProfil.this, "Silahkan isi nomor telepon anda",
+                    Toast.LENGTH_LONG).show();
+            et_nohp.setFocusable(true);
+            return false;
+        }
         return true;
     }
 
-    private void updateprofile(String muserID, final String mfname, final String mlname,
-                               final String mpassword, String mimg) {
-        Log.d("update session : ", muserID+mfname+mlname+mpassword+mimg);
-            apiServices.updateDataUser(mfname, mlname, mimg, mpassword,muserID)
+    private void updateprofile(String userID, final String fname, final String lname, String imgencoded,
+                               final String username, final String password, final String alamat, final String notelp,
+                               final String ttl) {
+        Log.d("data parameter : ", userID+fname+lname+imgencoded+username+password+alamat
+        +notelp+ttl);
+
+            apiServices.updateDataUser(fname, lname, imgencoded,
+                    username, password,alamat, notelp, ttl,userID)
                     .enqueue(new Callback<UpdateDataUser>() {
                         @Override
                         public void onResponse(Call<UpdateDataUser> call, Response<UpdateDataUser> response) {
                             if (response.isSuccessful()){
                                 Log.d("response : ", String.valueOf(response));
-                            sessionManager.updateUserSession(mfname,mlname,mpassword);
-                            Log.d("update session : ", mfname+mlname+mpassword);
+                                sessionManager.updateUserSession(fname,lname,username,password,alamat,notelp,ttl);
+                                Log.d("update session : ", fname+lname+username+password+alamat+notelp+ttl);
 
                                 Toast.makeText(EditProfil.this, "Update profil sukses",
                                         Toast.LENGTH_SHORT).show();
@@ -327,6 +350,8 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
 
                         @Override
                         public void onFailure(Call<UpdateDataUser> call, Throwable t) {
+                            Log.d("call : ", String.valueOf(call));
+                            Log.d("throwable : ", String.valueOf(t));
                             Toast.makeText(EditProfil.this, "Update profil gagal",
                                     Toast.LENGTH_SHORT).show();
                         }

@@ -2,6 +2,7 @@ package com.box.billy.billybox.Main;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,8 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.box.billy.billybox.Adapter.CartAdapter;
+import com.box.billy.billybox.Main.Order.OrderCheckout;
 import com.box.billy.billybox.Model.GetCart;
 import com.box.billy.billybox.Model.GetCartResponse;
+import com.box.billy.billybox.Rest.ApiServices;
 import com.box.billy.billybox.Rest.ApiServicesLokal;
 import com.box.billy.billybox.Rest.ApiUtils;
 import com.box.billy.billybox.Utils.SessionManager;
@@ -41,8 +44,8 @@ public class Keranjang extends Fragment {
     ProgressDialog progressDialog;
     RecyclerView.LayoutManager layoutManager;
     CartAdapter cartAdapter;
-//    ApiServices apiServices;
-    ApiServicesLokal apiServices;
+    ApiServices apiServices;
+//    ApiServicesLokal apiServices;
     SessionManager sessionManager;
 
     @Nullable
@@ -58,7 +61,7 @@ public class Keranjang extends Fragment {
         recyclerView = view.findViewById(R.id.recycle_view_keranjang);
 
         HashMap<String, String> cartID = sessionManager.getCartID();
-        String cartid = cartID.get(sessionManager.KEY_CARTID);
+        final String cartid = cartID.get(sessionManager.KEY_CARTID);
         if (cartid != null){
             tv_cartID.setText(cartid);
         } else {
@@ -74,6 +77,15 @@ public class Keranjang extends Fragment {
         recyclerView.setAdapter(cartAdapter);
 
         getCartList(cartid);
+
+        btn_checkOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent a = new Intent(getActivity().getApplicationContext(), OrderCheckout.class);
+                a.putExtra("cartid",cartid);
+                startActivity(a);
+            }
+        });
 
         return view;
     }

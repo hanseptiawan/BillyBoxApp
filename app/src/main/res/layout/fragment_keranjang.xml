@@ -32,10 +32,39 @@
         android:layout_marginTop="5dp"
         android:layout_below="@id/tvid"
         android:scrollbars="vertical"
-        android:layout_marginBottom="47dp"
+        android:layout_marginBottom="93dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_above="@id/btn_checkout"
+        android:background="@android:color/white"
+        android:elevation="3dp">
+
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="8dp"
+            android:text="Total Pembayaran :"
+            android:textSize="16sp"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="15dp"
+            android:text="Rp 60.000,-"
+            android:textSize="18sp"
+            android:textColor="@color/colorAccent"
+            android:layout_alignParentEnd="true"
+            android:gravity="center_vertical"/>
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btn_checkout"
@@ -43,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/colorAccent"
-        android:text="Checkout"
+        android:text="Lanjutkan"
         android:textColor="@color/menu_text"/>
 
 </RelativeLayout>

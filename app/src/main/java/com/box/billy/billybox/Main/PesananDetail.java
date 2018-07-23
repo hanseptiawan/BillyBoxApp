@@ -37,8 +37,8 @@ import retrofit2.Response;
 
 public class PesananDetail extends Fragment {
 
-//        ApiServices apiServices;
-    ApiServicesLokal apiServices;
+        ApiServices apiServices;
+//    ApiServicesLokal apiServices;
     TextView tv_orderid, tv_tglpesan,
                 tv_totalbiaya, tv_ongkir, tv_total,
                 tv_bayar, tv_tanggungan;

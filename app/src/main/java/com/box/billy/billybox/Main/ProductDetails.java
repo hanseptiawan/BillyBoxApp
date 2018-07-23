@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.box.billy.billybox.Model.AddCartItem;
+import com.box.billy.billybox.Rest.ApiServices;
 import com.box.billy.billybox.Rest.ApiServicesLokal;
 import com.box.billy.billybox.Rest.ApiUtils;
 import com.box.billy.billybox.Utils.SessionManager;
@@ -35,8 +36,8 @@ public class ProductDetails extends Fragment{
     Button btn_addkeranjang;
     ImageView iv_img, iv_back;
     SessionManager sessionManager;
-//    ApiServices apiServices;
-    ApiServicesLokal apiServices;
+    ApiServices apiServices;
+//    ApiServicesLokal apiServices;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detailproducts, container, false);
@@ -57,8 +58,12 @@ public class ProductDetails extends Fragment{
         sessionManager.checkAuthorization();
         apiServices = ApiUtils.getApiServices();
 
+        HashMap<String, String> cartID = sessionManager.getCartID();
+        String cartid = cartID.get(sessionManager.KEY_CARTID);
+
         if(getArguments() != null){
-            String cartonID = getArguments().getString("cartonID");
+            String cartonID = getArguments().getString("cartonId");
+            Log.d("Carton ID ", cartonID);
             String namaItem = getArguments().getString("namaItem");
             String catID = getArguments().getString("catID");
             String stock = getArguments().getString("stock");
@@ -103,11 +108,15 @@ public class ProductDetails extends Fragment{
 
         });
 
+        final String catID = getArguments().getString("catID");
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 Product product = new Product();
+                Bundle bundle = new Bundle();
+                bundle.putString("catID", catID);
+
                 fragmentTransaction.replace(R.id.fragment_container, product, "product");
                 fragmentTransaction.addToBackStack("product");
                 fragmentTransaction.commit();
@@ -118,16 +127,19 @@ public class ProductDetails extends Fragment{
     }
 
     private void addtoCart(String mid, String mjumlah, String mharga, String mcartid) {
-        apiServices.addItem(mid, mjumlah, mharga, mid)
+        Log.d("parameter order : ", mid+mjumlah+mharga+mcartid);
+        apiServices.addItem(mid, mjumlah, mharga, mcartid)
                 .enqueue(new Callback<AddCartItem>() {
                     @Override
                     public void onResponse(Call<AddCartItem> call, Response<AddCartItem> response) {
+                        Log.d("parameter order : ", String.valueOf(response));
                         Toast.makeText(getActivity(), "Berhasil menambahkan ke keranjang",
                                 Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<AddCartItem> call, Throwable t) {
+                        Log.d("parameter order : ", String.valueOf(t));
                         Toast.makeText(getActivity(), "Gagal menambahkan ke keranjang, " +t,
                                 Toast.LENGTH_SHORT).show();
                     }
@@ -144,8 +156,10 @@ public class ProductDetails extends Fragment{
         }
         else {
             if (!sessionManager.checkAuthorization()) {
+                et_jumlah.setVisibility(View.VISIBLE);
                 btn_addkeranjang.setVisibility(View.VISIBLE);
             } else {
+                et_jumlah.setVisibility(View.INVISIBLE);
                 btn_addkeranjang.setVisibility(View.INVISIBLE);
             }
         }

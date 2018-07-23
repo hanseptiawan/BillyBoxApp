@@ -30,9 +30,9 @@ import retrofit2.Response;
 
 public class SignUp extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-//        ApiServices apiServices;
-    ApiServicesLokal apiServices;
-    EditText et_fname, et_lname, et_addr, et_ttl,
+        ApiServices apiServices;
+//    ApiServicesLokal apiServices;
+    EditText et_fname, et_lname, et_addr, et_ttl, et_nohpholder,
     et_nohp, et_username, et_password1, et_password2;
     ImageView iv_date;
 
@@ -42,6 +42,7 @@ public class SignUp extends AppCompatActivity implements DatePickerDialog.OnDate
         setContentView(R.layout.activity_signup);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        apiServices = ApiUtils.getApiServices();
 
         et_fname = findViewById(R.id.et_fname);
         et_lname = findViewById(R.id.et_lname);
@@ -52,7 +53,9 @@ public class SignUp extends AppCompatActivity implements DatePickerDialog.OnDate
         et_password1 = findViewById(R.id.et_password_signup1);
         et_password2 = findViewById(R.id.et_password_signup2);
         iv_date = findViewById(R.id.iv_date);
+        et_nohpholder = findViewById(R.id.et_nohp_awal);
 
+        et_nohpholder.setEnabled(false);
         et_ttl.setEnabled(false);
         iv_date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,8 +69,6 @@ public class SignUp extends AppCompatActivity implements DatePickerDialog.OnDate
         TextView tv_signin = findViewById(R.id.tv_signin);
         ImageView iv_back = findViewById(R.id.img_back);
 
-        apiServices = ApiUtils.getApiServices();
-
         et_fname.setFocusable(true);
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,16 +77,15 @@ public class SignUp extends AppCompatActivity implements DatePickerDialog.OnDate
                 String lname = et_lname.getText().toString().trim();
                 String address = et_addr.getText().toString().trim();
                 String ttl = et_ttl.getText().toString().trim();
-                String nohp = et_nohp.getText().toString().trim();
+                String nohp = et_nohpholder.getText().toString().trim() + et_nohp.getText().toString().trim();
                 String username = et_username.getText().toString().trim();
                 String password1 = et_password1.getText().toString().trim();
                 String password2 = et_password2.getText().toString().trim();
 
-
                 if(Validation(fname, lname, username, password1,
-                        password2, address, nohp, ttl)){
+                        password2, address, nohp,ttl)){
                     authentication(fname,lname,username,password2,
-                            address,nohp,ttl);
+                            address,nohp, ttl);
                 }
             }
         });
@@ -107,7 +107,7 @@ public class SignUp extends AppCompatActivity implements DatePickerDialog.OnDate
     }
 
     private boolean Validation(String fname,String lname,String username,String password1,
-                               String password2,String address,String nohp,String ttl){
+                               String password2,String address,String nohp, String ttl){
         if (fname == null || fname.trim().length() == 0){
             Toast.makeText(SignUp.this, "Silahkan isi nama depan anda",
                     Toast.LENGTH_LONG).show();
@@ -175,26 +175,21 @@ public class SignUp extends AppCompatActivity implements DatePickerDialog.OnDate
     }
 
     public void authentication(final String fname, final String lname, final String username, final String password2,
-                               final String address, final String nohp, final String ttl){
-        Log.e("Isi",address+nohp+ttl);
+                               final String address, final String nohp, String ttl){
+        Log.e("Isi",fname+lname+username+password2+address+nohp+ttl);
         apiServices.signUp(fname,lname,username,password2,address,nohp,ttl)
                 .enqueue(new Callback<AuthSignUp>() {
                     @Override
                     public void onResponse(Call<AuthSignUp> call, Response<AuthSignUp> response) {
                         Log.e("Call",""+call);
-                        if(response.isSuccessful()){
-                            Toast.makeText(SignUp.this, "Pendaftaran Berhasil",
+                            Toast.makeText(SignUp.this, "Sign Up Success",
                                     Toast.LENGTH_LONG).show();
                             Log.d("respon", " : "+ response);
-                            Intent n = new Intent(getApplicationContext(), SignIn.class);
-                            startActivity(n);
-                            finish();
-                        }
+                            onBackPressed();
                     }
-
                     @Override
                     public void onFailure(Call<AuthSignUp> call, Throwable t) {
-                        Toast.makeText(SignUp.this, "Connection Failure, please check your connection" + t,
+                        Toast.makeText(SignUp.this, "Connection Failure, please check your connection " + t,
                                 Toast.LENGTH_LONG).show();
 
                         et_fname.setFocusable(true);

@@ -36,8 +36,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private List<GetCart> getProducts;
     private LayoutInflater layoutInflater;
     private Context context;
-//    ApiServices apiServices;
-    ApiServicesLokal apiServices;
+    ApiServices apiServices;
+//    ApiServicesLokal apiServices;
 
     public CartAdapter(Context context) {
         this.getProducts = new ArrayList<>();

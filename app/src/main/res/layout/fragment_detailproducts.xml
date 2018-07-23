@@ -27,8 +27,9 @@
         android:id="@+id/frame_content"
         android:layout_width="340dp"
         android:layout_below="@id/iv_back"
-        android:layout_height="510dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:paddingBottom="15dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/frame_rounded"
         android:elevation="4dp">
@@ -39,19 +40,22 @@
             android:layout_height="160dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            android:background="@color/greyback"/>
+            android:background="@android:color/white"/>
 
         <TextView
             android:id="@+id/tv_nama"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_product"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:textAllCaps="true"
             android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal|center_vertical"
             android:text="Nama product"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:maxLines="2"
+            android:lines="2"
             />
 
         <TableLayout
@@ -78,11 +82,12 @@
 
                 <TextView
                     android:id="@+id/tv_cartonid2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle=""
                     android:text="CAR-1111"
                     android:textSize="14sp"
+                    android:lines="2"
+                    android:maxLines="2"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="60dp"/>
             </TableRow>

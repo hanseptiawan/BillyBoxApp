@@ -42,14 +42,14 @@ public interface ApiServicesLokal {
                             @Field("noTelp") String notelp,
                             @Field("tglLahir") String tgllahir);
 
-    @POST("api/auth/user/id/{userId}")
+    @POST("api/auth/user/")
     @FormUrlEncoded
     Call<UpdateDataUser> updateDataUser(
-            @Path("userId") String userId,
             @Field("firstName") String firstname,
             @Field("lastName") String lastname,
             @Field("imgSrc") String imgSrc,
-            @Field("password") String password);
+            @Field("password") String password,
+            @Field("userId") String userId);
 
     @POST("api/Cart/addItem")
     @FormUrlEncoded

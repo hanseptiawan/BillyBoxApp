@@ -45,8 +45,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="120"
+                    android:paddingEnd="5dp"
+                    android:textAlignment="textEnd"
                     android:textColor="@color/menu_text"
-                    android:gravity="end"
+                    android:gravity="end|fill_horizontal"
                     android:textSize="12sp"/>
             </FrameLayout>
             <FrameLayout
@@ -57,7 +59,6 @@
                 android:paddingEnd="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/tv_rounded2">
                 <TextView
@@ -65,8 +66,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Rp 5000,-"
+                    android:paddingEnd="5dp"
+                    android:textAlignment="textEnd"
                     android:textColor="@color/menu_text"
-                    android:gravity="end"
+                    android:gravity="end|fill_horizontal"
                     android:textSize="12sp"/>
             </FrameLayout>
 

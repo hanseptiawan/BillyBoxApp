@@ -36,8 +36,8 @@ public class Pesanan extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     PesananAdapter pesananAdapter;
-//    ApiServices apiServices;
-    ApiServicesLokal apiServices;
+    ApiServices apiServices;
+//    ApiServicesLokal apiServices;
     ProgressDialog progressDialog;
 
     @Nullable
