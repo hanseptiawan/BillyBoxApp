@@ -165,9 +165,9 @@ public class SessionManager {
 
     public boolean checkOrderCommit(){
         if(!this.isOrderSend()){
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     public void logoutUser(){

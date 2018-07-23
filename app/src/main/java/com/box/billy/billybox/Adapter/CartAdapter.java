@@ -66,23 +66,26 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public void onBindViewHolder(CartAdapter.ViewHolder holder, int position) {
         holder.tv_namaproduct.setText(getProducts.get(position).getNamaItem());
         holder.tv_productid.setText(getProducts.get(position).getItemId());
-        holder.tv_hargatotal.setText(getProducts.get(position).getHarga());
+        int harga = Integer.parseInt(getProducts.get(position).getHarga());
+        int jumlah = Integer.parseInt(getProducts.get(position).getJumlah());
+        int total = harga * jumlah;
+        holder.tv_hargatotal.setText(Integer.toString(total));
         holder.et_jumlah.setText(getProducts.get(position).getJumlah());
 
-        int price = Integer.parseInt(getProducts.get(position).getHarga());
+//        int count = getItemCount();
+//        Log.d("Count item : ", String.valueOf(count));
+
+//        totalpay(total);
+    }
+
+    private void totalpay(Integer total) {
+        int price = total;
         int count = getItemCount();
+        int tsum = 0;
+        for (int i = 0; i > count; i++){
+            tsum = tsum + price;
 
-        if(add){
-            sum = sum + price;
-            add = false;
-        }
-//        Log.d("total pay : ", String.valueOf(sum));
-
-        for (int i = 0; i < count; i++){
-            int tsum = 0;
-            int tpsum = tsum + price;
-
-            Log.d("total pay : ", String.valueOf(tpsum));
+            Log.d("total pay : ", String.valueOf(tsum));
         }
     }
 

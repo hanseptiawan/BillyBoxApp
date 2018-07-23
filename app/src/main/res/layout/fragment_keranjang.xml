@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="15dp"
-            android:text="Rp 60.000,-"
+            android:text="total goes here"
             android:textSize="18sp"
             android:textColor="@color/colorAccent"
             android:layout_alignParentEnd="true"
