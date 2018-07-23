@@ -3,6 +3,7 @@ package com.box.billy.billybox.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private LayoutInflater layoutInflater;
     private Context context;
     ApiServices apiServices;
+    private int sum = 0;
+    private static boolean add = true;
 //    ApiServicesLokal apiServices;
 
     public CartAdapter(Context context) {
@@ -65,6 +68,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.tv_productid.setText(getProducts.get(position).getItemId());
         holder.tv_hargatotal.setText(getProducts.get(position).getHarga());
         holder.et_jumlah.setText(getProducts.get(position).getJumlah());
+
+        int price = Integer.parseInt(getProducts.get(position).getHarga());
+        int count = getItemCount();
+
+        if(add){
+            sum = sum + price;
+            add = false;
+        }
+//        Log.d("total pay : ", String.valueOf(sum));
+
+        for (int i = 0; i < count; i++){
+            int tsum = 0;
+            int tpsum = tsum + price;
+
+            Log.d("total pay : ", String.valueOf(tpsum));
+        }
     }
 
     @Override
