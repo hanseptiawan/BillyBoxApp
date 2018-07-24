@@ -1,10 +1,13 @@
 package com.box.billy.billybox.Model;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GetCartResponse {
+/**
+ * Created by han on 7/25/2018.
+ */
+
+public class PostOrder {
 
     @SerializedName("status")
     @Expose
@@ -12,21 +15,9 @@ public class GetCartResponse {
     @SerializedName("code")
     @Expose
     private Integer code;
-    @SerializedName("dataBody")
+    @SerializedName("message")
     @Expose
-    private List<GetCart> dataBody = null;
-
-    @SerializedName("subTotal")
-    @Expose
-    private Integer subTotal;
-
-    public Integer getSubTotal() {
-        return subTotal;
-    }
-
-    public void setSubTotal(Integer subTotal) {
-        this.subTotal = subTotal;
-    }
+    private String message;
 
     public String getStatus() {
         return status;
@@ -44,12 +35,12 @@ public class GetCartResponse {
         this.code = code;
     }
 
-    public List<GetCart> getDataBody() {
-        return dataBody;
+    public String getMessage() {
+        return message;
     }
 
-    public void setDataBody(List<GetCart> dataBody) {
-        this.dataBody = dataBody;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }

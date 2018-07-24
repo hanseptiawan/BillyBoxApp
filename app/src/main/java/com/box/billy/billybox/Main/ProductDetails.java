@@ -63,7 +63,6 @@ public class ProductDetails extends Fragment{
 
         if(getArguments() != null){
             String cartonID = getArguments().getString("cartonId");
-            Log.d("Carton ID ", cartonID);
             String namaItem = getArguments().getString("namaItem");
             String catID = getArguments().getString("catID");
             String stock = getArguments().getString("stock");
@@ -71,7 +70,6 @@ public class ProductDetails extends Fragment{
             String ukuran = getArguments().getString("ukuran");
             String grametur = getArguments().getString("grametur");
             String img = getArguments().getString("img");
-            Log.d("imgurl : ", img);
             String namacat = getArguments().getString("namacat");
 
             tv_nama.setText(namaItem);
@@ -97,13 +95,15 @@ public class ProductDetails extends Fragment{
             public void onClick(View view) {
                 HashMap<String, String> cartID = sessionManager.getCartID();
                 String cartid = cartID.get(sessionManager.KEY_CARTID);
+
                 String id = tv_cartonid.getText().toString();
                 String harga = tv_harga.getText().toString();
                 String jumlah = et_jumlah.getText().toString();
+                Log.d("cartid : ", cartid);
+//                    if (cartID != null){
 
-                    if (cartID != null){
-                        addtoCart(id,jumlah,harga,cartid);
-                    }
+                addtoCart(id,jumlah,harga,cartid);
+//                    }
             }
 
         });
@@ -117,6 +117,7 @@ public class ProductDetails extends Fragment{
                 Bundle bundle = new Bundle();
                 bundle.putString("catID", catID);
 
+                product.setArguments(bundle);
                 fragmentTransaction.replace(R.id.fragment_container, product, "product");
                 fragmentTransaction.addToBackStack("product");
                 fragmentTransaction.commit();
@@ -127,19 +128,19 @@ public class ProductDetails extends Fragment{
     }
 
     private void addtoCart(String mid, String mjumlah, String mharga, String mcartid) {
-        Log.d("parameter order : ", mid+mjumlah+mharga+mcartid);
+        Log.d("parameter order : ", mid+" "+mjumlah+" "+mharga+" "+mcartid);
         apiServices.addItem(mid, mjumlah, mharga, mcartid)
                 .enqueue(new Callback<AddCartItem>() {
                     @Override
                     public void onResponse(Call<AddCartItem> call, Response<AddCartItem> response) {
-                        Log.d("parameter order : ", String.valueOf(response));
+                        Log.d("response : ", String.valueOf(response));
                         Toast.makeText(getActivity(), "Berhasil menambahkan ke keranjang",
                                 Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<AddCartItem> call, Throwable t) {
-                        Log.d("parameter order : ", String.valueOf(t));
+                        Log.d("response failure : ", String.valueOf(t));
                         Toast.makeText(getActivity(), "Gagal menambahkan ke keranjang, " +t,
                                 Toast.LENGTH_SHORT).show();
                     }

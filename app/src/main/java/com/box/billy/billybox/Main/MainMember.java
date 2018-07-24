@@ -66,12 +66,15 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
         String name = fname + " " + lname;
         Log.d(TAG, "onCreate: "+ userID);
 
-        if (sessionManager.checkOrderCommit()){
+        if (!sessionManager.checkOrderCommit()){
             getCart(userID);
         }else {
             HashMap<String, String> cartID = sessionManager.getCartID();
             String cartid = cartID.get(sessionManager.KEY_CARTID);
-
+            if (cartid == null){
+                getCart(userID);
+                Log.d("request new cart ID :", "because cart ID null");
+            }
             Log.d(TAG, "get old CartID from session : "+ cartid);
         }
 

@@ -15,7 +15,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.box.billy.billybox.Model.DataBodyUser;
+import com.box.billy.billybox.Model.GetUser2;
+import com.box.billy.billybox.Model.GetUserResponse2;
 import com.box.billy.billybox.Rest.ApiServicesLokal;
 import com.box.billy.billybox.Utils.SessionManager;
 import com.box.billy.billybox.R;
@@ -27,6 +31,9 @@ import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -60,59 +67,68 @@ public class Profil extends Fragment {
         String imguser = userinfo.get(sessionManager.KEY_IMG);
         Log.d("img dr session user :", imguser);
 
-        if (imguser != null){
-            Glide.with(getActivity().getApplicationContext())
-                    .load(imguser)
-                    .fitCenter()
-                    .placeholder(R.drawable.ic_noimg)
-                    .error(R.drawable.ic_broken_image)
-                    .into(circleImageView);
-        }
-        else if (imguser == null){
+        if (imguser == null){
             HashMap<String, String> imgsession = sessionManager.getImg();
             String a = imgsession.get(sessionManager.KEY_IMGBASE64);
             Log.d("img dr session img :", a);
             decode(a);
+        } else {
+            Log.d("img session", "img blm ada");
         }
 
-        HashMap<String, String> user = sessionManager.getUserDetails();
-        final String userID = user.get(sessionManager.KEY_ID);
-        final String fname = user.get(sessionManager.KEY_FNAME);
-        final String lname = user.get(sessionManager.KEY_LNAME);
-        String username_key = user.get(sessionManager.KEY_USERNAME);
-        String password_key = user.get(sessionManager.KEY_PASSWORD);
-        String address = user.get(sessionManager.KEY_ADDR);
-        String phone = user.get(sessionManager.KEY_PHONE);
-        String ttl_key = user.get(sessionManager.KEY_TTL);
+        final HashMap<String, String> user = sessionManager.getUserDetails();
+        final String username = user.get(sessionManager.KEY_USERNAME);
 
-        //implemen ke layout
-        String name = fname + " " + lname;
-
-        tv_name1.setText(name);
-        tv_name1.setAllCaps(true);
-        ttl.setText(ttl_key);
-        tv_nohp.setText(phone);
-        tv_address.setText(address);
-        username.setText(username_key);
-        password.setText(password_key);
+        getUser(username);
 
         iv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent n = new Intent (getContext(), EditProfil.class);
-                n.putExtra("fname", userID);
-                n.putExtra("fname", fname);
-                n.putExtra("lname", lname);
-                n.putExtra("ttl", ttl.getText().toString());
-                n.putExtra("nohp", tv_nohp.getText().toString());
-                n.putExtra("address", tv_address.getText().toString());
-                n.putExtra("username", username.getText().toString());
-                n.putExtra("password", password.getText().toString());
+                n.putExtra("username", username);
                 startActivity(n);
             }
         });
 
         return view;
+    }
+
+    private void getUser(String musername) {
+        Log.d("perimeter user id : ", musername);
+        apiServices.getUserbyID(musername)
+                .enqueue(new Callback<GetUserResponse2>() {
+                    @Override
+                    public void onResponse(Call<GetUserResponse2> call, Response<GetUserResponse2> response) {
+                        if (response.body() != null){
+                            DataBodyUser dataBodyUser = response.body().getDataBody();
+                            GetUser2 getUser2 = dataBodyUser.get0();
+                            String fname = getUser2.getNamaDepan();
+                            String lname = getUser2.getNamaBelakang();
+
+                            String name = fname + " " + lname;
+
+                            tv_name1.setText(name);
+                            tv_name1.setAllCaps(true);
+                            ttl.setText(getUser2.getTglLahir());
+                            tv_nohp.setText(getUser2.getNoTelp());
+                            tv_address.setText(getUser2.getAlamat());
+                            username.setText(getUser2.getUsername());
+                            password.setText(getUser2.getPassword());
+
+                            Glide.with(getActivity().getApplicationContext())
+                                    .load(getUser2.getMediaUrl())
+                                    .fitCenter()
+                                    .placeholder(R.drawable.ic_noimg)
+                                    .error(R.drawable.ic_broken_image)
+                                    .into(circleImageView);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetUserResponse2> call, Throwable t) {
+
+                    }
+                });
     }
 
     private void decode(String imgencoded) {

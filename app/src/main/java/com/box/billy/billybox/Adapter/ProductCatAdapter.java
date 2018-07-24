@@ -91,7 +91,7 @@ public class ProductCatAdapter extends RecyclerView.Adapter<ProductCatAdapter.Vi
                     .getSupportFragmentManager()
                     .beginTransaction();
             Bundle bundle=new Bundle();
-            bundle.putString("catid", id); //key and value
+            bundle.putString("catID", id); //key and value
             bundle.putString("catname", nama); //key and value
             fragment.setArguments(bundle);
             fragmentManager.replace(R.id.fragment_container, fragment);

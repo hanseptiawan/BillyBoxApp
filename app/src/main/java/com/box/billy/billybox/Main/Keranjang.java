@@ -10,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.box.billy.billybox.Rest.ApiUtils;
 import com.box.billy.billybox.Utils.SessionManager;
 import com.box.billy.billybox.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,13 +40,14 @@ public class Keranjang extends Fragment {
 
     public static final String ARG_ITEM_ID = "product_list";
 
-    TextView tv_cartID;
+    TextView tv_cartID, totalpayment;
     Button btn_checkOut;
     RecyclerView recyclerView;
     ProgressDialog progressDialog;
     RecyclerView.LayoutManager layoutManager;
     CartAdapter cartAdapter;
     ApiServices apiServices;
+    List<GetCart> getCarts;
 //    ApiServicesLokal apiServices;
     SessionManager sessionManager;
 
@@ -59,9 +62,11 @@ public class Keranjang extends Fragment {
         tv_cartID = view.findViewById(R.id.tv_cartid);
         btn_checkOut = view.findViewById(R.id.btn_checkout);
         recyclerView = view.findViewById(R.id.recycle_view_keranjang);
+        totalpayment = view.findViewById(R.id.tv_totalpayment);
 
         HashMap<String, String> cartID = sessionManager.getCartID();
         final String cartid = cartID.get(sessionManager.KEY_CARTID);
+        Log.d("cartid : ", cartid);
         if (cartid != null){
             tv_cartID.setText(cartid);
         } else {
@@ -81,8 +86,10 @@ public class Keranjang extends Fragment {
         btn_checkOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent a = new Intent(getActivity().getApplicationContext(), OrderCheckout.class);
                 a.putExtra("cartid",cartid);
+                a.putExtra("totalpayment", totalpayment.getText());
                 startActivity(a);
             }
         });
@@ -107,6 +114,9 @@ public class Keranjang extends Fragment {
                                 Toast.makeText(getActivity(), "Keranjang kosong, silahkan pesan terlebih dahulu",
                                         Toast.LENGTH_LONG).show();
                             }
+
+                            int getTotal = response.body().getSubTotal();
+                            totalpayment.setText(String.valueOf(getTotal));
                         }
 
                         @Override
@@ -120,6 +130,5 @@ public class Keranjang extends Fragment {
             Toast.makeText(getActivity(), "silahkan login terlebih dahulu",
                     Toast.LENGTH_LONG).show();
         }
-
     }
 }

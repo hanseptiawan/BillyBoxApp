@@ -69,24 +69,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         int harga = Integer.parseInt(getProducts.get(position).getHarga());
         int jumlah = Integer.parseInt(getProducts.get(position).getJumlah());
         int total = harga * jumlah;
-        holder.tv_hargatotal.setText(Integer.toString(total));
+        holder.tv_hargatotal.setText("Rp. " + Integer.toString(total) + ",-");
         holder.et_jumlah.setText(getProducts.get(position).getJumlah());
-
-//        int count = getItemCount();
-//        Log.d("Count item : ", String.valueOf(count));
-
-//        totalpay(total);
-    }
-
-    private void totalpay(Integer total) {
-        int price = total;
-        int count = getItemCount();
-        int tsum = 0;
-        for (int i = 0; i > count; i++){
-            tsum = tsum + price;
-
-            Log.d("total pay : ", String.valueOf(tsum));
-        }
     }
 
     @Override
@@ -109,6 +93,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             tv_productid = itemView.findViewById(R.id.tv_productid);
             tv_hargatotal = itemView.findViewById(R.id.tv_hargatotal);
             et_jumlah = itemView.findViewById(R.id.et_jumlah);
+            et_jumlah.setFocusable(false);
+            et_jumlah.setEnabled(false);
 
             iv_delete.setOnClickListener(this);
         }

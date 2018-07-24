@@ -103,11 +103,14 @@ public class PesananDetail extends Fragment {
                         if(response.body() != null){
                             DataBodyPesanan dataBodyPesanan = response.body().getDataBody();
                             GetPesananDetail getPesananDetail = dataBodyPesanan.get0();
-
                             tv_tglpesan.setText(getPesananDetail.getCreatedAt());
                             tv_totalbiaya.setText(getPesananDetail.getTotalHarga());
 //                            tv_ongkir.setText(getPesananDetail.);
 //                            tv_bayar.setText(getPesananDetail.);
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "pesanan kosong, silahkan pesan terlebih dahulu",
+                                    Toast.LENGTH_LONG).show();
                         }
 
                     }

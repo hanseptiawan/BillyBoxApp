@@ -23,6 +23,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.box.billy.billybox.Model.DataBodyUser;
+import com.box.billy.billybox.Model.GetUser2;
+import com.box.billy.billybox.Model.GetUserResponse2;
 import com.box.billy.billybox.Model.UpdateDataUser;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
@@ -87,42 +90,18 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
         HashMap<String, String> user = sessionManager.getUserDetails();
         String imguser = user.get(sessionManager.KEY_IMG);
 
-        if (imguser != null){
-
-            Glide.with(getApplicationContext())
-                    .load(imguser)
-                    .fitCenter()
-                    .placeholder(R.drawable.ic_noimg)
-                    .error(R.drawable.ic_broken_image)
-                    .into(circleImageView);
-        }
-        else if (imguser == null){
+        if (imguser == null){
             HashMap<String, String> imgsession = sessionManager.getImg();
             String a = imgsession.get(sessionManager.KEY_IMGBASE64);
-
+            Log.d("img dr session img :", a);
             decode(a);
+        } else {
+            Log.d("img session", "img blm ada");
         }
 
-        String fname = getIntent().getStringExtra("fname");
-        String lname = getIntent().getStringExtra("lname");
-        String ttl = getIntent().getStringExtra("ttl");
-        String nohp = getIntent().getStringExtra("nohp");
-        String address = getIntent().getStringExtra("address");
         String username = getIntent().getStringExtra("username");
-        String password = getIntent().getStringExtra("password");
 
-        et_fname.setText(fname);
-        et_lname.setText(lname);
-        et_ttl.setText(ttl);
-        et_nohp_holder.setEnabled(false);
-        et_ttl.setEnabled(false);
-        et_nohp.setText(nohp);
-//        et_nohp.setEnabled(false);
-//        et_address.setEnabled(false);
-        et_address.setText(address);
-        et_username.setText(username);
-        et_username.setEnabled(false);
-        et_password1.setText(password);
+        getUser(username);
 
         iv_upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,6 +146,42 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
             }
         });
 
+    }
+
+    private void getUser(String userid) {
+        apiServices.getUserbyID(userid)
+                .enqueue(new Callback<GetUserResponse2>() {
+                    @Override
+                    public void onResponse(Call<GetUserResponse2> call, Response<GetUserResponse2> response) {
+                        if (response.body() != null){
+                            DataBodyUser dataBodyUser = response.body().getDataBody();
+                            GetUser2 getUser2 = dataBodyUser.get0();
+
+                            et_fname.setText(getUser2.getNamaDepan());
+                            et_lname.setText(getUser2.getNamaBelakang());
+                            et_ttl.setText(getUser2.getTglLahir());
+                            et_nohp_holder.setEnabled(false);
+                            et_ttl.setEnabled(false);
+                            et_nohp.setText(getUser2.getNoTelp());
+                            et_address.setText(getUser2.getAlamat());
+                            et_username.setText(getUser2.getUsername());
+                            et_username.setEnabled(false);
+                            et_password1.setText(getUser2.getPassword());
+
+                            Glide.with(getApplicationContext())
+                                    .load(getUser2.getMediaUrl())
+                                    .fitCenter()
+                                    .placeholder(R.drawable.ic_noimg)
+                                    .error(R.drawable.ic_broken_image)
+                                    .into(circleImageView);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetUserResponse2> call, Throwable t) {
+
+                    }
+                });
     }
 
     private void selectImage() {

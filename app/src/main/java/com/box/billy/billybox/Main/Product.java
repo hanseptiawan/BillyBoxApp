@@ -62,7 +62,7 @@ public class Product extends Fragment {
         recyclerView.setAdapter(productAdapter);
 
         if(getArguments() != null) {
-            String catID = getArguments().getString("catid");
+            String catID = getArguments().getString("catID");
             String catname = getArguments().getString("catname");
             String status = "success";
 

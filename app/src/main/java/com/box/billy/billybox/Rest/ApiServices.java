@@ -12,6 +12,7 @@ import com.box.billy.billybox.Model.GetPesananResponse;
 import com.box.billy.billybox.Model.GetProductCatResponse;
 import com.box.billy.billybox.Model.GetProductResponse;
 import com.box.billy.billybox.Model.GetUserResponse2;
+import com.box.billy.billybox.Model.PostOrder;
 import com.box.billy.billybox.Model.UpdateDataUser;
 
 import retrofit2.Call;
@@ -67,8 +68,22 @@ public interface ApiServices {
                               @Field("nominal") String nominal,
                               @Field("imgData") String imgData);
 
+    @POST("/api/order/orders/user")
+    @FormUrlEncoded
+    Call<PostOrder> postOrder(@Field("userId") String userId,
+                              @Field("metodePembayaran") String metodePembayaran,
+                              @Field("metodePengiriman") String metodePengiriman,
+                              @Field("tanggalPengantaran") String tanggalPengantaran,
+                              @Field("alamat") String alamat,
+                              @Field("kota") String kota,
+                              @Field("noTelp") String noTelp,
+                              @Field("cartId") String cartId);
+
     @GET("/api/auth/user/username/{username}")
     Call<GetUserResponse2> getUser2(@Path("username") String username);
+
+    @GET("/api/auth/user/id/{userId}")
+    Call<GetUserResponse2> getUserbyID(@Path("userId") String userId);
 
     @GET("/api/carton/kategori/")
     Call<GetProductCatResponse> getProductCatResponse(@Query("status") String status);
@@ -86,7 +101,7 @@ public interface ApiServices {
     @GET("/api/Cart/createId/userid/{userid}")
     Call<GetCartIDResponse> getCartID(@Path("userid") String userid);
 
-    @GET("/api/Cart/cart/id/{cartid}")
+    @GET("/api/Cart/cart/cartId/{cartid}")
     Call<GetCartResponse> getCartList(@Path("cartid") String cartid);
 
     @GET("/api/Cart/deleteItem/id/{detailCartId}")

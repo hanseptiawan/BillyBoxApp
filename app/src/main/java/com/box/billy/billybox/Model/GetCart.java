@@ -8,9 +8,9 @@ public class GetCart {
     @SerializedName("detailCartId")
     @Expose
     private String detailCartId;
-    @SerializedName("cartid")
+    @SerializedName("cartId")
     @Expose
-    private String cartid;
+    private String cartId;
     @SerializedName("itemId")
     @Expose
     private String itemId;
@@ -20,6 +20,9 @@ public class GetCart {
     @SerializedName("jumlah")
     @Expose
     private String jumlah;
+    @SerializedName("subTotal")
+    @Expose
+    private String subTotal;
     @SerializedName("status")
     @Expose
     private String status;
@@ -80,12 +83,12 @@ public class GetCart {
         this.detailCartId = detailCartId;
     }
 
-    public String getCartid() {
-        return cartid;
+    public String getCartId() {
+        return cartId;
     }
 
-    public void setCartid(String cartid) {
-        this.cartid = cartid;
+    public void setCartId(String cartId) {
+        this.cartId = cartId;
     }
 
     public String getItemId() {
@@ -110,6 +113,14 @@ public class GetCart {
 
     public void setJumlah(String jumlah) {
         this.jumlah = jumlah;
+    }
+
+    public String getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(String subTotal) {
+        this.subTotal = subTotal;
     }
 
     public String getStatus() {

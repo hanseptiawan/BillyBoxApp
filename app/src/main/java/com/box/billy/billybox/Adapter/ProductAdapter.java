@@ -107,7 +107,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
             String cartonId = getProducts.get(position).getCartonId();
             String namaItem = getProducts.get(position).getNamaItem();
-            String catID = getProducts.get(position).getCartonId();
+            String catID = getProducts.get(position).getCategoryCartonId();
+            Log.d( "Cat ID : ", catID);
             String stock = getProducts.get(position).getStok();
             String harga = getProducts.get(position).getHargaJual();
             String ukuran = getProducts.get(position).getUkuran();
@@ -124,6 +125,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             Log.d( "Carton ID : ", cartonId);
             bundle.putString("namaItem", namaItem); //key and value
             bundle.putString("catID", catID); //key and value
+            Log.d( "Cat ID : ", catID);
             bundle.putString("stock", stock); //key and value
             bundle.putString("harga", harga); //key and value
             bundle.putString("ukuran", ukuran); //key and value

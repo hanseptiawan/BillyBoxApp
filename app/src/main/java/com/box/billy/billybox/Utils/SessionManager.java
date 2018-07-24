@@ -171,17 +171,20 @@ public class SessionManager {
     }
 
     public void logoutUser(){
-        editor.clear();
-        editor.commit();
-
-        Intent i = new Intent(_context, Main.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        _context.startActivity(i);
+        if (!this.checkOrderCommit()){
+            editor.clear();
+            editor.commit();
+        }else {
+            editor.putBoolean(IS_LOGIN, false);
+            Intent i = new Intent(_context, Main.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            _context.startActivity(i);
+        }
     }
 
     public boolean isOrderSend(){
-        return sharedPreferences.getBoolean(IS_LOGIN, false);
+        return sharedPreferences.getBoolean(IS_ORDER, false);
     }
 
     public boolean isLoggedIn(){

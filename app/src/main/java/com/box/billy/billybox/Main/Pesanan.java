@@ -47,8 +47,7 @@ public class Pesanan extends Fragment {
 
         sessionManager = new SessionManager(getActivity().getApplicationContext());
 
-        HashMap<String, String> user = sessionManager.getUserDetails();
-        String userID = user.get(sessionManager.KEY_ID);
+
 
         apiServices = ApiUtils.getApiServices();
 
@@ -62,13 +61,16 @@ public class Pesanan extends Fragment {
         pesananAdapter = new PesananAdapter(getContext());
         recyclerView.setAdapter(pesananAdapter);
 
+        HashMap<String, String> user = sessionManager.getUserDetails();
+        String userID = user.get(sessionManager.KEY_ID);
+        Log.d("pra=getpesanan : ", userID);
         pesananbyuserID(userID);
 
         return view;
     }
 
     private void pesananbyuserID(String userID) {
-        String foo = "PRF-2018051408053518";
+//        String foo = "PRF-2018051408053518";
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Memuat data ...");
         progressDialog.show();
