@@ -63,18 +63,18 @@ public class Profil extends Fragment {
         password = view.findViewById(R.id.tv_password2);
         iv_edit = view.findViewById(R.id.iv_edit);
 
-        HashMap<String, String> userinfo = sessionManager.getUserDetails();
-        String imguser = userinfo.get(sessionManager.KEY_IMG);
-        Log.d("img dr session user :", imguser);
-
-        if (imguser == null){
-            HashMap<String, String> imgsession = sessionManager.getImg();
-            String a = imgsession.get(sessionManager.KEY_IMGBASE64);
-            Log.d("img dr session img :", a);
-            decode(a);
-        } else {
-            Log.d("img session", "img blm ada");
-        }
+//        HashMap<String, String> userinfo = sessionManager.getUserDetails();
+//        String imguser = userinfo.get(sessionManager.KEY_IMG);
+//        Log.d("img dr session user :", imguser);
+//
+//        if (imguser == null){
+//            HashMap<String, String> imgsession = sessionManager.getImg();
+//            String a = imgsession.get(sessionManager.KEY_IMGBASE64);
+//            Log.d("img dr session img :", a);
+//            decode(a);
+//        } else {
+//            Log.d("img session", "img blm ada");
+//        }
 
         final HashMap<String, String> user = sessionManager.getUserDetails();
         final String username = user.get(sessionManager.KEY_USERNAME);
@@ -126,7 +126,8 @@ public class Profil extends Fragment {
 
                     @Override
                     public void onFailure(Call<GetUserResponse2> call, Throwable t) {
-
+                        Toast.makeText(getActivity().getApplicationContext(), "Gagal memuat informasi user",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
     }

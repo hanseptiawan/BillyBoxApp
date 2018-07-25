@@ -222,6 +222,25 @@
                 android:text="Keranjang"
                 android:textStyle="bold"
                 android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/tb_informasipesanan"
+            android:layout_below="@+id/tb_informasipesanan"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="13dp"
+            android:text="Terima barang" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/button"
+            android:layout_alignBottom="@+id/button"
+            android:layout_alignEnd="@+id/tb_informasipesanan"
+            android:text="Upload Bukti Bayar" />
     </RelativeLayout>
 
     <Button
@@ -230,17 +249,18 @@
         android:layout_height="46dp"
         android:background="@color/colorAccent"
         android:layout_alignParentBottom="true"
-        android:text="Cek riwayat pesanan"
+        android:text="Cek Nota"
         android:textColor="@color/menu_text"
         tools:ignore="HardcodedText" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view_keranjang_pesanan"
-        android:layout_below="@id/frame_content"
-        android:scrollbars="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="180dp"/>
+        android:layout_height="180dp"
+        android:layout_above="@+id/btn_historyorder"
+        android:layout_alignParentStart="true"
+        android:scrollbars="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
 

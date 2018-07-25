@@ -1,6 +1,7 @@
 package com.box.billy.billybox.Main.Order;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -100,10 +101,16 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
                     bayarcod.setEnabled(false);
                     tfbank.setEnabled(true);
                     tfbank.setChecked(true);
+                    alamat.setEnabled(false);
+                    kota.setEnabled(false);
+                    notelp.setEnabled(false);
                 }else {
                     bayarcod.setEnabled(true);
                     tfbank.setEnabled(false);
                     bayarcod.setChecked(true);
+                    alamat.setEnabled(false);
+                    kota.setEnabled(false);
+                    notelp.setEnabled(false);
                 }
             }
         });
@@ -115,10 +122,16 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
                     bayarcod.setEnabled(true);
                     tfbank.setEnabled(false);
                     bayarcod.setChecked(true);
+                    alamat.setEnabled(false);
+                    kota.setEnabled(false);
+                    notelp.setEnabled(false);
                 }else {
                     bayarcod.setEnabled(false);
                     tfbank.setEnabled(true);
                     tfbank.setChecked(true);
+                    alamat.setEnabled(false);
+                    kota.setEnabled(false);
+                    notelp.setEnabled(false);
                 }
             }
         });
@@ -180,6 +193,10 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
                     Log.d("response : ", String.valueOf(response));
                     Toast.makeText(OrderCheckout.this, "Pesanan telah dikirim, ",
                             Toast.LENGTH_SHORT).show();
+                    Intent a = new Intent(OrderCheckout.this, OrderCheckout.class);
+                    startActivity(a);
+                    finish();
+
                 }
 
                 @Override

@@ -86,7 +86,6 @@ public class Keranjang extends Fragment {
         btn_checkOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent a = new Intent(getActivity().getApplicationContext(), OrderCheckout.class);
                 a.putExtra("cartid",cartid);
                 a.putExtra("totalpayment", totalpayment.getText());

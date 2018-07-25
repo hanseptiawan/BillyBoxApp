@@ -234,6 +234,16 @@
             android:textColor="@color/menu_text"
             android:textAllCaps="false"/>
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/et_jumlahpesan"
+            android:layout_marginBottom="11dp"
+            android:layout_toEndOf="@+id/et_jumlahpesan"
+            android:text="bendel"
+            android:textSize="16sp"/>
+
     </RelativeLayout>
 
 </RelativeLayout>

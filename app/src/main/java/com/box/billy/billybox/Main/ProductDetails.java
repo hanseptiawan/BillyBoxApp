@@ -101,8 +101,12 @@ public class ProductDetails extends Fragment{
                 String jumlah = et_jumlah.getText().toString();
                 Log.d("cartid : ", cartid);
 //                    if (cartID != null){
-
-                addtoCart(id,jumlah,harga,cartid);
+                if (et_jumlah.length() == 0){
+                    Toast.makeText(getActivity(), "Silahkan masukkan jumlah karton yang akan dibeli",
+                            Toast.LENGTH_SHORT).show();
+                }else {
+                    addtoCart(id,jumlah,harga,cartid);
+                }
 //                    }
             }
 

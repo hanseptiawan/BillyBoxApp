@@ -179,7 +179,8 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
 
                     @Override
                     public void onFailure(Call<GetUserResponse2> call, Throwable t) {
-
+                        Toast.makeText(EditProfil.this, "Gagal memuat informasi user",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
     }
