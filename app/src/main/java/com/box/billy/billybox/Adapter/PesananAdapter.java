@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,8 +50,8 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
     @Override
     public void onBindViewHolder(PesananAdapter.ViewHolder holder, int position) {
         holder.tv_idpesanan.setText(getPesanan.get(position).getOrderId());
-        holder.tv_tglantar.setText(getPesanan.get(position).getTanggalPengantaran());
-        holder.tv_tglterima.setText(getPesanan.get(position).getTanggalDiterima());
+        holder.tv_tglantar.setText("Tgl Antar : "+getPesanan.get(position).getTanggalPengantaran());
+        holder.tv_tglterima.setText("Tgl Terima "+getPesanan.get(position).getTanggalDiterima());
         holder.tv_status.setText(getPesanan.get(position).getStatus());
 
     }
@@ -83,6 +84,7 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
             int position = getAdapterPosition();
 
             String idpesanan = getPesanan.get(position).getOrderId();
+            Log.d("Order ID : ", idpesanan);
 
             PesananDetail fragment = new PesananDetail();
             FragmentTransaction fragmentTransaction = ((FragmentActivity)context)

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.box.billy.billybox.Main.Keranjang;
+import com.box.billy.billybox.Main.Product;
+import com.box.billy.billybox.Model.GetCartIDResponse;
 import com.box.billy.billybox.Model.PostOrder;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
@@ -82,6 +86,7 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
         final String CID = getIntent().getStringExtra("cartid");
         String total = getIntent().getStringExtra("totalpayment");
 
+        cartid.setText(CID);
         final int totalint = Integer.valueOf(total);
 
         totalbayar.setText("Rp. " + total + ",-");
@@ -101,9 +106,10 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
                     bayarcod.setEnabled(false);
                     tfbank.setEnabled(true);
                     tfbank.setChecked(true);
-                    alamat.setEnabled(false);
-                    kota.setEnabled(false);
-                    notelp.setEnabled(false);
+                    alamat.setEnabled(true);
+                    kota.setEnabled(true);
+                    notelp.setEnabled(true);
+                    ettglantar.setHint("Tanggal Pengantaran");
                 }else {
                     bayarcod.setEnabled(true);
                     tfbank.setEnabled(false);
@@ -111,6 +117,7 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
                     alamat.setEnabled(false);
                     kota.setEnabled(false);
                     notelp.setEnabled(false);
+                    ettglantar.setHint("Tanggal Penjemputan");
                 }
             }
         });
@@ -129,9 +136,10 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
                     bayarcod.setEnabled(false);
                     tfbank.setEnabled(true);
                     tfbank.setChecked(true);
-                    alamat.setEnabled(false);
-                    kota.setEnabled(false);
-                    notelp.setEnabled(false);
+                    alamat.setEnabled(true);
+                    kota.setEnabled(true);
+                    notelp.setEnabled(true);
+                    ettglantar.setHint("Tanggal Penjemputan");
                 }
             }
         });
@@ -152,7 +160,15 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                Keranjang product = new Keranjang();
+                Bundle bundle = new Bundle();
+//                bundle.putString("catID", catID);
+
+                product.setArguments(bundle);
+                fragmentTransaction.replace(R.id.fragment_container, product, "product");
+                fragmentTransaction.addToBackStack("product");
+                fragmentTransaction.commit();
             }
         });
 
@@ -175,16 +191,18 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
                         mtelp + " " +
                         CID);
 
+                sessionManager.orderCommit(CID);
+                getCartID(userid);
                 authentication(userid, pembayaran, pengiriman,
                         tglantar, malamat, mkota, mtelp, CID);
             }
         });
     }
 
-    private void authentication(String userid, String pembayaran,
+    private void authentication(final String userid, String pembayaran,
                                 String pengiriman, String tglantar,
                                 String malamat, String mkota,
-                                String mtelp, String cid) {
+                                String mtelp, final String cid) {
     apiServices.postOrder(userid, pembayaran, pengiriman,
             tglantar, malamat, mkota, mtelp, cid)
             .enqueue(new Callback<PostOrder>() {
@@ -193,10 +211,13 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
                     Log.d("response : ", String.valueOf(response));
                     Toast.makeText(OrderCheckout.this, "Pesanan telah dikirim, ",
                             Toast.LENGTH_SHORT).show();
+                    Log.d("CartID sblm dikirim :", cid);
+//                    sessionManager.orderCommit(cid);
+//                    getCartID(userid);
+
                     Intent a = new Intent(OrderCheckout.this, OrderCheckout.class);
                     startActivity(a);
                     finish();
-
                 }
 
                 @Override
@@ -206,6 +227,26 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
                             Toast.LENGTH_SHORT).show();
                 }
             });
+    }
+
+    private void getCartID(String userid) {
+        apiServices.getCartID(userid)
+                .enqueue(new Callback<GetCartIDResponse>() {
+                    @Override
+                    public void onResponse(Call<GetCartIDResponse> call, Response<GetCartIDResponse> response) {
+                        if (response.isSuccessful()){
+                            String getcartID = response.body().getDataBody();
+                            Log.d("Cart ID : ", getcartID);
+
+                            sessionManager.createCartID(getcartID);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetCartIDResponse> call, Throwable t) {
+                        Log.d("Cart ID : ", "gagal dibuat");
+                    }
+                });
     }
 
     @Override

@@ -5,62 +5,36 @@ import com.google.gson.annotations.SerializedName;
 
 public class GetPesananDetail {
 
-    @SerializedName("orderDetailId")
-    @Expose
-    private String orderDetailId;
     @SerializedName("orderId")
     @Expose
     private String orderId;
-    @SerializedName("cartonId")
+    @SerializedName("userId")
     @Expose
-    private String cartonId;
-    @SerializedName("jumlah")
+    private String userId;
+    @SerializedName("metodePembayaran")
     @Expose
-    private String jumlah;
-    @SerializedName("totalHarga")
+    private String metodePembayaran;
+    @SerializedName("metodePengiriman")
     @Expose
-    private String totalHarga;
-    @SerializedName("status")
+    private String metodePengiriman;
+    @SerializedName("tanggalPengantaran")
     @Expose
-    private String status;
+    private String tanggalPengantaran;
+    @SerializedName("tanggalDiterima")
+    @Expose
+    private String tanggalDiterima;
+    @SerializedName("alamat")
+    @Expose
+    private String alamat;
+    @SerializedName("kota")
+    @Expose
+    private String kota;
+    @SerializedName("noTelp")
+    @Expose
+    private String noTelp;
     @SerializedName("createdAt")
     @Expose
     private String createdAt;
-    @SerializedName("updatedAt")
-    @Expose
-    private String updatedAt;
-    @SerializedName("namaItem")
-    @Expose
-    private String namaItem;
-    @SerializedName("categoryCartonId")
-    @Expose
-    private String categoryCartonId;
-    @SerializedName("stok")
-    @Expose
-    private String stok;
-    @SerializedName("hargaBeli")
-    @Expose
-    private String hargaBeli;
-    @SerializedName("hargaJual")
-    @Expose
-    private String hargaJual;
-    @SerializedName("ukuran")
-    @Expose
-    private String ukuran;
-    @SerializedName("grametur")
-    @Expose
-    private String grametur;
-    @SerializedName("imgSrc")
-    @Expose
-    private String imgSrc;
-
-    public String getOrderDetailId() {
-        return orderDetailId;
-    }
-
-    public void setOrderDetailId(String orderDetailId) {
-        this.orderDetailId = orderDetailId;
-    }
 
     public String getOrderId() {
         return orderId;
@@ -70,36 +44,68 @@ public class GetPesananDetail {
         this.orderId = orderId;
     }
 
-    public String getCartonId() {
-        return cartonId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setCartonId(String cartonId) {
-        this.cartonId = cartonId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getJumlah() {
-        return jumlah;
+    public String getMetodePembayaran() {
+        return metodePembayaran;
     }
 
-    public void setJumlah(String jumlah) {
-        this.jumlah = jumlah;
+    public void setMetodePembayaran(String metodePembayaran) {
+        this.metodePembayaran = metodePembayaran;
     }
 
-    public String getTotalHarga() {
-        return totalHarga;
+    public String getMetodePengiriman() {
+        return metodePengiriman;
     }
 
-    public void setTotalHarga(String totalHarga) {
-        this.totalHarga = totalHarga;
+    public void setMetodePengiriman(String metodePengiriman) {
+        this.metodePengiriman = metodePengiriman;
     }
 
-    public String getStatus() {
-        return status;
+    public String getTanggalPengantaran() {
+        return tanggalPengantaran;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setTanggalPengantaran(String tanggalPengantaran) {
+        this.tanggalPengantaran = tanggalPengantaran;
+    }
+
+    public String getTanggalDiterima() {
+        return tanggalDiterima;
+    }
+
+    public void setTanggalDiterima(String tanggalDiterima) {
+        this.tanggalDiterima = tanggalDiterima;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
+
+    public String getKota() {
+        return kota;
+    }
+
+    public void setKota(String kota) {
+        this.kota = kota;
+    }
+
+    public String getNoTelp() {
+        return noTelp;
+    }
+
+    public void setNoTelp(String noTelp) {
+        this.noTelp = noTelp;
     }
 
     public String getCreatedAt() {
@@ -108,78 +114,6 @@ public class GetPesananDetail {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public String getNamaItem() {
-        return namaItem;
-    }
-
-    public void setNamaItem(String namaItem) {
-        this.namaItem = namaItem;
-    }
-
-    public String getCategoryCartonId() {
-        return categoryCartonId;
-    }
-
-    public void setCategoryCartonId(String categoryCartonId) {
-        this.categoryCartonId = categoryCartonId;
-    }
-
-    public String getStok() {
-        return stok;
-    }
-
-    public void setStok(String stok) {
-        this.stok = stok;
-    }
-
-    public String getHargaBeli() {
-        return hargaBeli;
-    }
-
-    public void setHargaBeli(String hargaBeli) {
-        this.hargaBeli = hargaBeli;
-    }
-
-    public String getHargaJual() {
-        return hargaJual;
-    }
-
-    public void setHargaJual(String hargaJual) {
-        this.hargaJual = hargaJual;
-    }
-
-    public String getUkuran() {
-        return ukuran;
-    }
-
-    public void setUkuran(String ukuran) {
-        this.ukuran = ukuran;
-    }
-
-    public String getGrametur() {
-        return grametur;
-    }
-
-    public void setGrametur(String grametur) {
-        this.grametur = grametur;
-    }
-
-    public String getImgSrc() {
-        return imgSrc;
-    }
-
-    public void setImgSrc(String imgSrc) {
-        this.imgSrc = imgSrc;
     }
 
 }

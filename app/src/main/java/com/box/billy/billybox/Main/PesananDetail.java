@@ -18,13 +18,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.box.billy.billybox.Adapter.CartAdapter;
+import com.box.billy.billybox.Adapter.CartPesananAdapter;
 import com.box.billy.billybox.Model.DataBodyPesanan;
+import com.box.billy.billybox.Model.GetKeranjangPesanan;
+import com.box.billy.billybox.Model.GetKeranjangPesananResponse;
 import com.box.billy.billybox.Model.GetPesananDetail;
 import com.box.billy.billybox.Model.GetPesananDetailResponse;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
-import com.box.billy.billybox.Rest.ApiServicesLokal;
 import com.box.billy.billybox.Rest.ApiUtils;
 
 import java.util.List;
@@ -42,12 +43,12 @@ public class PesananDetail extends Fragment {
         ApiServices apiServices;
 //    ApiServicesLokal apiServices;
     TextView tv_orderid, tv_tglpesan,
-                tv_totalbiaya, tv_ongkir, tv_total,
-                tv_bayar, tv_tanggungan;
-    Button btn_historyorder;
+        tvjenisbayar, tvjeniskirim, tvtglantar,
+        tvtglterima, tvalamat, tvkota, tvtelp;
+    Button btn_ceknota;
     ImageView iv_back;
+    CartPesananAdapter cartAdapter;
     RecyclerView.LayoutManager layoutManager;
-    CartAdapter cartAdapter;
     RecyclerView recyclerView;
 
     @Nullable
@@ -59,12 +60,14 @@ public class PesananDetail extends Fragment {
 
         tv_orderid = view.findViewById(R.id.tv_orderID);
         tv_tglpesan = view.findViewById(R.id.tv_tglpesan2);
-        tv_totalbiaya = view.findViewById(R.id.tv_totalbiaya2);
-        tv_ongkir = view.findViewById(R.id.tv_ongkir2);
-        tv_total = view.findViewById(R.id.tv_total2);
-        tv_bayar = view.findViewById(R.id.tv_bayar2);
-        tv_tanggungan = view.findViewById(R.id.tv_tanggungan2);
-        btn_historyorder = view.findViewById(R.id.btn_historyorder);
+        tvjenisbayar = view.findViewById(R.id.tv_jenisbayar);
+        tvjeniskirim = view.findViewById(R.id.tv_jeniskirim);
+        tvtglantar = view.findViewById(R.id.tv_tglantar);
+        tvtglterima = view.findViewById(R.id.tv_tglterima);
+        tvalamat = view.findViewById(R.id.tv_alamat);
+        tvkota = view.findViewById(R.id.tv_kota2);
+        tvtelp = view.findViewById(R.id.tv_telp2);
+        btn_ceknota = view.findViewById(R.id.btn_ceknota);
         recyclerView = view.findViewById(R.id.recycle_view_keranjang_pesanan);
         iv_back = view.findViewById(R.id.iv_back);
 
@@ -73,17 +76,22 @@ public class PesananDetail extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(layoutManager);
-        cartAdapter = new CartAdapter(getContext());
+        cartAdapter = new CartPesananAdapter(getContext());
         recyclerView.setAdapter(cartAdapter);
 
         if (getArguments() != null){
             String orderID = getArguments().getString("idpesanan");
+            Log.d("orderID pesanan : ", orderID);
             tv_orderid.setText(orderID);
 
-            getKeranjangList(orderID);
-            detailpesanan(orderID);
+//            getKeranjangList(orderID);
+//            detailpesanan(orderID);
         }
 
+        String a = tv_orderid.getText().toString();
+
+        getKeranjangList(a);
+        detailpesanan(a);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,10 +103,10 @@ public class PesananDetail extends Fragment {
             }
         });
 
-        btn_historyorder.setOnClickListener(new View.OnClickListener() {
+        btn_ceknota.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent n = new Intent(getActivity(), HistoryPesanan.class);
+                Intent n = new Intent(getActivity(), NotaPesanan.class);
                 String orderid = tv_orderid.getText().toString();
                 Log.d("orderID : ", orderid);
                 n.putExtra("orderid", orderid);
@@ -110,22 +118,31 @@ public class PesananDetail extends Fragment {
     }
 
     private void getKeranjangList(String orderID) {
-        apiServices.getPesananDetail(orderID)
-                .enqueue(new Callback<GetPesananDetailResponse>() {
-                    @Override
-                    public void onResponse(Call<GetPesananDetailResponse> call, Response<GetPesananDetailResponse> response) {
 
+        if (orderID !=null)
+        apiServices.getKeranjangPesanan(orderID)
+                .enqueue(new Callback<GetKeranjangPesananResponse>() {
+                    @Override
+                    public void onResponse(Call<GetKeranjangPesananResponse> call, Response<GetKeranjangPesananResponse> response) {
+                        List<GetKeranjangPesanan> list =response.body().getDataBody();
+                        if (list != null){
+                            cartAdapter.setProductsList(list);
+                        }else{
+                            Toast.makeText(getActivity(), "Keranjang kosong",
+                                    Toast.LENGTH_LONG).show();
+                        }
                     }
 
                     @Override
-                    public void onFailure(Call<GetPesananDetailResponse> call, Throwable t) {
-
+                    public void onFailure(Call<GetKeranjangPesananResponse> call, Throwable t) {
+                        Toast.makeText(getActivity(), "Gagal memuat Keranjang",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
-
     }
 
     private void detailpesanan(String orderID) {
+        if (orderID !=null)
         apiServices.getPesananDetail(orderID)
                 .enqueue(new Callback<GetPesananDetailResponse>() {
                     @Override
@@ -133,14 +150,15 @@ public class PesananDetail extends Fragment {
                         if(response.body() != null){
                             DataBodyPesanan dataBodyPesanan = response.body().getDataBody();
                             GetPesananDetail getPesananDetail = dataBodyPesanan.get0();
-                            tv_orderid.setText(getPesananDetail.getOrderId());
-                            tv_tglpesan.setText(getPesananDetail.getCreatedAt());
-                            tv_totalbiaya.setText(getPesananDetail.getTotalHarga());
-                            int a = Integer.parseInt(tv_totalbiaya.getText().toString()) + Integer.parseInt(tv_ongkir.getText().toString());
 
-                            tv_total.setText(a);
-//                            tv_ongkir.setText(getPesananDetail.);
-//                            tv_bayar.setText(getPesananDetail.);
+                            tv_tglpesan.setText(getPesananDetail.getCreatedAt());
+                            tvjenisbayar.setText(getPesananDetail.getMetodePembayaran());
+                            tvjeniskirim.setText(getPesananDetail.getMetodePengiriman());
+                            tvtglantar.setText(getPesananDetail.getTanggalPengantaran());
+                            tvtglterima.setText(getPesananDetail.getTanggalDiterima());
+                            tvalamat.setText(getPesananDetail.getAlamat());
+                            tvkota.setText(getPesananDetail.getKota());
+                            tvtelp.setText(getPesananDetail.getNoTelp());
                         }
                         else {
                             Toast.makeText(getActivity(), "pesanan kosong, silahkan pesan terlebih dahulu",

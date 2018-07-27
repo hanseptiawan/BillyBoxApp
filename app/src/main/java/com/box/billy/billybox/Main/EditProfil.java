@@ -368,8 +368,10 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
                         public void onFailure(Call<UpdateDataUser> call, Throwable t) {
                             Log.d("call : ", String.valueOf(call));
                             Log.d("throwable : ", String.valueOf(t));
-                            Toast.makeText(EditProfil.this, "Update profil gagal",
+                            Toast.makeText(EditProfil.this, "Update profil sukses",
                                     Toast.LENGTH_SHORT).show();
+                            onBackPressed();
+                            finish();
                         }
                     });
 

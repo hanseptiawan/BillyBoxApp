@@ -46,7 +46,7 @@
                 <action android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main.HistoryPesanan"
+        <activity android:name=".Main.NotaPesanan"
             android:windowSoftInputMode="stateVisible|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

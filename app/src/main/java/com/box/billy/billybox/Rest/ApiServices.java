@@ -7,6 +7,7 @@ import com.box.billy.billybox.Model.AuthSignUp;
 import com.box.billy.billybox.Model.DeleteCartItemResponse;
 import com.box.billy.billybox.Model.GetCartIDResponse;
 import com.box.billy.billybox.Model.GetCartResponse;
+import com.box.billy.billybox.Model.GetKeranjangPesananResponse;
 import com.box.billy.billybox.Model.GetPesananDetailResponse;
 import com.box.billy.billybox.Model.GetPesananResponse;
 import com.box.billy.billybox.Model.GetProductCatResponse;
@@ -95,8 +96,11 @@ public interface ApiServices {
     @GET("/api/order/orders/user/{userId}")
     Call<GetPesananResponse> getPesanan(@Path("userId") String userId);
 
+    @GET("/api/order/order/id/{orderId}")
+    Call<GetPesananDetailResponse> getPesananDetail(@Path("orderId") String orderId);
+
     @GET("/api/order/detailOrder/order/{orderId}")
-    Call<GetPesananDetailResponse> getPesananDetail(@Path("orderId") String userId);
+    Call<GetKeranjangPesananResponse> getKeranjangPesanan(@Path("orderId") String orderId);
 
     @GET("/api/Cart/createId/userid/{userid}")
     Call<GetCartIDResponse> getCartID(@Path("userid") String userid);

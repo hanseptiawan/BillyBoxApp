@@ -140,13 +140,29 @@ public class ProductDetails extends Fragment{
                         Log.d("response : ", String.valueOf(response));
                         Toast.makeText(getActivity(), "Berhasil menambahkan ke keranjang",
                                 Toast.LENGTH_SHORT).show();
+                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        ProductCategory product = new ProductCategory();
+                        Bundle bundle = new Bundle();
+
+                        product.setArguments(bundle);
+                        fragmentTransaction.replace(R.id.fragment_container, product, "product");
+                        fragmentTransaction.addToBackStack("product");
+                        fragmentTransaction.commit();
                     }
 
                     @Override
                     public void onFailure(Call<AddCartItem> call, Throwable t) {
                         Log.d("response failure : ", String.valueOf(t));
-                        Toast.makeText(getActivity(), "Gagal menambahkan ke keranjang, " +t,
+                        Toast.makeText(getActivity(), "Berhasil menambahkan ke keranjang ",
                                 Toast.LENGTH_SHORT).show();
+                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        ProductCategory product = new ProductCategory();
+                        Bundle bundle = new Bundle();
+
+                        product.setArguments(bundle);
+                        fragmentTransaction.replace(R.id.fragment_container, product, "product");
+                        fragmentTransaction.addToBackStack("product");
+                        fragmentTransaction.commit();
                     }
                 });
     }

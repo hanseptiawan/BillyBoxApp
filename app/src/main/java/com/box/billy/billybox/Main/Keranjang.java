@@ -47,7 +47,6 @@ public class Keranjang extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     CartAdapter cartAdapter;
     ApiServices apiServices;
-    List<GetCart> getCarts;
 //    ApiServicesLokal apiServices;
     SessionManager sessionManager;
 
@@ -109,13 +108,15 @@ public class Keranjang extends Fragment {
                             List<GetCart> list = response.body().getDataBody();
                             if (list != null){
                                 cartAdapter.setProductsList(list);
+
+                                int getTotal = response.body().getSubTotal();
+                                totalpayment.setText(String.valueOf(getTotal));
                             }else{
                                 Toast.makeText(getActivity(), "Keranjang kosong, silahkan pesan terlebih dahulu",
                                         Toast.LENGTH_LONG).show();
                             }
 
-                            int getTotal = response.body().getSubTotal();
-                            totalpayment.setText(String.valueOf(getTotal));
+
                         }
 
                         @Override

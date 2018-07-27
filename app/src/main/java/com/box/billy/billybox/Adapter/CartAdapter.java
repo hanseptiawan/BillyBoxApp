@@ -2,6 +2,9 @@ package com.box.billy.billybox.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,8 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.box.billy.billybox.Main.Keranjang;
 import com.box.billy.billybox.Main.Main;
 import com.box.billy.billybox.Main.MainMember;
+import com.box.billy.billybox.Main.Product;
 import com.box.billy.billybox.Model.DeleteCartItemResponse;
 import com.box.billy.billybox.Model.GetCart;
 import com.box.billy.billybox.R;
@@ -120,6 +125,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 .enqueue(new Callback<DeleteCartItemResponse>() {
                     @Override
                     public void onResponse(Call<DeleteCartItemResponse> call, Response<DeleteCartItemResponse> response) {
+                        Keranjang fragment = new Keranjang();
+                        FragmentTransaction fragmentManager =((FragmentActivity)context)
+                                .getSupportFragmentManager()
+                                .beginTransaction();
+                        fragmentManager.replace(R.id.fragment_container, fragment);
+                        fragmentManager.addToBackStack(null);
+                        fragmentManager.commit();
+
                         Intent a = new Intent(context, MainMember.class);
                         context.startActivity(a);
                         Toast.makeText(context, "Item berhasil dihapus",
