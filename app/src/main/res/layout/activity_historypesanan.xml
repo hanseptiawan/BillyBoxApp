@@ -61,14 +61,24 @@
             android:textStyle="italic"
             android:textColor="@color/colorAccent"/>
 
+        <ImageView
+            android:id="@+id/iv_imgholder"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/greyback"
+            android:layout_below="@id/tv1"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
         <TableLayout
             android:id="@+id/tb_informasipesanan"
             android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:stretchColumns="1"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/tv1"
-            android:layout_marginTop="3dp">
+            android:layout_below="@+id/iv_imgholder"
+            android:layout_marginTop="10dp">
 
             <TableRow
                 android:layout_width="340dp"
@@ -77,7 +87,7 @@
                     android:id="@+id/tv_tglpesan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tanggal Pesan"
+                    android:text="Payment ID"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:layout_marginTop="8dp"
@@ -88,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="italic"
-                    android:text="dd/mm/yyyy"
+                    android:text="124214235342341433242"
                     android:textSize="14sp"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="60dp"/>
@@ -101,17 +111,17 @@
                     android:id="@+id/tv_totalbiaya"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Biaya"
+                    android:text="Bank Number"
                     android:textStyle="bold"
                     android:textSize="14sp"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="16dp"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_totalbiaya2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp 15.000.000,-"
+                    android:text="786734537766853"
                     android:textSize="14sp"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="60dp"/>
@@ -123,44 +133,18 @@
                     android:id="@+id/tv_ongkir"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Biaya Kurir"
+                    android:text="Recipient Name"
                     android:textStyle="bold"
                     android:textSize="14sp"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="16dp"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_ongkir2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp 35.000,-"
+                    android:text="AAAAAAA"
                     android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="60dp"/>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="340dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Total"
-                    android:textAllCaps="true"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_total2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Rp 15.035.000"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="60dp"/>
             </TableRow>
@@ -172,13 +156,13 @@
                     android:id="@+id/tv_bayar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sudah dibayar"
+                    android:text="Amount"
                     android:textStyle="bold"
                     android:textSize="14sp"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="16dp"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_bayar2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -187,53 +171,15 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="60dp"/>
             </TableRow>
-
-            <TableRow
-                android:layout_width="340dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_tanggungan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:textAllCaps="true"
-                    android:text="Jumlah Tanggungan"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_tanggungan2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Rp 7.517.500,-"
-                    android:textColor="@color/colorAccent"
-                    android:textStyle="bold"
-                    android:textSize="14sp" />
-            </TableRow>
-
         </TableLayout>
-
-        <Button
-            android:id="@+id/btn_terimabarang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/tb_informasipesanan"
-            android:layout_below="@+id/tb_informasipesanan"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="35dp"
-            android:text="Terima barang" />
 
         <Button
             android:id="@+id/btn_uploadbukti"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/btn_terimabarang"
-            android:layout_alignBottom="@+id/btn_terimabarang"
-            android:layout_alignEnd="@+id/tb_informasipesanan"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/tb_informasipesanan"
             android:text="Upload Bukti Bayar" />
     </RelativeLayout>
 

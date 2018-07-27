@@ -57,6 +57,17 @@
             android:textStyle="italic"
             android:textColor="@color/colorAccent"/>
 
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tb_informasipesanan"
+            android:layout_alignEnd="@+id/tb_informasipesanan"
+            android:text="Status"
+            android:textStyle="italic"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp" />
+
         <TableLayout
             android:id="@+id/tb_informasipesanan"
             android:layout_width="340dp"
@@ -255,13 +266,25 @@
                 android:textSize="14sp" />
         </TableRow>
         </TableLayout>
+
+        <Button
+            android:id="@+id/btn_konfirmasi"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:text="Konfirmasi Pesanan"
+            android:background="@drawable/btn_rounded"
+            android:textColor="@color/menu_text"
+            android:layout_below="@id/tb_informasipesanan"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/keranjang"
-                android:layout_below="@+id/tb_informasipesanan"
+                android:layout_below="@+id/btn_konfirmasi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:text="Keranjang"
                 android:textStyle="bold"
                 android:textSize="18sp" />

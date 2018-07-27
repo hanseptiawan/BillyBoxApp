@@ -44,6 +44,72 @@ public class GetPesanan {
     @SerializedName("tglLahir")
     @Expose
     private String tglLahir;
+    @SerializedName("paymentId")
+    @Expose
+    private String paymentId;
+    @SerializedName("shipment")
+    @Expose
+    private String shipment;
+    @SerializedName("noBank")
+    @Expose
+    private String noBank;
+    @SerializedName("nama")
+    @Expose
+    private String nama;
+    @SerializedName("nominal")
+    @Expose
+    private String nominal;
+    @SerializedName("buktiPembayaran")
+    @Expose
+    private String buktiPembayaran;
+
+    public String getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public String getShipment() {
+        return shipment;
+    }
+
+    public void setShipment(String shipment) {
+        this.shipment = shipment;
+    }
+
+    public String getNoBank() {
+        return noBank;
+    }
+
+    public void setNoBank(String noBank) {
+        this.noBank = noBank;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getNominal() {
+        return nominal;
+    }
+
+    public void setNominal(String nominal) {
+        this.nominal = nominal;
+    }
+
+    public String getBuktiPembayaran() {
+        return buktiPembayaran;
+    }
+
+    public void setBuktiPembayaran(String buktiPembayaran) {
+        this.buktiPembayaran = buktiPembayaran;
+    }
 
     public String getOrderId() {
         return orderId;

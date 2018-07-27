@@ -44,8 +44,8 @@ public class PesananDetail extends Fragment {
 //    ApiServicesLokal apiServices;
     TextView tv_orderid, tv_tglpesan,
         tvjenisbayar, tvjeniskirim, tvtglantar,
-        tvtglterima, tvalamat, tvkota, tvtelp;
-    Button btn_ceknota;
+        tvtglterima, tvalamat, tvkota, tvtelp, tvstatus;
+    Button btn_ceknota, btn_konfirmasi;
     ImageView iv_back;
     CartPesananAdapter cartAdapter;
     RecyclerView.LayoutManager layoutManager;
@@ -70,6 +70,10 @@ public class PesananDetail extends Fragment {
         btn_ceknota = view.findViewById(R.id.btn_ceknota);
         recyclerView = view.findViewById(R.id.recycle_view_keranjang_pesanan);
         iv_back = view.findViewById(R.id.iv_back);
+        btn_konfirmasi = view.findViewById(R.id.btn_konfirmasi);
+        tvstatus = view.findViewById(R.id.tv_status);
+
+        btn_konfirmasi.setEnabled(false);
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
@@ -81,17 +85,27 @@ public class PesananDetail extends Fragment {
 
         if (getArguments() != null){
             String orderID = getArguments().getString("idpesanan");
+            String idpayment = getArguments().getString("idpayment");
+            String noBank = getArguments().getString("noBank");
+            String nama = getArguments().getString("nama");
+            String nominal = getArguments().getString("nominal");
+            String status = getArguments().getString("status");
+
             Log.d("orderID pesanan : ", orderID);
+            tvstatus.setText(status);
             tv_orderid.setText(orderID);
 
-//            getKeranjangList(orderID);
-//            detailpesanan(orderID);
+            if (tvstatus.getText() == "Dikirim"){
+                btn_konfirmasi.setEnabled(true);
+            }
+            getKeranjangList(orderID);
+            detailpesanan(orderID);
         }
 
-        String a = tv_orderid.getText().toString();
-
-        getKeranjangList(a);
-        detailpesanan(a);
+//        String a = tv_orderid.getText().toString();
+//
+//        getKeranjangList(a);
+//        detailpesanan(a);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,10 +117,31 @@ public class PesananDetail extends Fragment {
             }
         });
 
+        btn_konfirmasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //update status pesanan ke finish / barang diterima
+            }
+        });
+
         btn_ceknota.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String orderID = getArguments().getString("idpesanan");
+                String idpayment = getArguments().getString("idpayment");
+                String noBank = getArguments().getString("noBank");
+                String nama = getArguments().getString("nama");
+                String nominal = getArguments().getString("nominal");
+                String status = getArguments().getString("status");
+
                 Intent n = new Intent(getActivity(), NotaPesanan.class);
+                n.putExtra("orderID", orderID);
+                n.putExtra("idpayment", idpayment);
+                n.putExtra("noBank", noBank);
+                n.putExtra("nama", nama);
+                n.putExtra("nominal", nominal);
+                n.putExtra("status", status);
+
                 String orderid = tv_orderid.getText().toString();
                 Log.d("orderID : ", orderid);
                 n.putExtra("orderid", orderid);

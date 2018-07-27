@@ -15,9 +15,12 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.box.billy.billybox.Model.AddBuktiTF;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
 import com.box.billy.billybox.Rest.ApiUtils;
@@ -26,15 +29,20 @@ import com.box.billy.billybox.Utils.Permission;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 /**
  * Created by han on 7/12/2018.
  */
 
 public class NotaPesanan extends AppCompatActivity {
 
-    ImageView ivback;
-    TextView morderid, mtglpesan, mtotalbiaya, mongkir, mtotal, mbayar, mtangungan;
-    Button btnterima, btnupload;
+    ImageView ivback, ivimgholder;
+    TextView morderid, midpayment;
+    EditText mnobank, mnama, mnominal;
+    Button btnupload;
     Bitmap bitmap;
     String userchosenTask;
     ApiServices apiServices;
@@ -55,32 +63,46 @@ public class NotaPesanan extends AppCompatActivity {
             }
         });
 
-        btnterima.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //method terima barang
-            }
-        });
-
         btnupload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectImage();
             }
         });
+
+        String orderID = getIntent().getStringExtra("orderID");
+        String idpayment = getIntent().getStringExtra("idpayment");
+        String noBank = getIntent().getStringExtra("noBank");
+        String nama = getIntent().getStringExtra("nama");
+        String nominal = getIntent().getStringExtra("nominal");
+        String status = getIntent().getStringExtra("status");
+
+        if (noBank != null){
+            morderid.setText(orderID);
+            midpayment.setText(idpayment);
+            mnobank.setText(noBank);
+            mnama.setText(nama);
+            mnominal.setText(nominal);
+
+            mnobank.setEnabled(false);
+            mnama.setEnabled(false);
+            mnominal.setEnabled(false);
+        }
+
     }
 
     private void bind() {
-        btnterima = findViewById(R.id.btn_terimabarang);
         btnupload = findViewById(R.id.btn_uploadbukti);
         ivback = findViewById(R.id.iv_back);
+
         morderid = findViewById(R.id.tv_orderID);
-        mtglpesan = findViewById(R.id.tv_tglpesan2);
-        mtotalbiaya = findViewById(R.id.tv_totalbiaya2);
-        mongkir = findViewById(R.id.tv_ongkir2);
-        mtotal = findViewById(R.id.tv_total2);
-        mbayar = findViewById(R.id.tv_bayar2);
-        mtangungan = findViewById(R.id.tv_tanggungan2);
+        midpayment = findViewById(R.id.tv_tglpesan2);
+        mnobank = findViewById(R.id.tv_totalbiaya2);
+        mnama = findViewById(R.id.tv_ongkir2);
+        mnominal = findViewById(R.id.tv_bayar2);
+        ivimgholder = findViewById(R.id.iv_imgholder);
+
+
     }
 
     private void selectImage() {
@@ -143,7 +165,7 @@ public class NotaPesanan extends AppCompatActivity {
         if (requestCode == 0 && resultCode == RESULT_OK){
             Bundle bundle = data.getExtras();
             bitmap = (Bitmap) bundle.get("data");
-//            circleImageView.setImageBitmap(bitmap);
+            ivimgholder.setImageBitmap(bitmap);
             encodeToBase64(bitmap);
         }
         else if (requestCode == 1 && resultCode == RESULT_OK){
@@ -158,7 +180,7 @@ public class NotaPesanan extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-//            circleImageView.setImageBitmap(bm);
+            ivimgholder.setImageBitmap(bm);
             encodeToBase64(bm);
         }
     }
@@ -169,7 +191,7 @@ public class NotaPesanan extends AppCompatActivity {
             byte[] data = Base64.decode(imgencoded, Base64.DEFAULT);
             Bitmap decodedbyte = BitmapFactory.decodeByteArray(data,0,data.length);
 
-//            circleImageView.setImageBitmap(decodedbyte);
+            ivimgholder.setImageBitmap(decodedbyte);
         }else {
             Log.d("decode edit profile : ", "tidak ada string base 64");
         }
@@ -184,7 +206,33 @@ public class NotaPesanan extends AppCompatActivity {
         String imageEncoded = Base64.encodeToString(bytes,Base64.DEFAULT);
         Log.e("bitmap : ",imageEncoded);
 
-        
+        String idpayment = getIntent().getStringExtra("idpayment");
+        String nobank = mnobank.getText().toString();
+        String nama = mnama.getText().toString();
+        String nominal = mnominal.getText().toString();
+
+        uploadBukti(idpayment, nobank, nama, nominal, imageEncoded);
 //        sessionManager.createImg(imageEncoded);
+    }
+
+    private void uploadBukti(String idpayment, String nobank, String nama, String nominal, String imageEncoded) {
+        apiServices.addBukti(idpayment, nobank, nama, nominal, imageEncoded)
+                .enqueue(new Callback<AddBuktiTF>() {
+                    @Override
+                    public void onResponse(Call<AddBuktiTF> call, Response<AddBuktiTF> response) {
+                        Toast.makeText(NotaPesanan.this, "Upload bukti sukses",
+                                Toast.LENGTH_LONG).show();
+                        Intent a = new Intent(NotaPesanan.this, MainMember.class);
+                        startActivity(a);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(Call<AddBuktiTF> call, Throwable t) {
+                        Toast.makeText(NotaPesanan.this, "Koneksi gagal",
+                                Toast.LENGTH_LONG).show();
+
+                    }
+                });
     }
 }

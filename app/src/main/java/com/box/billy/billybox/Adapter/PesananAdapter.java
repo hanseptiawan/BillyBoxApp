@@ -52,7 +52,8 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
         holder.tv_idpesanan.setText(getPesanan.get(position).getOrderId());
         holder.tv_tglantar.setText("Tgl Antar : "+getPesanan.get(position).getTanggalPengantaran());
         holder.tv_tglterima.setText("Tgl Terima "+getPesanan.get(position).getTanggalDiterima());
-        holder.tv_status.setText(getPesanan.get(position).getStatus());
+        holder.tv_status.setText("Status : " + getPesanan.get(position).getStatus());
+        holder.tvshpment.setText("Lokasi : " + getPesanan.get(position).getShipment());
 
     }
 
@@ -63,7 +64,7 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView tv_idpesanan, tv_tglantar, tv_tglterima, tv_status;
+        TextView tv_idpesanan, tv_tglantar, tv_tglterima, tv_status, tvshpment;
         CardView cardView;
 
         public ViewHolder(View itemView) {
@@ -74,6 +75,7 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
             tv_tglterima = itemView.findViewById(R.id.tv_tglterima);
             tv_status = itemView.findViewById(R.id.tv_status);
             cardView = itemView.findViewById(R.id.card_areapesanan);
+            tvshpment = itemView.findViewById(R.id.tv_shipmet);
 
             cardView.setClickable(true);
             cardView.setOnClickListener(this);
@@ -84,6 +86,12 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
             int position = getAdapterPosition();
 
             String idpesanan = getPesanan.get(position).getOrderId();
+            String noBank = getPesanan.get(position).getNoBank();
+            String nama = getPesanan.get(position).getNama();
+            String nominal = getPesanan.get(position).getNominal();
+            String idpayment = getPesanan.get(position).getPaymentId();
+            String status = getPesanan.get(position).getStatus();
+
             Log.d("Order ID : ", idpesanan);
 
             PesananDetail fragment = new PesananDetail();
@@ -94,6 +102,11 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
             Bundle bundle = new Bundle();
 
             bundle.putString("idpesanan", idpesanan);
+            bundle.putString("idpayment", idpayment);
+            bundle.putString("noBank", noBank);
+            bundle.putString("nama", nama);
+            bundle.putString("nominal", nominal);
+            bundle.putString("status", status);
 
             fragment.setArguments(bundle);
             fragmentTransaction.replace(R.id.fragment_container, fragment);
