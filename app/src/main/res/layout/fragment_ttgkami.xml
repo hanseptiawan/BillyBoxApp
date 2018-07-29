@@ -2,9 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/menu_text">
+    android:background="@color/greyback">
 
-    <RelativeLayout
+    <ScrollView
+        android:fillViewport="true"
+        android:scrollbars="none"
         android:layout_centerInParent="true"
         android:id="@+id/frame_content"
         android:layout_width="340dp"
@@ -12,101 +14,177 @@
         android:background="@drawable/frame_rounded2"
         android:elevation="4dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="600dp">
+                <ImageView
+                    android:id="@+id/iv_edit"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="260dp"
+                    android:layout_height="130dp"
+                    android:src="@drawable/logo_billybox_ttgkam"
+                    android:clickable="true"
+                    android:layout_centerHorizontal="true"
+                    />
 
-        <ImageView
-            android:id="@+id/iv_edit"
-            android:layout_width="260dp"
-            android:layout_height="180dp"
-            android:src="@drawable/logo"
-            android:clickable="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="50dp"/>
-
-        <TableLayout
-            android:id="@+id/tb_informasiuser"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:stretchColumns="1"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/iv_edit"
-            android:layout_marginTop="30dp">
-
-            <TableRow
-                android:layout_width="80dp"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
+                <TableLayout
+                    android:id="@+id/tb_informasiuser"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
-                    android:text="Website"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"/>
+                    android:stretchColumns="1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/iv_edit">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle=""
-                    android:text="www.BillyBox.co.id"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="60dp"/>
-            </TableRow>
-            <TableRow
-                android:layout_width="80dp"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tv_alamat1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Alamat"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"/>
+                    <TableRow
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Website"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="16dp"/>
 
-                <TextView
-                    android:id="@+id/tv_alamat2"
-                    android:layout_width="fill_parent"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="Jl. Raya Bangil No. 32 A"
-                    android:scrollHorizontally="false"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="60dp"/>
-            </TableRow>
+                        <TextView
+                            android:textStyle="italic"
+                            android:layout_width="fill_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="http://admin-web1.000webhostapp.com/"
+                            android:scrollHorizontally="false"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="30dp"/>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_alamat1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Alamat Gudang"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="16dp"/>
 
-            <TableRow
-                android:layout_width="80dp"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tv_password1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Password"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"/>
+                        <TextView
+                            android:id="@+id/tv_alamat2"
+                            android:layout_width="fill_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Jl.Raya Nganglang RT.02 RW.03, Oro oro Ombo Kulon Rembang, Pasuruan"
+                            android:scrollHorizontally="false"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="30dp"/>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_alamatR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Alamat Rumah"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="16dp"/>
 
-                <TextView
-                    android:id="@+id/tv_password2"
-                    android:layout_width="fill_parent"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="(0346) 657281
-+6281672891782"
-                    android:scrollHorizontally="false"
-                    android:textSize="14sp"
-                    android:textStyle="italic"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="60dp"/>
-            </TableRow>
+                        <TextView
+                            android:id="@+id/tv_alamatR1"
+                            android:layout_width="fill_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Perumahan Permata Asri Gempeng Block F-6"
+                            android:scrollHorizontally="false"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="30dp"/>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jam Pelayanan"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="16dp"/>
 
-        </TableLayout>
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="07.00 - 23.00 (Diatas jam 23.00, harap menghubungi karyawan yang ada pada nomor di bawah ini)"
+                            android:scrollHorizontally="false"
+                            android:textSize="16sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="30dp" />
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_password1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No. HP"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="16dp"/>
 
-    </RelativeLayout>
+                        <TextView
+                            android:id="@+id/tv_password2"
+                            android:layout_width="fill_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Moch Subani +62812333234 (Pemilik Toko)"
+                            android:scrollHorizontally="false"
+                            android:textSize="14sp"
+                            android:textStyle="italic"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="30dp"/>
+
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_password3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="16dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_password4"
+                            android:layout_width="fill_parent"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Imam Taufiq  +6281559594314 (Karyawan)"
+                            android:scrollHorizontally="false"
+                            android:textSize="14sp"
+                            android:textStyle="italic"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="30dp"/>
+
+                    </TableRow>
+                </TableLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

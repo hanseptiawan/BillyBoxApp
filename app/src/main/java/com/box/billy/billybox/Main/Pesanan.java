@@ -46,9 +46,6 @@ public class Pesanan extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pesanan, container, false);
 
         sessionManager = new SessionManager(getActivity().getApplicationContext());
-
-
-
         apiServices = ApiUtils.getApiServices();
 
         recyclerView = view.findViewById(R.id.recycle_view_pesanan);

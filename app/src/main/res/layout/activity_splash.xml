@@ -12,11 +12,11 @@
     tools:context="com.box.billy.billybox.Main.Splash">
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="160dp"
+        android:layout_width="350dp"
+        android:layout_height="260dp"
         android:scaleType="fitXY"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo_billybox2" />
 
 </RelativeLayout>

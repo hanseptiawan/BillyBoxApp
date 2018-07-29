@@ -49,11 +49,11 @@
             android:id="@+id/tv_orderID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_toEndOf="@+id/tv1"
             android:layout_alignBottom="@+id/tv1"
             android:text="512551234523"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="italic"
             android:textColor="@color/colorAccent"/>
 
@@ -61,12 +61,13 @@
             android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/tb_informasipesanan"
-            android:layout_alignEnd="@+id/tb_informasipesanan"
+            android:layout_below="@+id/tb_informasipesanan"
+            android:layout_marginTop="8dp"
+            android:layout_centerHorizontal="true"
             android:text="Status"
             android:textStyle="italic"
             android:textColor="@color/colorAccent"
-            android:textSize="16sp" />
+            android:textSize="22sp" />
 
         <TableLayout
             android:id="@+id/tb_informasipesanan"
@@ -271,10 +272,10 @@
             android:id="@+id/btn_konfirmasi"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:text="Konfirmasi Pesanan"
+            android:text="Terima Barang"
             android:background="@drawable/btn_rounded"
             android:textColor="@color/menu_text"
-            android:layout_below="@id/tb_informasipesanan"
+            android:layout_below="@id/tv_status"
             android:layout_width="@dimen/button_width"
             android:layout_height="wrap_content" />
 

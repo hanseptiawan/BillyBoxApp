@@ -55,11 +55,6 @@
             android:layout_height="match_parent"
             layout="@layout/frame_layout"/>
 
-        <!--<FrameLayout-->
-        <!--android:id="@+id/fragment_container_member"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"/>-->
-
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
@@ -67,9 +62,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#30E6A3"
+        android:background="@android:color/white"
         app:headerLayout="@layout/nav_header"
-        app:itemTextColor="@color/menu_text"
+        app:itemTextColor="@color/text_grey_medium"
         app:menu="@menu/menu_member">
 
         <RelativeLayout
@@ -83,7 +78,7 @@
                 android:layout_marginTop="190dp"
                 android:layout_marginStart="30dp"
                 android:text="hi "
-                android:textColor="@color/menu_text"
+                android:textColor="@color/colorAccent"
                 android:textSize="20sp"
                 />
 
@@ -94,7 +89,7 @@
                 android:layout_toEndOf="@id/tv_hi"
                 android:layout_marginTop="190dp"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/menu_text"
+                android:textColor="@color/colorAccent"
                 android:textStyle="italic"
                 android:textSize="20sp"
                 />

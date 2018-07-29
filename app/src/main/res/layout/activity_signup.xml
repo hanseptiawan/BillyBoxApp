@@ -23,12 +23,13 @@
 
     <ImageView
         android:id="@+id/img_logo"
-        android:layout_width="160dp"
-        android:layout_height="50dp"
+        android:layout_width="260dp"
+        android:layout_height="100dp"
         android:scaleType="fitXY"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/img_back"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/txt_logo"/>
+        android:src="@drawable/logo_billybox_register"/>
 
     <EditText
         android:id="@+id/et_fname"

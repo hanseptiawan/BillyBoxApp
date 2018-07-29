@@ -99,9 +99,9 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
             Log.d("img session", "img blm ada");
         }
 
-        String username = getIntent().getStringExtra("username");
+        String userID = getIntent().getStringExtra("userID");
 
-        getUser(username);
+        getUser(userID);
 
         iv_upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,6 +156,7 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
                         if (response.body() != null){
                             DataBodyUser dataBodyUser = response.body().getDataBody();
                             GetUser2 getUser2 = dataBodyUser.get0();
+                            String img = getUser2.getMediaUrl();
 
                             et_fname.setText(getUser2.getNamaDepan());
                             et_lname.setText(getUser2.getNamaBelakang());
@@ -168,12 +169,16 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
                             et_username.setEnabled(false);
                             et_password1.setText(getUser2.getPassword());
 
-                            Glide.with(getApplicationContext())
-                                    .load(getUser2.getMediaUrl())
-                                    .fitCenter()
-                                    .placeholder(R.drawable.ic_noimg)
-                                    .error(R.drawable.ic_broken_image)
-                                    .into(circleImageView);
+                            if (img != null){
+                                Glide.with(getApplicationContext())
+                                        .load(img)
+                                        .fitCenter()
+                                        .placeholder(R.drawable.ic_noimg)
+                                        .error(R.drawable.ic_broken_image)
+                                        .into(circleImageView);
+                            }else{
+                                //nothing
+                            }
                         }
                     }
 

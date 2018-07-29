@@ -63,29 +63,17 @@ public class Profil extends Fragment {
         password = view.findViewById(R.id.tv_password2);
         iv_edit = view.findViewById(R.id.iv_edit);
 
-//        HashMap<String, String> userinfo = sessionManager.getUserDetails();
-//        String imguser = userinfo.get(sessionManager.KEY_IMG);
-//        Log.d("img dr session user :", imguser);
-//
-//        if (imguser == null){
-//            HashMap<String, String> imgsession = sessionManager.getImg();
-//            String a = imgsession.get(sessionManager.KEY_IMGBASE64);
-//            Log.d("img dr session img :", a);
-//            decode(a);
-//        } else {
-//            Log.d("img session", "img blm ada");
-//        }
-
         final HashMap<String, String> user = sessionManager.getUserDetails();
-        final String username = user.get(sessionManager.KEY_USERNAME);
+        final String userID = user.get(sessionManager.KEY_ID);
 
-        getUser(username);
+        Log.d("username : ", userID);
+        getUser(userID);
 
         iv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent n = new Intent (getContext(), EditProfil.class);
-                n.putExtra("username", username);
+                n.putExtra("userID", userID);
                 startActivity(n);
             }
         });
@@ -93,9 +81,9 @@ public class Profil extends Fragment {
         return view;
     }
 
-    private void getUser(String musername) {
-        Log.d("perimeter user id : ", musername);
-        apiServices.getUserbyID(musername)
+    private void getUser(String userID) {
+        Log.d("perimeter user id : ", userID);
+        apiServices.getUserbyID(userID)
                 .enqueue(new Callback<GetUserResponse2>() {
                     @Override
                     public void onResponse(Call<GetUserResponse2> call, Response<GetUserResponse2> response) {
@@ -104,7 +92,7 @@ public class Profil extends Fragment {
                             GetUser2 getUser2 = dataBodyUser.get0();
                             String fname = getUser2.getNamaDepan();
                             String lname = getUser2.getNamaBelakang();
-
+                            String img = getUser2.getMediaUrl();
                             String name = fname + " " + lname;
 
                             tv_name1.setText(name);
@@ -115,12 +103,16 @@ public class Profil extends Fragment {
                             username.setText(getUser2.getUsername());
                             password.setText(getUser2.getPassword());
 
-                            Glide.with(getActivity().getApplicationContext())
-                                    .load(getUser2.getMediaUrl())
-                                    .fitCenter()
-                                    .placeholder(R.drawable.ic_noimg)
-                                    .error(R.drawable.ic_broken_image)
-                                    .into(circleImageView);
+                            if (img != null){
+                                Glide.with(getActivity().getApplicationContext())
+                                        .load(img)
+                                        .fitCenter()
+                                        .placeholder(R.drawable.ic_noimg)
+                                        .error(R.drawable.ic_broken_image)
+                                        .into(circleImageView);
+                            }else {
+                                //nothing
+                            }
                         }
                     }
 

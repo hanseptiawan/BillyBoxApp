@@ -83,6 +83,8 @@ public class Product extends Fragment {
         return view;
     }
 
+
+
     private void productbykategori(String catID, String status) {
         apiServices.getProductResponse(catID, status)
                 .enqueue(new Callback<GetProductResponse>() {

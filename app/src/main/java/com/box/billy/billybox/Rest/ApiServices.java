@@ -12,8 +12,10 @@ import com.box.billy.billybox.Model.GetPesananDetailResponse;
 import com.box.billy.billybox.Model.GetPesananResponse;
 import com.box.billy.billybox.Model.GetProductCatResponse;
 import com.box.billy.billybox.Model.GetProductResponse;
+import com.box.billy.billybox.Model.GetSearchResponse;
 import com.box.billy.billybox.Model.GetUserResponse2;
 import com.box.billy.billybox.Model.PostOrder;
+import com.box.billy.billybox.Model.TerimaBarangResponse;
 import com.box.billy.billybox.Model.UpdateDataUser;
 
 import retrofit2.Call;
@@ -83,7 +85,7 @@ public interface ApiServices {
     @GET("/api/auth/user/username/{username}")
     Call<GetUserResponse2> getUser2(@Path("username") String username);
 
-    @GET("/api/auth/user/id/{userId}")
+    @GET("/api/auth/userID/id/{userId}")
     Call<GetUserResponse2> getUserbyID(@Path("userId") String userId);
 
     @GET("/api/carton/kategori/")
@@ -111,5 +113,10 @@ public interface ApiServices {
     @GET("/api/Cart/deleteItem/id/{detailCartId}")
     Call<DeleteCartItemResponse> deleteItem(@Path("detailCartId") String detailCartId);
 
+    @GET("/api/order/selesai/id/{paymentId}")
+    Call<TerimaBarangResponse> terimaBarang(@Path("paymentId") String paymentId);
+
+    @GET("api/carton/search/keyword/")
+    Call<GetSearchResponse> getSearch();
 
 }

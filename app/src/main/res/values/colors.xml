@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#51F5B8</color>
+    <color name="colorPrimary">#f59351</color>
     <!--<color name="colorPrimaryDark">#30E3</color>-->
-    <color name="statusbar">#30EA</color>
+    <color name="statusbar">#33ee5f00</color>
     <color name="reddot">#ff3d3d</color>
-    <color name="colorPrimaryDark">#30E6A3</color>
-    <color name="colorAccent">#08B575</color>
-    <color name="colortv1">#26FF6E</color>
+    <color name="colorPrimaryDark">#e67f30</color>
+    <color name="colorAccent">#b54508</color>
+    <color name="colortv1">#ff6726</color>
     <color name="colortv2">#F1CD1B</color>
     <color name="greyback">#dddddd</color>
 

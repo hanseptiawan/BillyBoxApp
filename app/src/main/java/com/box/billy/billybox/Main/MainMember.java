@@ -1,29 +1,47 @@
 package com.box.billy.billybox.Main;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SearchEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.box.billy.billybox.Adapter.SearchResultAdapter;
 import com.box.billy.billybox.Model.GetCartIDResponse;
+import com.box.billy.billybox.Model.GetSearch;
+import com.box.billy.billybox.Model.GetSearchResponse;
 import com.box.billy.billybox.Rest.ApiServicesLokal;
 import com.box.billy.billybox.Utils.SessionManager;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
 import com.box.billy.billybox.Rest.ApiUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -38,6 +56,11 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
     private static final int TIME_INTERVAL = 2000;
     private long mBackpressed;
     private DrawerLayout drawerLayout;
+    ArrayList<GetSearch> mArrayList;
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    SearchResultAdapter searchResultAdapter;
+    SearchView searchView;
         ApiServices apiServices;
 //    ApiServicesLokal apiServices;
 
@@ -48,15 +71,62 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
 
         sessionManager = new SessionManager(getApplicationContext());
         sessionManager.checkLogin();
+
         apiServices = ApiUtils.getApiServices();
 
-        Toolbar toolbar = findViewById(R.id.toolbar_home_member);
-        setSupportActionBar(toolbar);
+        toolbarSetup(savedInstanceState);
+        recyclerSetup();
+        beginEvent();
+        searchQuery();
 
-        TextView textView = findViewById(R.id.toolbar_tittle_member);
-        Typeface typeface = Typeface.createFromAsset(getAssets(),
-                "carioca.ttf");
-        textView.setTypeface(typeface);
+        ButtonListener();
+    }
+
+    private void recyclerSetup() {
+        recyclerView = findViewById(R.id.rv_result);
+        layoutManager = new GridLayoutManager(this,2);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2,dpToPx(10),true));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setLayoutManager(layoutManager);
+    }
+
+    private void searchQuery() {
+        apiServices.getSearch()
+                .enqueue(new Callback<GetSearchResponse>() {
+                    @Override
+                    public void onResponse(Call<GetSearchResponse> call, Response<GetSearchResponse> response) {
+
+                        GetSearchResponse getSearchResponse = response.body();
+                        mArrayList = new ArrayList<>(Arrays.asList(getSearchResponse.getDataBody()));
+                        searchResultAdapter = new SearchResultAdapter(mArrayList);
+                        recyclerView.setAdapter(searchResultAdapter);
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetSearchResponse> call, Throwable t) {
+                        Toast.makeText(MainMember.this, "Koneksi gagal, periksa koneksi internet anda",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
+        private int spanCount;
+        private int spacing;
+        private boolean includeEdge;
+        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
+            this.spanCount = spanCount;
+            this.spacing = spacing;
+            this.includeEdge = includeEdge;
+        }
+    }
+
+    private int dpToPx(int dp) {
+        Resources resources = getResources();
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,dp,resources.getDisplayMetrics()));
+    }
+
+    private void beginEvent() {
         TextView userdisplay = findViewById(R.id.tv_userdisplay2_member);
 
         HashMap<String, String> user = sessionManager.getUserDetails();
@@ -85,6 +155,16 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
             String a = "Guest";
             userdisplay.setText(a);
         }
+    }
+
+    private void toolbarSetup(Bundle savedInstanceState) {
+        Toolbar toolbar = findViewById(R.id.toolbar_home_member);
+        setSupportActionBar(toolbar);
+
+        TextView textView = findViewById(R.id.toolbar_tittle_member);
+        Typeface typeface = Typeface.createFromAsset(getAssets(),
+                "carioca.ttf");
+        textView.setTypeface(typeface);
 
         drawerLayout = findViewById(R.id.drawer_layout_home_member);
         NavigationView navigationView = findViewById(R.id.navigation_view_home_member);
@@ -94,14 +174,6 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-        if(savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new ProductCategory()).commit();
-            navigationView.setCheckedItem(R.id.menu_beranda);
-        }
-
-        ButtonListener();
     }
 
     public void getCart(String userid) {
@@ -164,6 +236,12 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
         switch (item.getItemId()) {
 
             case R.id.menu_beranda:
+                Intent a = new Intent(this, MainMember.class);
+                startActivity(a);
+                finish();
+                break;
+
+            case R.id.menu_category:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ProductCategory()).commit();
                 break;
@@ -191,5 +269,34 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+
+        searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setIconifiedByDefault(false);
+        search(searchView);
+
+        return true;
+    }
+
+    private void search(SearchView searchView) {
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                if (searchResultAdapter != null)
+                    searchResultAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
     }
 }

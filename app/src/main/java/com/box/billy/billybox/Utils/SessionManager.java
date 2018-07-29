@@ -122,6 +122,8 @@ public class SessionManager {
     public void createImg(String img){
         editor.putString(KEY_IMGBASE64, img);
         editor.commit();
+
+        Log.d("img created : ", img);
     }
 
     public HashMap<String, String> getImg(){

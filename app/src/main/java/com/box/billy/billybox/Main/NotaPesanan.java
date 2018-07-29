@@ -88,7 +88,6 @@ public class NotaPesanan extends AppCompatActivity {
             mnama.setEnabled(false);
             mnominal.setEnabled(false);
         }
-
     }
 
     private void bind() {
@@ -101,8 +100,6 @@ public class NotaPesanan extends AppCompatActivity {
         mnama = findViewById(R.id.tv_ongkir2);
         mnominal = findViewById(R.id.tv_bayar2);
         ivimgholder = findViewById(R.id.iv_imgholder);
-
-
     }
 
     private void selectImage() {
@@ -212,7 +209,6 @@ public class NotaPesanan extends AppCompatActivity {
         String nominal = mnominal.getText().toString();
 
         uploadBukti(idpayment, nobank, nama, nominal, imageEncoded);
-//        sessionManager.createImg(imageEncoded);
     }
 
     private void uploadBukti(String idpayment, String nobank, String nama, String nominal, String imageEncoded) {

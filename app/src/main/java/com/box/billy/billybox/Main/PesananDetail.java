@@ -24,6 +24,7 @@ import com.box.billy.billybox.Model.GetKeranjangPesanan;
 import com.box.billy.billybox.Model.GetKeranjangPesananResponse;
 import com.box.billy.billybox.Model.GetPesananDetail;
 import com.box.billy.billybox.Model.GetPesananDetailResponse;
+import com.box.billy.billybox.Model.TerimaBarangResponse;
 import com.box.billy.billybox.R;
 import com.box.billy.billybox.Rest.ApiServices;
 import com.box.billy.billybox.Rest.ApiUtils;
@@ -74,6 +75,7 @@ public class PesananDetail extends Fragment {
         tvstatus = view.findViewById(R.id.tv_status);
 
         btn_konfirmasi.setEnabled(false);
+        btn_ceknota.setEnabled(false);
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
@@ -95,17 +97,18 @@ public class PesananDetail extends Fragment {
             tvstatus.setText(status);
             tv_orderid.setText(orderID);
 
-            if (tvstatus.getText() == "Dikirim"){
+            if (tvstatus.getText() == "diproses"){
                 btn_konfirmasi.setEnabled(true);
+            }else if(tvstatus.getText() == "draft"){
+                btn_ceknota.setEnabled(true);
+            }else if (tvjeniskirim.getText() == "Jemput"){
+                btn_ceknota.setEnabled(false);
             }
+
             getKeranjangList(orderID);
             detailpesanan(orderID);
         }
 
-//        String a = tv_orderid.getText().toString();
-//
-//        getKeranjangList(a);
-//        detailpesanan(a);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,6 +123,13 @@ public class PesananDetail extends Fragment {
         btn_konfirmasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String idpayment = getArguments().getString("idpayment");
+                if (idpayment != null){
+                    doTerimaBarang(idpayment);
+                }else {
+                    Log.d("idpayment : ", "idpayment kosong");
+                }
+
                 //update status pesanan ke finish / barang diterima
             }
         });
@@ -152,6 +162,29 @@ public class PesananDetail extends Fragment {
         return view;
     }
 
+    private void doTerimaBarang(String idpayment) {
+        apiServices.terimaBarang(idpayment)
+                .enqueue(new Callback<TerimaBarangResponse>() {
+                    @Override
+                    public void onResponse(Call<TerimaBarangResponse> call, Response<TerimaBarangResponse> response) {
+                        Toast.makeText(getActivity(), "Terimaksaih telah menggunakan Billy Box App",
+                                Toast.LENGTH_LONG).show();
+
+                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        Pesanan pesanan = new Pesanan();
+                        fragmentTransaction.replace(R.id.fragment_container, pesanan, "pesanan");
+                        fragmentTransaction.addToBackStack("pesanan");
+                        fragmentTransaction.commit();
+                    }
+
+                    @Override
+                    public void onFailure(Call<TerimaBarangResponse> call, Throwable t) {
+                        Toast.makeText(getActivity(), "Terimaksaih telah menggunakan Billy Box App",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
     private void getKeranjangList(String orderID) {
 
         if (orderID !=null)
@@ -170,7 +203,7 @@ public class PesananDetail extends Fragment {
 
                     @Override
                     public void onFailure(Call<GetKeranjangPesananResponse> call, Throwable t) {
-                        Toast.makeText(getActivity(), "Gagal memuat Keranjang",
+                        Toast.makeText(getActivity(), "Koneksi internet gagal, mohon cek koneksi anda",
                                 Toast.LENGTH_LONG).show();
                     }
                 });

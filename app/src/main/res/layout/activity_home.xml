@@ -8,11 +8,16 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_main"
             android:layout_width="match_parent"
@@ -39,27 +44,24 @@
             </RelativeLayout>
 
         </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
 
         <include
+            android:layout_below="@id/appbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             layout="@layout/frame_layout"/>
 
-        <!--<FrameLayout-->
-        <!--android:id="@+id/fragment_container_main"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"/>-->
-
-    </LinearLayout>
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view_main"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#30E6A3"
+        android:background="@android:color/white"
         app:headerLayout="@layout/nav_header"
-        app:itemTextColor="@color/menu_text"
+        app:itemTextColor="@color/text_grey_medium"
         app:menu="@menu/menu_nonmember">
 
         <RelativeLayout
@@ -73,7 +75,7 @@
                 android:layout_marginTop="190dp"
                 android:layout_marginStart="30dp"
                 android:text="hi "
-                android:textColor="@color/menu_text"
+                android:textColor="@color/colorAccent"
                 android:textSize="20sp"
                 />
 
@@ -84,7 +86,7 @@
                 android:layout_toEndOf="@id/tv_hi"
                 android:layout_marginTop="190dp"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/menu_text"
+                android:textColor="@color/colorAccent"
                 android:textStyle="italic"
                 android:textSize="20sp"
                 />
