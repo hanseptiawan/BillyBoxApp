@@ -11,6 +11,7 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
+        android:icon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme">
         <activity
             android:name=".Main.Splash"
@@ -27,20 +28,12 @@
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <!--<meta-data-->
-                <!--android:name="android.app.searchable"-->
-                <!--android:resource="@xml/searchable"/>-->
         </activity>
         <activity android:name=".Main.MainMember">
-            <!--android:launchMode="singleTop">-->
             <intent-filter>
-                <!--<action android:name="android.intent.action.SEARCH"/>-->
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <!--<meta-data-->
-                <!--android:name="android.app.searchable"-->
-                <!--android:resource="@xml/searchable"/>-->
         </activity>
         <activity android:name=".Main.SignIn">
             <intent-filter>
@@ -55,7 +48,7 @@
                 <action android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main.NotaPesanan"
+        <activity android:name=".Main.BuktiTransfer"
             android:windowSoftInputMode="stateVisible|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -71,6 +64,14 @@
         </activity>
 
         <activity android:name=".Main.Order.OrderCheckout"
+            android:windowSoftInputMode="stateVisible|adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".Main.Shipment"
             android:windowSoftInputMode="stateVisible|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

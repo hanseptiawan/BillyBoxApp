@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -43,10 +44,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     private static final int TIME_INTERVAL = 2000;
     private long mBackpressed;
     private DrawerLayout drawerLayout;
-    ArrayList<GetSearch> mArrayList;
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
-    SearchResultAdapter searchResultAdapter;
     ApiServices apiServices;
     SearchView searchView;
 
@@ -57,55 +54,8 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
         apiServices = ApiUtils.getApiServices();
         toolbarSetup(savedInstanceState);
-        recyclerSetup();
-
-        searchQuery();
 
         ButtonListener();
-    }
-
-    private void searchQuery() {
-        apiServices.getSearch()
-                .enqueue(new Callback<GetSearchResponse>() {
-                    @Override
-                    public void onResponse(Call<GetSearchResponse> call, Response<GetSearchResponse> response) {
-
-                        GetSearchResponse getSearchResponse = response.body();
-                        mArrayList = new ArrayList<>(Arrays.asList(getSearchResponse.getDataBody()));
-                        searchResultAdapter = new SearchResultAdapter(mArrayList);
-                        recyclerView.setAdapter(searchResultAdapter);
-                    }
-
-                    @Override
-                    public void onFailure(Call<GetSearchResponse> call, Throwable t) {
-                        Toast.makeText(Main.this, "Koneksi gagal, periksa koneksi internet anda",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    private void recyclerSetup() {
-        recyclerView = findViewById(R.id.rv_result);
-        layoutManager = new GridLayoutManager(this,2);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2,dpToPx(10),true));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setLayoutManager(layoutManager);
-    }
-
-    public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
-        private int spanCount;
-        private int spacing;
-        private boolean includeEdge;
-        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
-            this.spanCount = spanCount;
-            this.spacing = spacing;
-            this.includeEdge = includeEdge;
-        }
-    }
-
-    private int dpToPx(int dp) {
-        Resources resources = getResources();
-        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,dp,resources.getDisplayMetrics()));
     }
 
     private void toolbarSetup(Bundle savedInstanceState) {
@@ -128,11 +78,11 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                    new AllProducts()).commit();
-//            navigationView.setCheckedItem(R.id.menu_beranda);
-//        }
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new ProductCategory()).commit();
+            navigationView.setCheckedItem(R.id.menu_beranda);
+        }
     }
 
     public void ButtonListener(){
@@ -172,11 +122,6 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                 finish();
                 break;
 
-            case R.id.menu_category:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ProductCategory()).commit();
-                break;
-
             case R.id.menu_ttgkami:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new Tentangkami()).commit();
@@ -208,9 +153,21 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if (newText.length() > 0) {
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    SearchResultFragment searchResultFragment = new SearchResultFragment(); //your search fragment
+                    Bundle args = new Bundle();
+                    args.putString("query_string", newText);
+                    searchResultFragment.setArguments(args);
 
-                if (searchResultAdapter != null)
-                    searchResultAdapter.getFilter().filter(newText);
+                    transaction.replace(R.id.fragment_container, searchResultFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }else {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            new ProductCategory()).commit();
+                }
+
                 return false;
             }
         });

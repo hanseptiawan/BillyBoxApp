@@ -43,7 +43,7 @@ import retrofit2.Response;
 
 public class OrderCheckout extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    TextView cartid, totalbayar;
+    TextView cartid, totalbayar, tv7, tv8;
     RadioButton delivery, cod, tfbank, bayarcod;
     RadioGroup rg1, rg2;
     CheckBox dp;
@@ -64,6 +64,8 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
 
         cartid = findViewById(R.id.tv_cartid);
 
+        tv7 = findViewById(R.id.textView7);
+        tv8 = findViewById(R.id.textView8);
         delivery = findViewById(R.id.rb_delivery);
         cod = findViewById(R.id.rb_cod);
         tfbank = findViewById(R.id.rb_transfer);
@@ -106,17 +108,25 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
                     bayarcod.setEnabled(false);
                     tfbank.setEnabled(true);
                     tfbank.setChecked(true);
-                    alamat.setEnabled(true);
-                    kota.setEnabled(true);
-                    notelp.setEnabled(true);
+
+                    dp.setVisibility(View.VISIBLE);
+                    alamat.setVisibility(View.VISIBLE);
+                    kota.setVisibility(View.VISIBLE);
+                    notelp.setVisibility(View.VISIBLE);
+                    tv7.setVisibility(View.VISIBLE);
+                    tv8.setVisibility(View.VISIBLE);
                     ettglantar.setHint("Tanggal Pengantaran");
                 }else {
                     bayarcod.setEnabled(true);
                     tfbank.setEnabled(false);
                     bayarcod.setChecked(true);
-                    alamat.setEnabled(false);
-                    kota.setEnabled(false);
-                    notelp.setEnabled(false);
+
+                    dp.setVisibility(View.GONE);
+                    alamat.setVisibility(View.GONE);
+                    kota.setVisibility(View.GONE);
+                    notelp.setVisibility(View.GONE);
+                    tv7.setVisibility(View.GONE);
+                    tv8.setVisibility(View.GONE);
                     ettglantar.setHint("Tanggal Penjemputan");
                 }
             }
@@ -129,17 +139,26 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
                     bayarcod.setEnabled(true);
                     tfbank.setEnabled(false);
                     bayarcod.setChecked(true);
-                    alamat.setEnabled(false);
-                    kota.setEnabled(false);
-                    notelp.setEnabled(false);
+
+                    dp.setVisibility(View.GONE);
+                    alamat.setVisibility(View.GONE);
+                    kota.setVisibility(View.GONE);
+                    notelp.setVisibility(View.GONE);
+                    tv7.setVisibility(View.GONE);
+                    tv8.setVisibility(View.GONE);
+                    ettglantar.setHint("Tanggal Penjemputan");
                 }else {
                     bayarcod.setEnabled(false);
                     tfbank.setEnabled(true);
                     tfbank.setChecked(true);
-                    alamat.setEnabled(true);
-                    kota.setEnabled(true);
-                    notelp.setEnabled(true);
-                    ettglantar.setHint("Tanggal Penjemputan");
+
+                    dp.setVisibility(View.VISIBLE);
+                    alamat.setVisibility(View.VISIBLE);
+                    kota.setVisibility(View.VISIBLE);
+                    notelp.setVisibility(View.VISIBLE);
+                    tv7.setVisibility(View.VISIBLE);
+                    tv8.setVisibility(View.VISIBLE);
+                    ettglantar.setHint("Tanggal Pengantaran");
                 }
             }
         });
@@ -160,15 +179,7 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
         ivback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                Keranjang product = new Keranjang();
-                Bundle bundle = new Bundle();
-//                bundle.putString("catID", catID);
-
-                product.setArguments(bundle);
-                fragmentTransaction.replace(R.id.fragment_container, product, "product");
-                fragmentTransaction.addToBackStack("product");
-                fragmentTransaction.commit();
+                onBackPressed();
             }
         });
 
@@ -203,27 +214,36 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
                                 String pengiriman, String tglantar,
                                 String malamat, String mkota,
                                 String mtelp, final String cid) {
+
+        Log.d("parameter kirim : ", userid+" "+
+        pembayaran+" "+pengiriman+" "+tglantar+" "+malamat+" "+
+        mkota+" "+mtelp+" "+cid);
     apiServices.postOrder(userid, pembayaran, pengiriman,
             tglantar, malamat, mkota, mtelp, cid)
             .enqueue(new Callback<PostOrder>() {
                 @Override
                 public void onResponse(Call<PostOrder> call, Response<PostOrder> response) {
-                    Log.d("response : ", String.valueOf(response));
-                    Toast.makeText(OrderCheckout.this, "Pesanan telah dikirim, ",
-                            Toast.LENGTH_SHORT).show();
-                    Log.d("CartID sblm dikirim :", cid);
-//                    sessionManager.orderCommit(cid);
-//                    getCartID(userid);
+                    if (response.isSuccessful()){
+                        Log.d("response : ", String.valueOf(response));
+                        Toast.makeText(OrderCheckout.this, "Pesanan telah dikirim",
+                                Toast.LENGTH_SHORT).show();
+                        Log.d("CartID sblm dikirim :", cid);
+                        sessionManager.orderCommit(cid);
+                        getCartID(userid);
 
-                    Intent a = new Intent(OrderCheckout.this, OrderCheckout.class);
-                    startActivity(a);
-                    finish();
+                        Intent a = new Intent(OrderCheckout.this, OrderCheckout.class);
+                        startActivity(a);
+                        finish();
+                    }else {
+                        Toast.makeText(OrderCheckout.this, "Gagal mengirim order",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 @Override
                 public void onFailure(Call<PostOrder> call, Throwable t) {
                     Log.d("response failure : ", String.valueOf(t));
-                    Toast.makeText(OrderCheckout.this, "Gagal mengirim pesanan, " +t,
+                    Toast.makeText(OrderCheckout.this, "Pesanan telah dikirim",
                             Toast.LENGTH_SHORT).show();
                 }
             });

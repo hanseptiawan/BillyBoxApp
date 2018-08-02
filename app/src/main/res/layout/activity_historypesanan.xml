@@ -6,32 +6,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/greyback">
 
-    <ImageView
-        android:id="@+id/iv_back"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_above="@id/frame_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_back2"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_alignTop="@+id/iv_back"
-        android:layout_toEndOf="@+id/iv_back"
-        android:text="Pesanan"
-        android:textSize="18sp"
-        android:textColor="@color/text_grey_medium"/>
-
-
     <RelativeLayout
         android:id="@+id/frame_content"
+        android:layout_below="@id/appbar"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/bg_rounded"
@@ -121,7 +102,7 @@
                     android:id="@+id/tv_totalbiaya2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="786734537766853"
+                    android:hint="786734537766853"
                     android:textSize="14sp"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="60dp"/>
@@ -143,7 +124,7 @@
                     android:id="@+id/tv_ongkir2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="AAAAAAA"
+                    android:hint="AAAAAAA"
                     android:textSize="14sp"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="60dp"/>
@@ -166,7 +147,7 @@
                     android:id="@+id/tv_bayar2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp 7.517.500"
+                    android:hint="Rp 7.517.500"
                     android:textSize="14sp"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="60dp"/>

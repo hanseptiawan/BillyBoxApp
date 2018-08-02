@@ -122,7 +122,6 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             imgproduct = itemView.findViewById(R.id.iv_imageproduct);
             fl1 = itemView.findViewById(R.id.fl1);
 
-            product.setClickable(true);
             product.setOnClickListener(this);
         }
 

@@ -93,8 +93,12 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
         if (imguser == null){
             HashMap<String, String> imgsession = sessionManager.getImg();
             String a = imgsession.get(sessionManager.KEY_IMGBASE64);
-            Log.d("img dr session img :", a);
-            decode(a);
+
+            if (a != null){
+                Log.d("img dr session img :", a);
+                decode(a);
+            }
+
         } else {
             Log.d("img session", "img blm ada");
         }
@@ -146,6 +150,11 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     private void getUser(String userid) {

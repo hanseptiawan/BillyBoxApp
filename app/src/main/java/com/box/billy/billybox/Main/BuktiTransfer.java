@@ -37,7 +37,7 @@ import retrofit2.Response;
  * Created by han on 7/12/2018.
  */
 
-public class NotaPesanan extends AppCompatActivity {
+public class BuktiTransfer extends AppCompatActivity {
 
     ImageView ivback, ivimgholder;
     TextView morderid, midpayment;
@@ -66,28 +66,33 @@ public class NotaPesanan extends AppCompatActivity {
         btnupload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mnobank.length() == 0 ){
+                    Toast.makeText(BuktiTransfer.this, "Isi bank terlebih dahulu", Toast.LENGTH_SHORT).show();
+                    mnobank.requestFocus();
+                }
+                else if(mnama.length() == 0 ){
+                    Toast.makeText(BuktiTransfer.this, "Isi nama pembayar terlebih dahulu", Toast.LENGTH_SHORT).show();
+                    mnama.requestFocus();
+                }
+                else if(mnominal.length() == 0){
+                    Toast.makeText(BuktiTransfer.this, "Isi bank terlebih dahulu", Toast.LENGTH_SHORT).show();
+                    mnominal.requestFocus();
+                }
                 selectImage();
             }
         });
 
         String orderID = getIntent().getStringExtra("orderID");
         String idpayment = getIntent().getStringExtra("idpayment");
-        String noBank = getIntent().getStringExtra("noBank");
-        String nama = getIntent().getStringExtra("nama");
-        String nominal = getIntent().getStringExtra("nominal");
         String status = getIntent().getStringExtra("status");
 
-        if (noBank != null){
             morderid.setText(orderID);
             midpayment.setText(idpayment);
-            mnobank.setText(noBank);
-            mnama.setText(nama);
-            mnominal.setText(nominal);
+    }
 
-            mnobank.setEnabled(false);
-            mnama.setEnabled(false);
-            mnominal.setEnabled(false);
-        }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     private void bind() {
@@ -104,12 +109,12 @@ public class NotaPesanan extends AppCompatActivity {
 
     private void selectImage() {
         final CharSequence[] items = {"Camera", "Gallery","Cancel"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(NotaPesanan.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(BuktiTransfer.this);
         builder.setTitle("Upload photo");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                boolean result = Permission.checkPermission(NotaPesanan.this);
+                boolean result = Permission.checkPermission(BuktiTransfer.this);
                 if (items[item].equals("Camera")){
                     userchosenTask = "Camera";
                     if (result)
@@ -216,16 +221,21 @@ public class NotaPesanan extends AppCompatActivity {
                 .enqueue(new Callback<AddBuktiTF>() {
                     @Override
                     public void onResponse(Call<AddBuktiTF> call, Response<AddBuktiTF> response) {
-                        Toast.makeText(NotaPesanan.this, "Upload bukti sukses",
-                                Toast.LENGTH_LONG).show();
-                        Intent a = new Intent(NotaPesanan.this, MainMember.class);
-                        startActivity(a);
-                        finish();
+                        if (response.isSuccessful() ){
+                            Toast.makeText(BuktiTransfer.this, "Upload bukti sukses",
+                                    Toast.LENGTH_LONG).show();
+                            Intent a = new Intent(BuktiTransfer.this, MainMember.class);
+                            startActivity(a);
+                            finish();
+                        }else{
+                            Toast.makeText(BuktiTransfer.this, "Gagal Upload bukti", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
 
                     @Override
                     public void onFailure(Call<AddBuktiTF> call, Throwable t) {
-                        Toast.makeText(NotaPesanan.this, "Koneksi gagal",
+                        Toast.makeText(BuktiTransfer.this, "Koneksi gagal",
                                 Toast.LENGTH_LONG).show();
 
                     }

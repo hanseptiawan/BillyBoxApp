@@ -18,6 +18,7 @@ import com.box.billy.billybox.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHolder>{
 
@@ -50,10 +51,25 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
     @Override
     public void onBindViewHolder(PesananAdapter.ViewHolder holder, int position) {
         holder.tv_idpesanan.setText(getPesanan.get(position).getOrderId());
-        holder.tv_tglantar.setText("Tgl Antar : "+getPesanan.get(position).getTanggalPengantaran());
-        holder.tv_tglterima.setText("Tgl Terima "+getPesanan.get(position).getTanggalDiterima());
-        holder.tv_status.setText("Status : " + getPesanan.get(position).getStatus());
-        holder.tvshpment.setText("Lokasi : " + getPesanan.get(position).getShipment());
+        holder.tv_tglantar.setText(getPesanan.get(position).getTanggalPengantaran());
+        holder.tv_tglterima.setText(getPesanan.get(position).getTanggalDiterima());
+
+        if (Objects.equals(getPesanan.get(position).getTanggalDiterima(), "0000-00-00"))
+            holder.tv_tglterima.setText("Belum diterima");
+
+        holder.tv_status.setText(getPesanan.get(position).getStatus());
+
+        if(getPesanan.get(position).getShipment() == null){
+            holder.tv5.setVisibility(View.GONE);
+            holder.tvshpment.setVisibility(View.GONE);
+        }
+        else{
+            holder.tv5.setVisibility(View.VISIBLE);
+            holder.tvshpment.setVisibility(View.VISIBLE);
+            holder.tvshpment.setText(getPesanan.get(position).getShipment());
+        }
+
+
 
     }
 
@@ -64,12 +80,13 @@ public class PesananAdapter extends RecyclerView.Adapter<PesananAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView tv_idpesanan, tv_tglantar, tv_tglterima, tv_status, tvshpment;
+        TextView tv_idpesanan, tv_tglantar, tv_tglterima, tv_status, tvshpment, tv5;
         CardView cardView;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
+            tv5 = itemView.findViewById(R.id.tv5);
             tv_idpesanan = itemView.findViewById(R.id.tv_idpesanan);
             tv_tglantar = itemView.findViewById(R.id.tv_tglantar);
             tv_tglterima = itemView.findViewById(R.id.tv_tglterima);

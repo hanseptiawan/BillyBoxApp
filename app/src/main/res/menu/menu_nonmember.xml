@@ -8,11 +8,6 @@
             android:icon="@drawable/ic_home"
             android:title="Beranda" />
         <item
-            android:id="@+id/menu_category"
-            android:checked="false"
-            android:icon="@drawable/ic_category"
-            android:title="Kategori" />
-        <item
             android:id="@+id/menu_ttgkami"
             android:checked="false"
             android:title="Tentang Kami"

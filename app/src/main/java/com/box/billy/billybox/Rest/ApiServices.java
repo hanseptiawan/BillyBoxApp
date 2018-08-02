@@ -13,6 +13,7 @@ import com.box.billy.billybox.Model.GetPesananResponse;
 import com.box.billy.billybox.Model.GetProductCatResponse;
 import com.box.billy.billybox.Model.GetProductResponse;
 import com.box.billy.billybox.Model.GetSearchResponse;
+import com.box.billy.billybox.Model.GetShipmentResponse;
 import com.box.billy.billybox.Model.GetUserResponse2;
 import com.box.billy.billybox.Model.PostOrder;
 import com.box.billy.billybox.Model.TerimaBarangResponse;
@@ -116,7 +117,10 @@ public interface ApiServices {
     @GET("/api/order/selesai/id/{paymentId}")
     Call<TerimaBarangResponse> terimaBarang(@Path("paymentId") String paymentId);
 
-    @GET("api/carton/search/keyword/")
+    @GET("/api/carton/search/keyword/")
     Call<GetSearchResponse> getSearch();
+
+    @GET("/api/order/shipemntList/id/")
+    Call<GetShipmentResponse> getShipment(@Query("idPayment") String idPayment);
 
 }
