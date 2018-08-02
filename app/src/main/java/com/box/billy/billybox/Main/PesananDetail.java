@@ -33,6 +33,7 @@ import com.box.billy.billybox.Utils.SessionManager;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,7 +70,7 @@ public class PesananDetail extends Fragment {
         tv_tglpesan = view.findViewById(R.id.tv_tglpesan2);
         tvjenisbayar = view.findViewById(R.id.tv_jenisbayar);
         tvjeniskirim = view.findViewById(R.id.tv_jeniskirim);
-        tvtglantar = view.findViewById(R.id.tv_tglantar);
+        tvtglantar = view.findViewById(R.id.tv_tglantar2);
         tvtglterima = view.findViewById(R.id.tv_tglterima);
         tvalamat = view.findViewById(R.id.tv_alamat);
         tvkota = view.findViewById(R.id.tv_kota2);
@@ -95,47 +96,21 @@ public class PesananDetail extends Fragment {
 
         tvnama.setText(fname+" "+lname);
 
-        String orderID = getArguments().getString("idpesanan");
+        final String orderID = getArguments().getString("idpesanan");
         final String idpayment = getArguments().getString("idpayment");
-        String status = getArguments().getString("status");
+        final String status = getArguments().getString("status");
+
+        Log.d("detail pesanan : ", orderID + " " + idpayment +" "+ status);
 
         if (getArguments() != null){
             Log.d("orderID pesanan : ", orderID);
             tvstatus.setText(status);
             tv_orderid.setText(orderID);
 
-            btn_konfirmasi.setBackgroundColor(Color.parseColor("#f59351"));
-            btn_konfirmasi.setEnabled(false);
-//            btnupload.setEnabled(true);
-            btnlacak.setVisibility(View.GONE);
+            String mstatus = tvstatus.getText().toString();
+            String mjeniskirim = tvjeniskirim.getText().toString();
 
-            if (tvstatus.getText() == "draft"){
-                btn_konfirmasi.setBackgroundColor(Color.parseColor("#f59351"));
-                btn_konfirmasi.setEnabled(false);
-                btnupload.setVisibility(View.VISIBLE);
-                btnupload.setEnabled(true);
-            }else if (tvstatus.getText() == "upload pembayaran"){
-                btnupload.setBackgroundColor(Color.parseColor("#b54508"));
-                btnupload.setVisibility(View.GONE);
-            }else if (tvstatus.getText() != "diproses"){
-                btn_konfirmasi.setBackgroundColor(Color.parseColor("#b54508"));
-                btn_konfirmasi.setEnabled(true);
-            }else if (tvstatus.getText() != "selesai"){
-                btn_konfirmasi.setBackgroundColor(Color.parseColor("#f59351"));
-                btn_konfirmasi.setEnabled(false);
-            }else if (tvstatus.getText() != "COD" && tvjeniskirim.getText() == "jemput"){
-                btn_konfirmasi.setBackgroundColor(Color.parseColor("#b54508"));
-                btn_konfirmasi.setEnabled(true);
-                btnupload.setVisibility(View.GONE);
-                btnlacak.setVisibility(View.GONE);
-            }else if (tvstatus.getText() != "ditolak"){
-                btnupload.setVisibility(View.GONE);
-                btn_konfirmasi.setBackgroundColor(Color.parseColor("#f59351"));
-                btn_konfirmasi.setEnabled(false);
-            }else if (tvjeniskirim.getText() == "Kirim" || tvjeniskirim.getText() == "kirim"){
-                btnlacak.setVisibility(View.VISIBLE);
-                btnupload.setVisibility(View.VISIBLE);
-            }
+            validation(mstatus, mjeniskirim);
 
             getKeranjangList(orderID);
             detailpesanan(orderID);
@@ -167,15 +142,11 @@ public class PesananDetail extends Fragment {
         btnupload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String orderid = tv_orderid.getText().toString();
-                String idpayment = getArguments().getString("idpayment");
-                String status = getArguments().getString("status");
-
                 Intent n = new Intent(getActivity(), BuktiTransfer.class);
                 n.putExtra("idpayment", idpayment);
                 n.putExtra("status", status);
-                Log.d("orderID : ", orderid);
-                n.putExtra("orderid", orderid);
+                Log.d("orderID : ", orderID);
+                n.putExtra("orderid", orderID);
 
                 startActivity(n);
             }
@@ -192,6 +163,52 @@ public class PesananDetail extends Fragment {
         });
 
         return view;
+    }
+
+    private boolean validation(String mstatus, String mjeniskirim) {
+        if (Objects.equals(mstatus, "draft")){
+            btn_konfirmasi.setBackgroundColor(Color.parseColor("#f59351"));
+            btn_konfirmasi.setEnabled(false);
+            btnupload.setVisibility(View.VISIBLE);
+            btnupload.setEnabled(true);
+            btnlacak.setVisibility(View.GONE);
+            return false;
+        }else if (Objects.equals(mstatus, "upload pembayaran")){
+            btnupload.setVisibility(View.GONE);
+            btn_konfirmasi.setBackgroundColor(Color.parseColor("#f59351"));
+            btn_konfirmasi.setEnabled(false);
+            btnlacak.setVisibility(View.GONE);
+            return false;
+        }else if (Objects.equals(mstatus, "diproses")){
+            btn_konfirmasi.setBackgroundColor(Color.parseColor("#b54508"));
+            btn_konfirmasi.setEnabled(true);
+            btnupload.setVisibility(View.GONE);
+            btnlacak.setVisibility(View.VISIBLE);
+            return false;
+        }else if (Objects.equals(mstatus, "selesai")){
+            btn_konfirmasi.setBackgroundColor(Color.parseColor("#f59351"));
+            btn_konfirmasi.setEnabled(false);
+            btnupload.setVisibility(View.GONE);
+            btnlacak.setVisibility(View.VISIBLE);
+            return false;
+        }else if (Objects.equals(mstatus, "COD") && Objects.equals(mjeniskirim, "jemput")){
+            btn_konfirmasi.setBackgroundColor(Color.parseColor("#b54508"));
+            btn_konfirmasi.setEnabled(true);
+            btnupload.setVisibility(View.GONE);
+            btnlacak.setVisibility(View.GONE);
+            return false;
+        }else if (Objects.equals(mstatus, "ditolak")){
+            btnupload.setVisibility(View.GONE);
+            btnlacak.setVisibility(View.GONE);
+            btn_konfirmasi.setBackgroundColor(Color.parseColor("#f59351"));
+            btn_konfirmasi.setEnabled(false);
+            return false;
+        }else if (Objects.equals(mjeniskirim, "Kirim") || Objects.equals(mjeniskirim, "kirim")){
+            btnlacak.setVisibility(View.VISIBLE);
+            btnupload.setVisibility(View.VISIBLE);
+            return false;
+        }
+        return true;
     }
 
     private void doTerimaBarang(String idpayment) {
@@ -250,8 +267,15 @@ public class PesananDetail extends Fragment {
                             tv_tglpesan.setText(getPesananDetail.getCreatedAt());
                             tvjenisbayar.setText(getPesananDetail.getMetodePembayaran());
                             tvjeniskirim.setText(getPesananDetail.getMetodePengiriman());
+
                             tvtglantar.setText(getPesananDetail.getTanggalPengantaran());
-                            tvtglterima.setText(getPesananDetail.getTanggalDiterima());
+                            Log.d("tgl antar : ", getPesananDetail.getCreatedAt() + "tgl terima :" +getPesananDetail.getTanggalDiterima());
+
+                            if (!Objects.equals(getPesananDetail.getTanggalDiterima(), "0000-00-00")){
+                                tvtglterima.setText(getPesananDetail.getTanggalDiterima());
+                            }else  {
+                                tvtglterima.setText("Barang belum diterima");
+                            }
                             tvalamat.setText(getPesananDetail.getAlamat());
                             tvkota.setText(getPesananDetail.getKota());
                             tvtelp.setText(getPesananDetail.getNoTelp());

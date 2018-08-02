@@ -1,12 +1,12 @@
 package com.box.billy.billybox.Main;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.box.billy.billybox.Adapter.ShipmentAdapter;
@@ -41,8 +41,8 @@ public class Shipment extends AppCompatActivity {
 
         apiServices = ApiUtils.getApiServices();
 
-        Intent a = new Intent();
-        String idpayment = a.getStringExtra("idpayment");
+        String idpayment = getIntent().getStringExtra("idpayment");
+        Log.d("on Shipment : ", idpayment);
         recyclerView = findViewById(R.id.recycle_view_shipment);
 
         recyclerView.setHasFixedSize(true);
@@ -53,7 +53,9 @@ public class Shipment extends AppCompatActivity {
         shipmentAdapter = new ShipmentAdapter(getApplicationContext());
         recyclerView.setAdapter(shipmentAdapter);
 
-        getShipmentList(idpayment);
+        if (idpayment != null){
+            getShipmentList(idpayment);
+        }
     }
 
     @Override
@@ -62,11 +64,12 @@ public class Shipment extends AppCompatActivity {
     }
 
     private void getShipmentList(String idpayment) {
-        apiServices.getShipment(idpayment)
+        apiServices.getShipment("PAY-20180717050721613202833")
                 .enqueue(new Callback<GetShipmentResponse>() {
                     @Override
                     public void onResponse(Call<GetShipmentResponse> call, Response<GetShipmentResponse> response) {
                         List<GetShipment> list = response.body().getDataBody();
+                        Log.d("onResponse: ", String.valueOf(response.body().getCode()));
                         if (list != null)
                             shipmentAdapter.setShipmentList(list);
                         else

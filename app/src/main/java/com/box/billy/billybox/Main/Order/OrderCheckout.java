@@ -86,12 +86,11 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
         HashMap<String, String> userinfo = sessionManager.getUserDetails();
         final String userid = userinfo.get(sessionManager.KEY_ID);
         final String CID = getIntent().getStringExtra("cartid");
-        String total = getIntent().getStringExtra("totalpayment");
-
+        final int total = getIntent().getIntExtra("totalpayment", 0);
+        Log.d("onCreate: ", String.valueOf(total));
         cartid.setText(CID);
-        final int totalint = Integer.valueOf(total);
 
-        totalbayar.setText("Rp. " + total + ",-");
+        totalbayar.setText("Rp. " + String.valueOf(total) + ",-");
 
         ivcalendar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,10 +166,10 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b){
-                    double totaldp = totalint * 0.5;
+                    double totaldp = total * 0.5;
                     totalbayar.setText("Rp. " + String.valueOf(totaldp) + ",-");
                 }else {
-                    totalbayar.setText("Rp. " + totalint + ",-");
+                    totalbayar.setText("Rp. " + String.valueOf(total) + ",-");
                 }
             }
 

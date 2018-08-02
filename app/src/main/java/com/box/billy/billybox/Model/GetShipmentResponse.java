@@ -1,43 +1,43 @@
 package com.box.billy.billybox.Model;
 
 import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-public class GetShipmentResponse{
-	private int code;
-	private List<GetShipment> dataBody;
+public class GetShipmentResponse {
+
+	@SerializedName("status")
+	@Expose
 	private String status;
+	@SerializedName("code")
+	@Expose
+	private Integer code;
+	@SerializedName("dataBody")
+	@Expose
+	private List<GetShipment> dataBody = null;
 
-	public void setCode(int code){
-		this.code = code;
-	}
-
-	public int getCode(){
-		return code;
-	}
-
-	public void setDataBody(List<GetShipment> dataBody){
-		this.dataBody = dataBody;
-	}
-
-	public List<GetShipment> getDataBody(){
-		return dataBody;
-	}
-
-	public void setStatus(String status){
-		this.status = status;
-	}
-
-	public String getStatus(){
+	public String getStatus() {
 		return status;
 	}
 
-	@Override
- 	public String toString(){
-		return 
-			"GetShipmentResponse{" + 
-			"code = '" + code + '\'' + 
-			",dataBody = '" + dataBody + '\'' + 
-			",status = '" + status + '\'' + 
-			"}";
-		}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Integer getCode() {
+		return code;
+	}
+
+	public void setCode(Integer code) {
+		this.code = code;
+	}
+
+	public List<GetShipment> getDataBody() {
+		return dataBody;
+	}
+
+	public void setDataBody(List<GetShipment> dataBody) {
+		this.dataBody = dataBody;
+	}
+
 }

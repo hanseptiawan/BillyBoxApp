@@ -59,6 +59,7 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
     private long mBackpressed;
     private DrawerLayout drawerLayout;
     SearchView searchView;
+    NavigationView navigationView;
     ApiServices apiServices;
 //    ApiServicesLokal apiServices;
 
@@ -120,7 +121,7 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
         textView.setTypeface(typeface);
 
         drawerLayout = findViewById(R.id.drawer_layout_home_member);
-        NavigationView navigationView = findViewById(R.id.navigation_view_home_member);
+        navigationView = findViewById(R.id.navigation_view_home_member);
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -259,6 +260,7 @@ public class MainMember extends AppCompatActivity implements NavigationView.OnNa
                 }else {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                             new ProductCategory()).commit();
+                    navigationView.setCheckedItem(R.id.menu_beranda);
 
                 }
                 return false;

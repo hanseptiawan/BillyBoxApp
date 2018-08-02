@@ -12,6 +12,11 @@
             android:checked="false"
             android:title="Tentang Kami"
             android:icon="@drawable/ic_about_us"/>
+        <item
+            android:id="@+id/menu_petunjuk"
+            android:checked="false"
+            android:title="Petunjuk Penggunaan"
+            android:icon="@drawable/ic_petunjuk"/>
     </group>
 
 </menu>

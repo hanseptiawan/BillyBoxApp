@@ -62,9 +62,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@android:color/white"
+        android:background="#e69a30"
         app:headerLayout="@layout/nav_header"
-        app:itemTextColor="@color/text_grey_medium"
+        app:itemTextColor="@color/menu_text"
         app:menu="@menu/menu_member">
 
         <RelativeLayout
@@ -78,7 +78,7 @@
                 android:layout_marginTop="190dp"
                 android:layout_marginStart="30dp"
                 android:text="hi "
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/menu_text"
                 android:textSize="20sp"
                 />
 
@@ -89,7 +89,7 @@
                 android:layout_toEndOf="@id/tv_hi"
                 android:layout_marginTop="190dp"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/menu_text"
                 android:textStyle="italic"
                 android:textSize="20sp"
                 />

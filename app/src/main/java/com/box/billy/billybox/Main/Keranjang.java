@@ -82,20 +82,10 @@ public class Keranjang extends Fragment {
 
         getCartList(cartid);
 
-        btn_checkOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent a = new Intent(getActivity().getApplicationContext(), OrderCheckout.class);
-                a.putExtra("cartid",cartid);
-                a.putExtra("totalpayment", totalpayment.getText());
-                startActivity(a);
-            }
-        });
-
         return view;
     }
 
-    private void getCartList(String cartid) {
+    private void getCartList(final String cartid) {
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Memuat data ...");
         progressDialog.show();
@@ -109,11 +99,24 @@ public class Keranjang extends Fragment {
                             if (list != null){
                                 cartAdapter.setProductsList(list);
 
-                                int getTotal = response.body().getSubTotal();
-                                totalpayment.setText(String.valueOf(getTotal));
+                                final int getTotal = response.body().getSubTotal();
+                                totalpayment.setText("Rp." + String.valueOf(getTotal));
+
+                                btn_checkOut.setVisibility(View.VISIBLE);
+
+                                btn_checkOut.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent a = new Intent(getActivity().getApplicationContext(), OrderCheckout.class);
+                                        a.putExtra("cartid",cartid);
+                                        a.putExtra("totalpayment", getTotal);
+                                        startActivity(a);
+                                    }
+                                });
                             }else{
                                 Toast.makeText(getActivity(), "Keranjang kosong, silahkan pesan terlebih dahulu",
                                         Toast.LENGTH_LONG).show();
+                                btn_checkOut.setVisibility(View.GONE);
                             }
 
 

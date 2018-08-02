@@ -46,6 +46,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
     private DrawerLayout drawerLayout;
     ApiServices apiServices;
     SearchView searchView;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
         userdisplay.setText("Guest");
 
         drawerLayout = findViewById(R.id.drawer_layout_main);
-        NavigationView navigationView = findViewById(R.id.navigation_view_main);
+        navigationView = findViewById(R.id.navigation_view_main);
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -126,6 +127,11 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new Tentangkami()).commit();
                 break;
+
+            case R.id.menu_petunjuk:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new Petunjuk()).commit();
+                break;
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -166,6 +172,7 @@ public class Main extends AppCompatActivity implements NavigationView.OnNavigati
                 }else {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                             new ProductCategory()).commit();
+                    navigationView.setCheckedItem(R.id.menu_beranda);
                 }
 
                 return false;
