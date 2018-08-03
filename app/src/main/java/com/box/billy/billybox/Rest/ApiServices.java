@@ -121,7 +121,7 @@ public interface ApiServices {
     @GET("/api/carton/search/keyword/")
     Call<GetSearchResponse> getSearch();
 
-    @GET("/api/order/shipemntList/id/")
-    Call<GetShipmentResponse> getShipment(@Query("idPayment") String idPayment);
+    @GET("/api/order/shipemntList/id/{id}")
+    Call<GetShipmentResponse> getShipment(@Query("id") String id);
 
 }

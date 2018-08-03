@@ -46,11 +46,10 @@ public class Shipment extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycle_view_shipment);
 
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.addItemDecoration(new DivideRecyclerView(getApplicationContext(), LinearLayoutManager.VERTICAL));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.addItemDecoration(new DivideRecyclerView(this, LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(layoutManager);
-        shipmentAdapter = new ShipmentAdapter(getApplicationContext());
+        shipmentAdapter = new ShipmentAdapter(this);
         recyclerView.setAdapter(shipmentAdapter);
 
         if (idpayment != null){
@@ -64,7 +63,7 @@ public class Shipment extends AppCompatActivity {
     }
 
     private void getShipmentList(String idpayment) {
-        apiServices.getShipment("PAY-20180717050721613202833")
+        apiServices.getShipment(idpayment)
                 .enqueue(new Callback<GetShipmentResponse>() {
                     @Override
                     public void onResponse(Call<GetShipmentResponse> call, Response<GetShipmentResponse> response) {

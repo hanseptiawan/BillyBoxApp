@@ -56,13 +56,6 @@ public class BuktiTransfer extends AppCompatActivity {
 
         bind();
 
-        ivback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
         btnupload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,7 +90,6 @@ public class BuktiTransfer extends AppCompatActivity {
 
     private void bind() {
         btnupload = findViewById(R.id.btn_uploadbukti);
-        ivback = findViewById(R.id.iv_back);
 
         morderid = findViewById(R.id.tv_orderID);
         midpayment = findViewById(R.id.tv_tglpesan2);
