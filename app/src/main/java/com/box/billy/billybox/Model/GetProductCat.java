@@ -20,6 +20,17 @@ public class GetProductCat {
     @SerializedName("upadtedAt")
     @Expose
     private String upadtedAt;
+    @SerializedName("mediaUrl")
+    @Expose
+    private String mediaUrl;
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
+    }
 
     public String getCategoryCartonId() {
         return categoryCartonId;

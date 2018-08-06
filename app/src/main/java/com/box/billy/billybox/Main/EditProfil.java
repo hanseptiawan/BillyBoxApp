@@ -142,6 +142,7 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
 
                 HashMap<String, String> img = sessionManager.getImg();
                 String imgencoded = img.get(sessionManager.KEY_IMGBASE64);
+                Log.d("onClick: ", imgencoded);
 
                 if (validation(fname, lname,password1, password2, alamat, notelp)){
                     updateprofile(userID,fname,lname, imgencoded,username,
@@ -165,7 +166,6 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
                         if (response.body() != null){
                             DataBodyUser dataBodyUser = response.body().getDataBody();
                             GetUser2 getUser2 = dataBodyUser.get0();
-                            String img = getUser2.getMediaUrl();
 
                             et_fname.setText(getUser2.getNamaDepan());
                             et_lname.setText(getUser2.getNamaBelakang());
@@ -178,9 +178,9 @@ public class EditProfil extends AppCompatActivity implements DatePickerDialog.On
                             et_username.setEnabled(false);
                             et_password1.setText(getUser2.getPassword());
 
-                            if (img != null){
+                            if (getUser2.getMediaUrl() != null){
                                 Glide.with(getApplicationContext())
-                                        .load(img)
+                                        .load(getUser2.getMediaUrl())
                                         .fitCenter()
                                         .placeholder(R.drawable.ic_noimg)
                                         .error(R.drawable.ic_broken_image)

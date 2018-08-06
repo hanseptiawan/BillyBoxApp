@@ -28,6 +28,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.ContentValues.TAG;
+
 public class ProductDetails extends Fragment{
 
     TextView tv_nama, tv_cartonid, tv_category,
@@ -70,6 +72,7 @@ public class ProductDetails extends Fragment{
             String ukuran = getArguments().getString("ukuran");
             String grametur = getArguments().getString("grametur");
             String img = getArguments().getString("img");
+            Log.d(TAG, "onCreateView: " + img);
             String namacat = getArguments().getString("namacat");
 
             tv_nama.setText(namaItem);

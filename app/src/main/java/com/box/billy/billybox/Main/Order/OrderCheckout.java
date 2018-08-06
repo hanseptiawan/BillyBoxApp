@@ -21,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.box.billy.billybox.Main.Keranjang;
+import com.box.billy.billybox.Main.MainMember;
+import com.box.billy.billybox.Main.Pesanan;
 import com.box.billy.billybox.Main.Product;
 import com.box.billy.billybox.Model.GetCartIDResponse;
 import com.box.billy.billybox.Model.PostOrder;
@@ -230,7 +232,7 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
                         sessionManager.orderCommit(cid);
                         getCartID(userid);
 
-                        Intent a = new Intent(OrderCheckout.this, OrderCheckout.class);
+                        Intent a = new Intent(OrderCheckout.this, MainMember.class);
                         startActivity(a);
                         finish();
                     }else {
@@ -244,6 +246,10 @@ public class OrderCheckout extends AppCompatActivity implements DatePickerDialog
                     Log.d("response failure : ", String.valueOf(t));
                     Toast.makeText(OrderCheckout.this, "Pesanan telah dikirim",
                             Toast.LENGTH_SHORT).show();
+
+                    Intent a = new Intent(OrderCheckout.this, MainMember.class);
+                    startActivity(a);
+                    finish();
                 }
             });
     }

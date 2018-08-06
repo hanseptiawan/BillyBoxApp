@@ -58,14 +58,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         String b = ",-";
         holder.hargajual.setText(a+""+getProducts.get(position).getHargaJual()+b);
         holder.ukuran.setText(getProducts.get(position).getUkuran());
-        String nol = "0";
-        int nol2 = Integer.parseInt(nol);
-
-//        if(holder.stockproduct.getText().length() == nol2){
-//            holder.fl1.setBackgroundColor(R.drawable.tv_rounded_red);
-//        }else {
-//            holder.fl1.setBackgroundColor(R.drawable.tv_rounded);
-//        }
 
         Glide.with(context)
                 .load(getProducts.get(position).getMediaUrl())

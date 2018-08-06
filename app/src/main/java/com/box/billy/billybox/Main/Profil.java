@@ -36,6 +36,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.ContentValues.TAG;
 
 public class Profil extends Fragment {
 
@@ -93,6 +94,7 @@ public class Profil extends Fragment {
                             String fname = getUser2.getNamaDepan();
                             String lname = getUser2.getNamaBelakang();
                             String img = getUser2.getMediaUrl();
+                            Log.d(TAG, "onResponse: "+ img);
                             String name = fname + " " + lname;
 
                             tv_name1.setText(name);
