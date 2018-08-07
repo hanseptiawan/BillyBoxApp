@@ -78,6 +78,13 @@ public class BuktiTransfer extends AppCompatActivity {
         String orderID = getIntent().getStringExtra("orderID");
         String idpayment = getIntent().getStringExtra("idpayment");
         String status = getIntent().getStringExtra("status");
+        String nama = getIntent().getStringExtra("nama");
+        String total = getIntent().getStringExtra("totalbayar");
+
+        mnama.setText(nama);
+        mnama.setEnabled(false);
+        mnominal.setEnabled(false);
+        mnominal.setText("Rp. "+total+",-");
 
             morderid.setText(orderID);
             midpayment.setText(idpayment);

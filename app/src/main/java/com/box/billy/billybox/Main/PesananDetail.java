@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,6 +32,7 @@ import com.box.billy.billybox.Rest.ApiServices;
 import com.box.billy.billybox.Rest.ApiUtils;
 import com.box.billy.billybox.Utils.SessionManager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -49,7 +51,7 @@ public class PesananDetail extends Fragment {
 //    ApiServicesLokal apiServices;
     TextView tv_orderid, tv_tglpesan, tvnama,
         tvjenisbayar, tvjeniskirim, tvtglantar,
-        tvtglterima, tvalamat, tvkota, tvtelp, tvstatus;
+        tvtglterima, tvalamat, tvkota, tvtelp, tvstatus, tvtotalbayar;
     Button btnlacak, btn_konfirmasi, btnupload;
     ImageView iv_back;
     CartPesananAdapter cartPesananAdapter;
@@ -81,6 +83,7 @@ public class PesananDetail extends Fragment {
         btn_konfirmasi = view.findViewById(R.id.btn_konfirmasi);
         tvstatus = view.findViewById(R.id.tv_status);
         btnupload = view.findViewById(R.id.btn_uploadbukti);
+        tvtotalbayar = view.findViewById(R.id.tv_totalpembayaran);
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
@@ -139,19 +142,6 @@ public class PesananDetail extends Fragment {
             }
         });
 
-        btnupload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent n = new Intent(getActivity(), BuktiTransfer.class);
-                n.putExtra("idpayment", idpayment);
-                n.putExtra("status", status);
-                Log.d("orderID : ", orderID);
-                n.putExtra("orderid", orderID);
-
-                startActivity(n);
-            }
-        });
-
         btnlacak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -167,7 +157,8 @@ public class PesananDetail extends Fragment {
 
     private boolean validation(String mstatus, String mjeniskirim) {
         if (Objects.equals(mstatus, "draft")){
-            btn_konfirmasi.setBackgroundColor(Color.parseColor("#f59351"));
+            btn_konfirmasi.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.btn_rounded_disabled));
+//            btn_konfirmasi.setBackgroundColor(Color.parseColor("#f59351"));
             btn_konfirmasi.setEnabled(false);
             btnupload.setVisibility(View.VISIBLE);
             btnupload.setEnabled(true);
@@ -175,24 +166,28 @@ public class PesananDetail extends Fragment {
             return false;
         }else if (Objects.equals(mstatus, "upload pembayaran")){
             btnupload.setVisibility(View.GONE);
-            btn_konfirmasi.setBackgroundColor(Color.parseColor("#f59351"));
+            btn_konfirmasi.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.btn_rounded_disabled));
+//            btn_konfirmasi.setBackgroundColor(Color.parseColor("#f59351"));
             btn_konfirmasi.setEnabled(false);
             btnlacak.setVisibility(View.GONE);
             return false;
         }else if (Objects.equals(mstatus, "diproses")){
-            btn_konfirmasi.setBackgroundColor(Color.parseColor("#b54508"));
+//            btn_konfirmasi.setBackgroundColor(Color.parseColor("#b54508"));
+            btn_konfirmasi.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.btn_rounded));
             btn_konfirmasi.setEnabled(true);
             btnupload.setVisibility(View.GONE);
             btnlacak.setVisibility(View.VISIBLE);
             return false;
         }else if (Objects.equals(mstatus, "selesai")){
-            btn_konfirmasi.setBackgroundColor(Color.parseColor("#f59351"));
+//            btn_konfirmasi.setBackgroundColor(Color.parseColor("#f59351"));
+            btn_konfirmasi.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.btn_rounded_disabled));
             btn_konfirmasi.setEnabled(false);
             btnupload.setVisibility(View.GONE);
             btnlacak.setVisibility(View.VISIBLE);
             return false;
         }else if (Objects.equals(mstatus, "COD") && Objects.equals(mjeniskirim, "jemput")){
-            btn_konfirmasi.setBackgroundColor(Color.parseColor("#b54508"));
+//            btn_konfirmasi.setBackgroundColor(Color.parseColor("#b54508"));
+            btn_konfirmasi.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.btn_rounded));
             btn_konfirmasi.setEnabled(true);
             btnupload.setVisibility(View.GONE);
             btnlacak.setVisibility(View.GONE);
@@ -200,7 +195,8 @@ public class PesananDetail extends Fragment {
         }else if (Objects.equals(mstatus, "ditolak")){
             btnupload.setVisibility(View.GONE);
             btnlacak.setVisibility(View.GONE);
-            btn_konfirmasi.setBackgroundColor(Color.parseColor("#f59351"));
+//            btn_konfirmasi.setBackgroundColor(Color.parseColor("#f59351"));
+            btn_konfirmasi.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.btn_rounded_disabled));
             btn_konfirmasi.setEnabled(false);
             return false;
         }else if (Objects.equals(mjeniskirim, "Kirim") || Objects.equals(mjeniskirim, "kirim")){
@@ -230,16 +226,46 @@ public class PesananDetail extends Fragment {
                 });
     }
 
-    private void getKeranjangList(String orderID) {
+    private void getKeranjangList(String orderid) {
 
-        if (orderID !=null)
-        apiServices.getKeranjangPesanan(orderID)
+        if (orderid !=null)
+        apiServices.getKeranjangPesanan(orderid)
                 .enqueue(new Callback<GetKeranjangPesananResponse>() {
                     @Override
                     public void onResponse(Call<GetKeranjangPesananResponse> call, Response<GetKeranjangPesananResponse> response) {
                         List<GetKeranjangPesanan> list =response.body().getDataBody();
                         if (list != null){
                             cartPesananAdapter.setProductsList(list);
+
+                            int total = 0;
+                            for (int i = 0; i < list.size(); i++){
+                                total = total + Integer.parseInt(list.get(i).getTotalHarga());
+
+                                Log.d("total payment : ", String.valueOf(total));
+                                tvtotalbayar.setText("Rp." + String.valueOf(total) + ",-");
+
+                                final int finalTotal = total;
+                                final String orderID = getArguments().getString("idpesanan");
+                                final String idpayment = getArguments().getString("idpayment");
+                                final String status = getArguments().getString("status");
+
+                                btnupload.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent n = new Intent(getActivity(), BuktiTransfer.class);
+                                        n.putExtra("idpayment", idpayment);
+                                        n.putExtra("status", status);
+                                        Log.d("orderID : ", orderID);
+                                        n.putExtra("orderid", orderID);
+                                        n.putExtra("totalbayar",String.valueOf(finalTotal));
+                                        n.putExtra("nama",tvnama.getText());
+
+                                        startActivity(n);
+                                    }
+                                });
+                            }
+
+
                         }else{
                             Toast.makeText(getActivity(), "Keranjang kosong",
                                     Toast.LENGTH_LONG).show();

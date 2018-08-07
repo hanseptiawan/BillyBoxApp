@@ -1,13 +1,16 @@
 package com.box.billy.billybox.Main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,6 +47,8 @@ public class ProductDetails extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detailproducts, container, false);
 
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         tv_nama = view.findViewById(R.id.tv_nama);
         tv_cartonid = view.findViewById(R.id.tv_cartonid2);
         tv_category = view.findViewById(R.id.tv_category2);
@@ -78,7 +83,14 @@ public class ProductDetails extends Fragment{
             tv_nama.setText(namaItem);
             tv_cartonid.setText(cartonID);
             tv_category.setText(namacat);
-            tv_stock.setText(stock + " Bendel");
+            if (Integer.valueOf(stock) <= 0){
+                tv_stock.setText("Stock Kosong");
+                et_jumlah.setEnabled(false);
+                btn_addkeranjang.setEnabled(false);
+                btn_addkeranjang.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.btn_rounded_disabled));
+            }else {
+                tv_stock.setText(stock + " Bendel");
+            }
             tv_harga.setText(harga);
             tv_ukuran.setText(ukuran);
             tv_grametur.setText(grametur);
@@ -107,6 +119,7 @@ public class ProductDetails extends Fragment{
                 if (et_jumlah.length() == 0){
                     Toast.makeText(getActivity(), "Silahkan masukkan jumlah karton yang akan dibeli",
                             Toast.LENGTH_SHORT).show();
+                    et_jumlah.requestFocus();
                 }else {
                     addtoCart(id,jumlah,harga,cartid);
                 }

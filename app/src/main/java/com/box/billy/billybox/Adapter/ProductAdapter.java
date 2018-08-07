@@ -1,9 +1,11 @@
 package com.box.billy.billybox.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -53,7 +55,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(ProductAdapter.ViewHolder holder, int position) {
         holder.namaproduct.setText(getProducts.get(position).getNamaItem());
-        holder.stockproduct.setText(getProducts.get(position).getStok());
+
+        if(Integer.valueOf(getProducts.get(position).getStok()) <= 0){
+            holder.stockproduct.setText("Stock Kosong");
+            holder.fl1.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.tv_rounded_red));
+        }else {
+            holder.stockproduct.setText(getProducts.get(position).getStok());
+        }
+
         String a = "Rp. ";
         String b = ",-";
         holder.hargajual.setText(a+""+getProducts.get(position).getHargaJual()+b);

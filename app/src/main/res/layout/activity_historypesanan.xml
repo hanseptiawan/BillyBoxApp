@@ -103,6 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="786734537766853"
+                    android:textColor="@color/text_grey_medium"
                     android:singleLine="true"
                     android:textSize="14sp"
                     android:layout_marginTop="8dp"
@@ -127,6 +128,7 @@
                     android:layout_height="wrap_content"
                     android:hint="AAAAAAA"
                     android:textSize="14sp"
+                    android:textColor="@color/text_grey_medium"
                     android:singleLine="true"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="60dp"/>
@@ -152,6 +154,7 @@
                     android:hint="Rp 7.517.500"
                     android:singleLine="true"
                     android:textSize="14sp"
+                    android:textColor="@color/text_grey_medium"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="60dp"/>
             </TableRow>

@@ -25,337 +25,362 @@
         android:textSize="18sp"
         android:textColor="@color/text_grey_medium"/>
 
-    <RelativeLayout
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/iv_back"
         android:id="@+id/frame_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/menu_text"
-        android:paddingBottom="5dp"
-        android:elevation="4dp">
+        android:paddingBottom="8dp"
+        android:layout_marginBottom="?actionBarSize"
+        android:background="@color/menu_text">
 
-        <TextView
-            android:id="@+id/tv1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:text="Order ID"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            />
-
-        <TextView
-            android:id="@+id/tv_orderID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_toEndOf="@+id/tv1"
-            android:layout_alignBottom="@+id/tv1"
-            android:text="512551234523"
-            android:textSize="14sp"
-            android:textStyle="italic"
-            android:textColor="@color/colorAccent"/>
-
-        <TextView
-            android:id="@+id/tv_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tb_informasipesanan"
-            android:layout_marginTop="8dp"
-            android:layout_centerHorizontal="true"
-            android:text="Status"
-            android:textStyle="italic"
-            android:textColor="@color/colorAccent"
-            android:textSize="22sp" />
-
-        <TableLayout
-            android:id="@+id/tb_informasipesanan"
-            android:layout_width="340dp"
-            android:layout_height="wrap_content"
-            android:stretchColumns="1"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/tv1"
-            android:layout_marginTop="3dp">
-
-            <TableRow
-                android:layout_width="340dp"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tv0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nama Pemesan"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"/>
-
-                <TextView
-                    android:id="@+id/tv_namapemesan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="italic"
-                    android:text="Mr."
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="60dp"/>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="340dp"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tv_tglpesan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tanggal Pesan"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"/>
-
-                <TextView
-                    android:id="@+id/tv_tglpesan2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="italic"
-                    android:text="dd/mm/yyyy"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="60dp"/>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="340dp"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tv_totalbiaya"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Jenis Pembayaran"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"/>
-
-                <TextView
-                    android:id="@+id/tv_jenisbayar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Transfer"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="60dp"/>
-            </TableRow>
-            <TableRow
-                android:layout_width="340dp"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tv_ongkir"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Jenis Pengiriman"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"/>
-
-                <TextView
-                    android:id="@+id/tv_jeniskirim"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Kirim"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="60dp"/>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="340dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Tanggal Pengantaran"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_tglantar2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="dd/mm/yyyy"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="60dp"/>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="340dp"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/tv_bayar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tanggal Diterima"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"/>
-
-                <TextView
-                    android:id="@+id/tv_tglterima"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="dd/mm/yyyy"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="60dp"/>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="340dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_tanggungan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Alamat Penerima"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_alamat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Jl. Anggrekkkkkk kkkkk kkkkk kk"
-                    android:lines="2"
-                    android:maxLines="2"
-                    android:textSize="14sp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="340dp"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_kota"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Kota Penerima"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_kota2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Surabaya"
-                    android:textSize="14sp" />
-            </TableRow>
-            <TableRow
-            android:layout_width="340dp"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tv_telp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="Nomor Hp Penerima"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_telp2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="60dp"
-                android:layout_marginTop="8dp"
-                android:text="085788277322"
-                android:textSize="14sp" />
-        </TableRow>
-        </TableLayout>
-
-        <TableLayout
-            android:id="@+id/tb_informasipesanan2"
-            android:layout_below="@id/tv_status"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TableRow
-                android:layout_width="wrap_content"
-                android:gravity="center"
-                android:layout_height="wrap_content">
-                <Button
-                    android:id="@+id/btn_konfirmasi"
-                    android:text="Terima Barang"
-                    android:layout_marginEnd="42dp"
-                    android:background="@drawable/btn_rounded"
-                    android:textColor="@color/menu_text"
-                    android:layout_width="@dimen/button_width"
-                    android:layout_height="wrap_content" />
-
-                <Button
-                    android:id="@+id/btn_uploadbukti"
-                    android:layout_width="@dimen/button_width"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/btn_rounded"
-                    android:text="Upload Bukti"
-                    android:textColor="@color/menu_text" />
-            </TableRow>
-        </TableLayout>
-
             <TextView
-                android:id="@+id/keranjang"
-                android:layout_below="@+id/tb_informasipesanan2"
+                android:id="@+id/tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
+                android:text="Order ID"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/tv_orderID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/tv1"
+                android:layout_alignBottom="@+id/tv1"
+                android:text="512551234523"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                android:textColor="@color/colorAccent"/>
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tb_informasipesanan"
+                android:layout_marginTop="8dp"
+                android:layout_centerHorizontal="true"
+                android:text="Status"
+                android:textStyle="italic"
+                android:textColor="@color/colorAccent"
+                android:textSize="22sp" />
+
+            <TableLayout
+                android:id="@+id/tb_informasipesanan"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/tv1"
+                android:layout_marginTop="3dp">
+
+                <TableRow
+                    android:layout_width="340dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nama Pemesan"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="16dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_namapemesan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="italic"
+                        android:text="Mr."
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="60dp"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="340dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_tglpesan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tanggal Pesan"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="16dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_tglpesan2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="italic"
+                        android:text="dd/mm/yyyy"
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="60dp"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="340dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_totalbiaya"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jenis Pembayaran"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="16dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_jenisbayar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Transfer"
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="60dp"/>
+                </TableRow>
+                <TableRow
+                    android:layout_width="340dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_ongkir"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jenis Pengiriman"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="16dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_jeniskirim"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kirim"
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="60dp"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="340dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Tanggal Pengantaran"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_tglantar2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="dd/mm/yyyy"
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="60dp"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="340dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_bayar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tanggal Diterima"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="16dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_tglterima"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="dd/mm/yyyy"
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="60dp"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="340dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_tanggungan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Alamat Penerima"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_alamat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Jl. Anggrekkkkkk kkkkk kkkkk kk"
+                        android:lines="2"
+                        android:maxLines="2"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="340dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_kota"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Kota Penerima"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_kota2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Surabaya"
+                        android:textSize="14sp" />
+                </TableRow>
+                <TableRow
+                    android:layout_width="340dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_telp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Nomor Hp Penerima"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_telp2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginTop="8dp"
+                        android:text="085788277322"
+                        android:textSize="14sp" />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/tb_informasipesanan2"
+                android:layout_below="@id/tv_status"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/btn_konfirmasi"
+                        android:text="Terima Barang"
+                        android:layout_marginEnd="42dp"
+                        android:background="@drawable/btn_rounded"
+                        android:textColor="@color/menu_text"
+                        android:layout_width="@dimen/button_width"
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        android:id="@+id/btn_uploadbukti"
+                        android:layout_width="@dimen/button_width"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_rounded"
+                        android:text="Upload Bukti"
+                        android:textColor="@color/menu_text" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/keranjang"
+                android:layout_below="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
                 android:text="Keranjang"
                 android:textStyle="bold"
                 android:textSize="18sp" />
-    </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Pembayaran"
+                android:layout_marginStart="16dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_below="@id/tb_informasipesanan2"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_totalpembayaran"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/textView8"
+                android:gravity="end"
+                android:layout_alignBaseline="@id/textView8"
+                android:layout_marginEnd="16dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@android:color/holo_green_light"
+                android:layout_marginTop="8dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle_view_keranjang_pesanan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/keranjang"
+                android:scrollbars="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <Button
         android:id="@+id/btn_lacakpesanan"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="?actionBarSize"
         android:background="@color/colorAccent"
         android:layout_alignParentBottom="true"
         android:text="Lacak pesanan"
         android:textColor="@color/menu_text"
         tools:ignore="HardcodedText" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycle_view_keranjang_pesanan"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="46dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/frame_content"
-        android:scrollbars="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-
 
 </RelativeLayout>
